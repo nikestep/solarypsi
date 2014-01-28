@@ -177,7 +177,7 @@ if (isset ($_GET['siteID'])) {
 			</div>
 			<div id="footer">
 				<span class="attribute">
-					Designed by <a href="http://www.nicholasestep.com/" target="_blank">Nik Estep</a>
+					Created and maintained by <a href="http://www.nicholasestep.com/" target="_blank">Nik Estep</a>
 				</span>
 				<span class="attribute">
 					Web hosting generously provided by <a href="http://www.hdl.com/" target="_blank">HDL.com</a>

@@ -72,6 +72,25 @@ $stmt->bind_result ($data['site_desc'],
 $stmt->fetch ();
 $stmt->close ();
 
+// Get extra parameters if we have a metering type
+if ($data['meter_type'] !== 'none') {
+    $stmt = $db_link->prepare ("SELECT " .
+                               "    system_id, " .
+                               "    api_key, " .
+                               "    num_units " .
+                               "FROM " .
+                               "    enphase_system " .
+                               "WHERE " .
+                               "    site_id=?");
+    $stmt->bind_param ('s', $site_id);
+    $stmt->execute ();
+    $stmt->bind_result ($data['enphase_system_id'],
+                        $data['enphase_key'],
+                        $data['enphase_num_units']);
+    $stmt->fetch ();
+    $stmt->close ();
+}
+
 // Set up for resources
 $data['document'] = array ();
 $data['report'] = array ();
@@ -132,6 +151,18 @@ while ($stmt->fetch ()) {
 }
 ?>
 
+<!-- Store the meter type and any related parameters -->
+<span id='spnMeterType' class='hidden'><?php echo $data['meter_type']; ?></span>
+<?php
+if ($data['meter_type'] === 'enphase') {
+?>
+    <span id='spnEnphaseSystemID' class='hidden'><?php echo $data['enphase_system_id']; ?></span>
+    <span id='spnEnphaseKey' class='hidden'><?php echo $data['enphase_key']; ?></span>
+    <span id='spnEphaseNumUnits' class='hidden'><?php echo $data['enphase_num_units']; ?></span>
+<?php
+}
+?>
+
 <!-- Label the page -->
 <h3><?php echo $data['site_desc'] ?></h3>
 
@@ -182,7 +213,7 @@ while ($stmt->fetch ()) {
 		<div id="dvDaily" class="site-group">
 		    <?php
 		        if ($data['meter_type'] === 'enphase') {
-		            echo "Below is a one day view of generated electricity. This chart may be behind " .
+		            echo "Below is view of generated electricity from today. This chart may be behind " .
 		                 "the current time and may change throughout the day as data is updated.<br />" .
 		                 "Right now, historical data is not available, but it will be soon!";
 		        }
@@ -190,7 +221,6 @@ while ($stmt->fetch ()) {
 		            echo "Daily metering of this installation is currently unavailable.";
 		        }
 		    ?>
-			Daily metering of this installation is currently unavailable.
 			<div id="dvDailyChart" class="chart">
 			
 			</div>
