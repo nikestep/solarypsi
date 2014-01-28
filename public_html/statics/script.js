@@ -62,8 +62,6 @@ g_charts = {
 		max_idx: 4
 	}
 };
-g_site_system_id = '20994';
-g_site_system_key = '35220bf82680cf0dcf09a34143fcd0bd';
 
 $(function () {
 	// Detect if the map is in view
@@ -353,7 +351,9 @@ function switchVideo (newVid) {
 
 function loadChart (type) {
 	if (type === 'Daily' && !g_charts.Daily.loaded) {
-		loadDailyChart ();
+	    if ($("#spnMeterType").html () === 'enphase') {
+		    loadDailyChart ();
+		}
 	}
 	else if (type === 'Weekly' && !g_charts.Weekly.loaded) {
 		loadChartIndex ('Weekly', 0);
@@ -371,12 +371,13 @@ function loadDailyChart () {
     var currdate = g_charts['Daily'].curr_date;
     var startdate = currdate.getFullYear () + '-' + ((currdate.getMonth () + 1) < 10 ? '0' + (currdate.getMonth () + 1) : (currdate.getMonth () + 1)) + '-' + (currdate.getDate < 10 ? '0' + currdate.getDate () : currdate.getDate ()) + 'T00:00-5:00';
     var titledate = 'Data from Today';
+    var enphaseAPI = 'https://api.enphaseenergy.com/api/systems/' + $("#spnEnphaseSystemID").html () + '/stats';
     $.ajax ({
-		url: 'https://api.enphaseenergy.com/api/systems/' + g_site_system_id + '/stats',
+		url: enphaseAPI,
 		method: 'GET',
 		data: {
 			start: startdate,
-			key: g_site_system_key
+			key: $("#spnEnphaseKey").html ()
 		},
 		dataType: 'jsonp',
 		success: function (data) {
@@ -392,10 +393,15 @@ function loadDailyChart () {
 			    var intidx = 0;
 			    var plotidx = 1;
 			    var dt = new Date (data.intervals[intidx].end_date);
+			    var units = parseInt ($("#spnEphaseNumUnits").html ());
 			    while (hour < 24) {
 			        
 			        if (dt.getHours () === hour && dt.getMinutes () === minute) {
-			            plotdata.data.push ([plotidx, data.intervals[intidx].enwh]);
+			            var enwh = data.intervals[intidx].enwh;
+			            if (units !== 1) {
+			                enwh = enwh * (units / data.total_devices);
+			            }
+			            plotdata.data.push ([plotidx, enwh]);
 			            intidx += 1;
 			            if (intidx < data.intervals.length) {
 			                dt = new Date (data.intervals[intidx].end_date);
