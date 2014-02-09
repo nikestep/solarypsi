@@ -123,7 +123,8 @@ if (isset ($_GET['siteID'])) {
                                 }
                                 break;
                             case "links":
-                                echo "<h3>LINKS</h3>\n";
+                                echo "<div class='page-header'><h2>Link</h2></div>\n";
+                                echo "<p class='lead'>Useful resources regarding solar power</p>\n";
                                 include ('../content/links.php');
                                 break;
                             case "presentations":
