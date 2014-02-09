@@ -15,6 +15,23 @@ if (isset ($_GET['page'])) {
 }
 if (isset ($_GET['siteID'])) {
     $site_id = $_GET['siteID'];
+
+    // Validate site ID
+    $stmt = $db_link->prepare ("SELECT " .
+                               "    COUNT(*) " .
+                               "FROM " .
+                               "    site " .
+                               "WHERE " .
+                               "    site.id=?");
+    $stmt->bind_param ('s', $site_id);
+    $stmt->execute ();
+    $stmt->bind_result ($count);
+    $stmt->fetch ();
+    $stmt->close ();
+
+    if ($count !== 1) {
+        $page = 'error';
+    }
 }
 ?>
 
