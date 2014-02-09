@@ -9,6 +9,10 @@
     width: 100%;
 }
 
+.installation-list-row {
+    margin-bottom: 10px;
+}
+
 /*#dvVideoWrapper {
     float: left;
     margin-bottom: 10px;
