@@ -44,13 +44,14 @@ if (isset ($_GET['siteID'])) {
         
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-1.9.1.min.js"></script>
-        <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-ui-1.10.1.custom.min.js"></script>
         <script type="text/javascript" src="http://statics.solar.ypsi.com/js/bootstrap.min.js"></script>
         
         <?php
             if ($page === 'index') {
         ?>
                 <script type="text/javascript" src="http://statics.solar.ypsi.com/js/leaflet/leaflet-0.5.1.js"></script>
+                <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.css" />
+                <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.ie.css" />
         <?php
             }
         ?>
@@ -72,9 +73,6 @@ if (isset ($_GET['siteID'])) {
             <?php echo "g_site_id = '$site_id';\n"; ?>
         </script>
         
-        <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/jquery-ui-1.10.1.custom.min.css" />
-        <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.css" />
-        <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.ie.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/jquery.fancybox.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="/statics/style.css" />
