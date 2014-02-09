@@ -99,6 +99,7 @@ if (isset ($_GET['siteID'])) {
                             <img id="imgWeatherImg" src="/statics/images/blank.png" alt="Weather"
                                  style="height: 50px; width: 50px;" />
                             <span id="spnWeatherTemp"></span>
+                            - Ypsilanti, MI
                         </div>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container -->
@@ -123,7 +124,7 @@ if (isset ($_GET['siteID'])) {
                                 }
                                 break;
                             case "links":
-                                echo "<div class='page-header'><h2>Link</h2></div>\n";
+                                echo "<div class='page-header'><h2>Links</h2></div>\n";
                                 echo "<p class='lead'>Useful resources regarding solar power</p>\n";
                                 include ('../content/links.php');
                                 break;
