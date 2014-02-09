@@ -55,35 +55,57 @@ if (isset ($_GET['siteID'])) {
             <?php echo "g_site_id = '$site_id';\n"; ?>
         </script>
         
-        <link rel="stylesheet" type="text/css" href="/statics/style.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/jquery-ui-1.10.1.custom.min.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.ie.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/jquery.fancybox.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/statics/style.css" />
         
         <!-- Bookmark Icon -->
         <link rel='shortcut icon' href='http://statics.solar.ypsi.com/images/icon.png' />
     </head>
     <body>
-        <div id="container">
-            <div id="nav">
-                <ul>
-                    <li <?php if ($page === "index") { echo "class='active'"; } ?>><a href="/index">Home</a></li>
-                    <li <?php if ($page === "install") { echo "class='active'"; }?>><a href="/installations">Installations</a></li>
-                    <li <?php if ($page === "links") { echo "class='active'"; } ?>><a href="/links">Links</a></li>
-                    <li <?php if ($page === "presentations") { echo "class='active'"; } ?>><a href="/presentations">Presentations</a></li>
-                    <li <?php if ($page === "events") { echo "class='active'"; } ?>><a href="/events">Events</a></li>
-                    <li <?php if ($page === "about") { echo "class='active'"; } ?>><a href="/about">About</a></li>
-                    <li <?php if ($page === "contact") { echo "class='active'"; } ?>><a href="/contact">Contact</a></li>
-                    <li><a href="/blog" target="_blank">SolarYpsi Blog</a></li>
-                </ul>
-            </div>
-            <div id="inner">
-                <div id="header">
-                    <!-- No content, controlled by CSS -->
-                </div>
-                <div id="content">
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+            <!-- Fixed navbar -->
+            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a class="navbar-brand" href="/index">
+                            <img src="http://statics.solar.ypsi.com/images/icon.png" alt="SolarYpsi | Ypsilanti, MI"
+                                 style="height: 32px; margin-top: -9px; width: 32px;" />
+                            SolarYpsi
+                        </a>
+                    </div><!--/.navbar-header -->
+                    <div class="collapse navbar-collapse">
+                        <ul class="nav navbar-nav">
+                            <li <?php if ($page === "index") { echo "class='active'"; } ?>><a href="/index">Home</a></li>
+                            <li <?php if ($page === "install") { echo "class='active'"; }?>><a href="/installations">Installations</a></li>
+                            <li <?php if ($page === "links") { echo "class='active'"; } ?>><a href="/links">Links</a></li>
+                            <li <?php if ($page === "presentations") { echo "class='active'"; } ?>><a href="/presentations">Presentations</a></li>
+                            <li <?php if ($page === "events") { echo "class='active'"; } ?>><a href="/events">Events</a></li>
+                            <li <?php if ($page === "about") { echo "class='active'"; } ?>><a href="/about">About</a></li>
+                            <li <?php if ($page === "contact") { echo "class='active'"; } ?>><a href="/contact">Contact</a></li>
+                            <li><a href="/blog" target="_blank">Blog</a></li>
+                        </ul>
+                        <div class="col-sm-3 col-md-3 pull-right">
+                            <img id="imgWeatherImg" src="/statics/images/blank.png" alt="Weather"
+                                 style="height: 50px; width: 50px;" />
+                            <span id="spnWeatherTemp"></span>
+                        </div>
+                    </div><!--/.nav-collapse -->
+                </div><!--/.container -->
+            </div><!--/.navbar -->
+
+            <div class="container">
+                <div class="row">
                     <?php
                         switch ($page) {
                             case "index":
@@ -126,66 +148,21 @@ if (isset ($_GET['siteID'])) {
                                 break;
                         }
                     ?>
-                </div>
-                <div id="right">
-                    <div class="right-block">
-                        <div class="label">
-                            Select a Site for Details
-                        </div>
-                        <div class="text-centered">
-                            <select id="selSites">
-                                <option value="SELECT">-- Select a Site</option>
-                                <?php
-                                    $stmt = $db_link->prepare ("SELECT " .
-                                                               "    id, " .
-                                                               "    description " .
-                                                               "FROM " .
-                                                               "    site " .
-                                                               "ORDER BY " .
-                                                               "    description");
-                                    $stmt->execute ();
-                                    $stmt->bind_result ($id, $desc);
+                </div><!--/.row -->
+            </div><!--/.container -->
+        </div><!--/.wrap -->
 
-                                    while ($stmt->fetch ()) {
-                                        echo "<option value='$id'>$desc</option>\n";
-                                    }
-
-                                    $stmt->close ();
-                                ?>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="right-block">
-                        <div class="label">
-                            Ypsi Weather
-                        </div>
-                        <div class="text-centered">
-                            <img id="imgWeatherImg" src="/statics/images/blank.png" alt="Weather" />
-                            <span id="spnWeatherTemp"></span>
-                        </div>
-                    </div>
-                    <div class="right-block">
-                        <div class="label">
-                            On SolarYpsi
-                        </div>
-                        <div id="dvPieSites" class="pie">
-                        
-                        </div>
-                        <div id="dvPieWatts" class="pie">
-                        
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div id="footer">
-                <span class="attribute">
-                    Created and maintained by <a href="http://www.nicholasestep.com/" target="_blank">Nik Estep</a>
-                </span>
-                <span class="attribute">
+        <div id="footer">
+            <div class="container">
+                <p>
+                    Created and maintained by <a href="http://www.nikestep.me/" target="_blank">Nik Estep</a>
+                </p>
+                <p>
                     Web hosting generously provided by <a href="http://www.hdl.com/" target="_blank">HDL.com</a>
-                </span>
-            </div>
-        </div>
+                </p>
+            </div><!--/.container -->
+        </div><!--/.footer -->
+
         <!--<script type="text/javascript">
             var _gaq = _gaq || [];
             _gaq.push (['_setAccount', 'UA-8609577-1']);
