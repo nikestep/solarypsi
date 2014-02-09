@@ -45,10 +45,10 @@ while ($stmt->fetch ()) {
             <div class="col-md-2">
                 <?php
                     if ($img_file_path === NULL) {
-                        echo "<img src='/statics/images/blank.png' alt='Image Not Found' />\n";
+                        echo "<img src='/statics/images/blank.png' alt='Image Not Found' class='img-responsive' />\n";
                     }
                     else {
-                        echo "<img src='$REPOS_ROOT_URL$img_file_path' alt='$img_alt' style='height: 100%; width: 100%;' />\n";
+                        echo "<img src='$REPOS_ROOT_URL$img_file_path' alt='$img_alt' class='img-responsive' />\n";
                     }
                 ?>
             </div><!--/.col-md-2 -->
