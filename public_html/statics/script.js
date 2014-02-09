@@ -85,11 +85,19 @@ $(function () {
     bindEvents ();
     
     // Run chart tasks if necessary
-    if ($("#spnEnphaseSystemID").length === 1) {
+    var meter_type = $("#spnMeterType").html ();
+    if (meter_type === 'enphase') {
         loadChart ('Daily');
     }
-    
-    
+    else if (meter_type === 'historical') {
+        g_charts.Yearly.curr_idx = parseInt($("#spnHistoricalEnd").html ());
+        g_charts.Yearly.max_idx = g_charts.Yearly.curr_idx;
+        g_charts.Yearly.min_idx = parseInt($("#spnHistoricalStart").html ());
+        g_charts.Monthly.curr_idx = g_charts.Yearly.curr_idx;
+        g_charts.Monthly.max_idx = g_charts.Yearly.max_idx;
+        g_charts.Monthly.min_idx = g_charts.Yearly.min_idx;
+    }
+
     // Apply fancybox
     if ($(".fancybox").length > 0) {
         $(".fancybox").fancybox ({
@@ -129,6 +137,25 @@ function bindEvents () {
         else if ($(this).attr ('id').indexOf ('NextMonthly') > 0) {
             loadChartIndex ('Monthly', g_charts.Monthly.curr_idx - 1);
         }
+    });
+    
+    // If we are on a historical site page, handle clicking a button to change
+    // a chart year
+    $("#btnPrevHistYearly").on ('click', function (event) {
+        g_charts.Yearly.curr_idx -= 1;
+        loadHistoryChart ('Yearly');
+    });
+    $("#btnNextHistYearly").on ('click', function (event) {
+        g_charts.Yearly.curr_idx += 1;
+        loadHistoryChart ('Yearly');
+    });
+    $("#btnPrevHistMonthly").on ('click', function (event) {
+        g_charts.Monthly.curr_idx -= 1;
+        loadHistoryChart ('Monthly');
+    });
+    $("#btnNextHistMonthly").on ('click', function (event) {
+        g_charts.Monthly.curr_idx += 1;
+        loadHistoryChart ('Monthly');
     });
 }
 
@@ -329,6 +356,48 @@ function loadChart (type) {
     }
     else if (type === 'Monthly' && !g_charts.Monthly.loaded) {
         loadChartIndex ('Monthly', 0);
+    }
+}
+
+
+function loadHistoryChart (type) {
+    if (type === 'Yearly') {
+        $("#imgHistYearly").attr ('src', '/repository/charts_history/' +
+                                         g_site_id +
+                                         '/yearly_' +
+                                         g_charts.Yearly.curr_idx +
+                                         '.png');
+        if (g_charts.Yearly.curr_idx === g_charts.Yearly.min_idx) {
+            $("#btnPrevHistYearly").addClass ('disabled');
+        }
+        else {
+            $("#btnPrevHistYearly").removeClass ('disabled');
+        }
+        if (g_charts.Yearly.curr_idx === g_charts.Yearly.max_idx) {
+            $("#btnNextHistYearly").addClass ('disabled');
+        }
+        else {
+            $("#btnNextHistYearly").removeClass ('disabled');
+        }
+    }
+    else if (type === 'Monthly') {
+        $("#imgHistMonthly").attr ('src', '/repository/charts_history/' +
+                                          g_site_id +
+                                          '/monthly_' +
+                                          g_charts.Monthly.curr_idx +
+                                          '.png');
+        if (g_charts.Monthly.curr_idx === g_charts.Monthly.min_idx) {
+            $("#btnPrevHistMonthly").addClass ('disabled');
+        }
+        else {
+            $("#btnPrevHistMonthly").removeClass ('disabled');
+        }
+        if (g_charts.Monthly.curr_idx === g_charts.Monthly.max_idx) {
+            $("#btnNextHistMonthly").addClass ('disabled');
+        }
+        else {
+            $("#btnNextHistMonthly").removeClass ('disabled');
+        }
     }
 }
 

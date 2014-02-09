@@ -261,8 +261,21 @@ else if ($data['meter_type'] === 'historical') {
                     ?>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <img src="<?php echo '/repository/charts_history/' . $site_id . '/yearly_' . $data['historical_end_year'] . '.png'; ?>"
+                                    <img id="imgHistYearly" src="<?php echo '/repository/charts_history/' . $site_id . '/yearly_' . $data['historical_end_year'] . '.png'; ?>"
                                          class="img-responsive" alt="Yearly Chart" />
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <button id="btnPrevHistYearly" type="button" class="btn btn-default pull-left">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        Previous Year
+                                    </button>
+                                    <button id="btnNextHistYearly" type="button" class="btn btn-default pull-right disabled">
+                                        Next Year
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </button>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
                             </div>
@@ -299,8 +312,21 @@ else if ($data['meter_type'] === 'historical') {
                     ?>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <img src="<?php echo '/repository/charts_history/' . $site_id . '/monthly_' . $data['historical_end_year'] . '.png'; ?>"
+                                    <img id="imgHistMonthly" src="<?php echo '/repository/charts_history/' . $site_id . '/monthly_' . $data['historical_end_year'] . '.png'; ?>"
                                          class="img-responsive" alt="Yearly Chart" />
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <button id="btnPrevHistMonthly" type="button" class="btn btn-default pull-left">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        Previous Year
+                                    </button>
+                                    <button id="btnNextHistMonthly" type="button" class="btn btn-default pull-right disabled">
+                                        Next Year
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </button>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
                             </div>
