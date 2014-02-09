@@ -1,0 +1,18 @@
+RewriteEngine On
+
+RewriteBase /
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI}  /installations/?$ [NC]
+RewriteRule .*  /index.php?page=install     [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI}  /installations/([^/]+)/?$ [NC]
+RewriteRule .*       /index.php?page=install&siteID=%1 [NC,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI}  /([^/]+)/?$      [NC]
+RewriteRule .*  /index.php?page=%1 [NC,L]
