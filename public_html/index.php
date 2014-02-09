@@ -110,7 +110,6 @@ if (isset ($_GET['siteID'])) {
                         switch ($page) {
                             case "index":
                                 include ('../content/index.html');
-                                echo "<div id='dvMap'></div><p>Click a Pin for Details</p>\n";
                                 break;
                             case "install":
                                 if ($site_id === NULL) {
