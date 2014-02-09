@@ -6,7 +6,6 @@
  */
 
 g_currViedo = 'GoogleSearch';
-g_currGroup = null;
 g_map = null;
 g_charts = {
 	Daily: {
@@ -32,7 +31,7 @@ g_charts = {
 		    },
 		    legend: {
 		        show: true,
-		        noColums: 3
+		        noColums: 1
 		    },
 		    grid: {
 		        borderWidth: 2,
@@ -69,6 +68,12 @@ $(function () {
 		setupMap ();
 	}
 	
+	// Activate tabs
+	$('#dvSiteTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+	
 	// Retrieve the weather
 	updateWeather ();
 	setInterval (function () { updateWeather (); }, 600000);  // 10 minutes
@@ -79,10 +84,11 @@ $(function () {
 	// Bind DOM events
 	bindEvents ();
 	
-	// Detect the first site group, if applicable
-	if ($("#dvSiteNav").length === 1) {
-		setTimeout (function () { pickSiteGroup (); }, 250);
-	}
+	// Run chart tasks if necessary
+    if ($("#spnEnphaseSystemID").length === 1) {
+        loadChart ('Daily');
+    }
+    
 	
 	// Apply fancybox
 	if ($(".fancybox").length > 0) {
@@ -107,30 +113,6 @@ function bindEvents () {
 		}
 	});
 	
-	// If we are on the site page, handle clicking to a new group
-	$(".sitenav-item").on ('click', function (event) {
-		// Get the type name
-		var new_type = $(this).find (".type").html ();
-		var old_type = $(g_currGroup).find (".type").html ();
-		
-		// Change the group if necessary
-		if ($(this) !== g_currGroup) {
-			$("#dv" + old_type).hide ();
-			$(g_currGroup).removeClass ('sitenav-item-active');
-			$(g_currGroup).addClass ('sitenav-item-inactive');
-			$(this).addClass ('sitenav-item-active');
-			$(this).removeClass ('sitenav-item-inactive');
-			$("#dv" + new_type).show ();
-			g_currGroup = $(this);
-			
-			// Run chart tasks if necessary
-			if (new_type === 'Daily' || new_type === 'Weekly' ||
-				new_type === 'Yearly' || new_type === 'Monthly') {
-				loadChart (new_type);
-			}
-		}
-	});
-	
 	// If we are on the site page, handle clicking a button to change a chart
 	// index
 	$(".chart-control").on ('click', function (event) {
@@ -148,22 +130,6 @@ function bindEvents () {
 			loadChartIndex ('Monthly', g_charts.Monthly.curr_idx - 1);
 		}
 	});
-}
-
-
-function pickSiteGroup () {
-	// There are two options here, which you can switch by commenting one of
-	// them out. First, simply activate the first tab. Second, find and activate
-	// the Details tab.
-	//g_currGroup = $("#dvSiteNav > .sitenav-item").first ();
-	$("#dvSiteNav > .sitenav-item").each (function () {
-		if ($(this).find (".type").html () === 'Details') {
-			g_currGroup = $(this);
-		}
-	});
-	$(g_currGroup).addClass ('sitenav-item-active');
-	$(g_currGroup).removeClass ('sitenav-item-inactive');
-	$("#dv" + ($(g_currGroup).find (".type").html ())).show ();
 }
 
 
