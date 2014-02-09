@@ -1,7 +1,8 @@
 # Ignore all dotfiles...
 .*
-# except for .gitignore
+# except for .gitignore and .htaccess
 !.gitignore
+!.htaccess
 
 *.DS_Store
 *~
