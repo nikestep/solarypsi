@@ -129,8 +129,6 @@ if (isset ($_GET['siteID'])) {
                                 include ('../content/links.php');
                                 break;
                             case "presentations":
-                                echo "<div class='page-header'><h2>Presentations</h2></div>\n";
-                                echo "<p class='lead'>Learn more</p>\n";
                                 include ('../content/presentations.html');
                                 break;
                             case "events":
