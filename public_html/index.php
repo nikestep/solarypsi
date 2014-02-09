@@ -128,19 +128,23 @@ if (isset ($_GET['siteID'])) {
                                 include ('../content/links.php');
                                 break;
                             case "presentations":
-                                echo "<h3>PRESENTATIONS</h3>\n";
+                                echo "<div class='page-header'><h2>Presentations</h2></div>\n";
+                                echo "<p class='lead'>Learn more</p>\n";
                                 include ('../content/presentations.html');
                                 break;
                             case "events":
-                                echo "<h3>Upcomming Events</h3>\n";
+                                echo "<div class='page-header'><h2>Upcoming Events</h2></div>\n";
+                                echo "<p class='lead'>Come out and see us!</p>\n";
                                 include ('../content/events.html');
                                 break;
                             case "about":
-                                echo "<h3>ABOUT</h3>\n";
+                                echo "<div class='page-header'><h2>About</h2></div>\n";
+                                echo "<p class='lead'>Some history on the project</p>\n";
                                 include ('../content/about.html');
                                 break;
                             case "contact":
-                                echo "<h3>CONTACT</h3>\n";
+                                echo "<div class='page-header'><h2>Contact</h2></div>\n";
+                                echo "<p class='lead'>Get in touch with us to learn more!</p>\n";
                                 include ('../content/contact.html');
                                 break;
                             default:
