@@ -43,10 +43,10 @@
 .chart-legend {
     border: 2px solid black;
     display: none;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 110px;
     margin-top: 10px;
-    width: 110px;
+    text-align: center;
+    width: 500px;
 }
 
 .chart-controls {
