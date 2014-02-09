@@ -43,12 +43,11 @@ while ($stmt->fetch ()) {
             </div><!--/.col-md-8 -->
             <div class="col-md-2">
                 <?php
-                    if ($meter_type !== 'none') {
-                        echo "<h4><span class='label label-success pull-right'>";
-                        if ($meter_type === 'enphase') {
-                            echo "Enphase";
-                        }
-                        echo "</span></h4>\n";
+                    if ($meter_type === 'enphase') {
+                        echo "<h4><span class='label label-success pull-right'>Enphase</span></h4>\n";
+                    }
+                    else if ($meter_type === 'historical') {
+                        echo "<h4><span class='label label-warning pull-right'>Historical Data</span></h4>\n";
                     }
                 ?>
             </div><!--/.col-md-2 -->

@@ -73,7 +73,7 @@ $stmt->fetch ();
 $stmt->close ();
 
 // Get extra parameters if we have a metering type
-if ($data['meter_type'] !== 'none') {
+if ($data['meter_type'] === 'enphase') {
     $stmt = $db_link->prepare ("SELECT " .
                                "    system_id, " .
                                "    api_key, " .
@@ -87,6 +87,21 @@ if ($data['meter_type'] !== 'none') {
     $stmt->bind_result ($data['enphase_system_id'],
                         $data['enphase_key'],
                         $data['enphase_num_units']);
+    $stmt->fetch ();
+    $stmt->close ();
+}
+else if ($data['meter_type'] === 'historical') {
+    $stmt = $db_link->prepare ("SELECT " .
+                               "    start_year, " .
+                               "    end_year " .
+                               "FROM " .
+                               "    historical_system " .
+                               "WHERE " .
+                               "    site_id=?");
+    $stmt->bind_param ('s', $site_id);
+    $stmt->execute ();
+    $stmt->bind_result ($data['historical_start_year'],
+                        $data['historical_end_year']);
     $stmt->fetch ();
     $stmt->close ();
 }
@@ -161,6 +176,12 @@ if ($data['meter_type'] === 'enphase') {
     <span id='spnEphaseNumUnits' class='hidden'><?php echo $data['enphase_num_units']; ?></span>
 <?php
 }
+else if ($data['meter_type'] === 'historical') {
+?>
+    <span id="spnHistoricalStart" class="hidden"><?php echo $data['historical_start_year']; ?></span>
+    <span id="spnHistoricalEnd" class="hidden"><?php echo $data['historical_end_year']; ?></span>
+<?php
+}
 ?>
 
 <!-- Label the page -->
@@ -174,13 +195,19 @@ if ($data['meter_type'] === 'enphase') {
         <?php
             if ($data['meter_type'] !== 'none') {
         ?>
-                <li class="active"><a href="#daily" data-toggle="tab">Daily Chart</a></li>
+                <?php
+                    if ($data['meter_type'] !== 'historical') {
+                ?>
+                        <li class="active"><a href="#daily" data-toggle="tab">Daily Chart</a></li>
+                <?php
+                    }
+                ?>
                 <li><a href="#yearly" data-toggle="tab">Yearly Chart</a></li>
                 <li><a href="#monthly" data-toggle="tab">Monthly Usage Chart</a></li>
         <?php
             }
         ?>
-        <li <?php if($data['meter_type'] === 'none') echo "class='active'"; ?>><a href="#details" data-toggle="tab">Details</a></li>
+        <li <?php if($data['meter_type'] === 'none' || $data['meter_type'] === 'historical') echo "class='active'"; ?>><a href="#details" data-toggle="tab">Details</a></li>
         <?php
             if (count ($data['doc_link']) > 0 || count ($data['report']) > 0) {
         ?>
@@ -195,10 +222,10 @@ if ($data['meter_type'] === 'enphase') {
         <?php
             if ($data['meter_type'] !== 'none') {
         ?>
-                <div class="tab-pane active" id="daily">
-                    <?php
-                        if ($data['meter_type'] === 'enphase') {
-                    ?>
+                <?php
+                    if ($data['meter_type'] !== 'historical') {
+                ?>
+                        <div class="tab-pane active" id="daily">
                             <p>
                                 Below is view of generated electricity from today. This chart may be behind
                                 the current time and may change throughout the day as data is updated.
@@ -220,61 +247,92 @@ if ($data['meter_type'] === 'enphase') {
                                     </div>
                                 </div>
                             </div>-->
+                        </div><!--/#daily -->
+                <?php
+                    }
+                ?>
+                <div class="tab-pane" id="yearly">
+                    <p>
+                        Yearly metering of this installation is currently unavailable. The data
+                        below is historical and offered for reference purposes.
+                    </p>
+                    <?php
+                        if ($data['meter_type'] === 'historical') {
+                    ?>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <img src="<?php echo '/repository/charts_history/' . $site_id . '/yearly_' . $data['historical_end_year'] . '.png'; ?>"
+                                         class="img-responsive" alt="Yearly Chart" />
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
                     <?php
                         }
                         else {
-                            echo "<p>Daily metering of this installation is currently unavailable.</p>";
+                    ?>
+                            <div id="dvYearlyTitle" class="chart-title"></div>
+                            <div id="dvYearlyChart" class="chart"></div>
+                            <div id="dvYearlyChartLegend" class="chart-legend"></div>
+                            <div id="dvYearlyChartControls" class="chart-controls">
+                                <div class="left">
+                                    <div class="container">
+                                        <input id="btnPrevYearly" type="button" class="chart-control" value="Previous Year" />
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="container hidden">
+                                        <input id="btnNextYearly" type="button" class="chart-control" value="Next Year" />
+                                    </div>
+                                </div>
+                            </div>
+                    <?php
                         }
                     ?>
-                </div><!--/#daily -->
-                <div class="tab-pane" id="yearly">
-                    <p>
-                        Yearly metering of this installation is currently unavailable. Any
-                        below data is provided for historical record only.
-                    </p>
-                    <div id="dvYearlyTitle" class="chart-title"></div>
-                    <div id="dvYearlyChart" class="chart"></div>
-                    <div id="dvYearlyChartLegend" class="chart-legend"></div>
-                    <div id="dvYearlyChartControls" class="chart-controls">
-                        <div class="left">
-                            <div class="container">
-                                <input id="btnPrevYearly" type="button" class="chart-control" value="Previous Year" />
-                            </div>
-                        </div>
-                        <div class="right">
-                            <div class="container hidden">
-                                <input id="btnNextYearly" type="button" class="chart-control" value="Next Year" />
-                            </div>
-                        </div>
-                    </div>
                 </div><!--/#yearly -->
                 <div class="tab-pane" id="monthly">
                     <p>
-                        Monthly usage metering of this installation is currently
-                        unavailable. Any below data is provided for historical record only.
+                        Monthly usage metering of this installation is currently unavailable. The
+                        data below is historical and offered for reference purposes.
                     </p>
-                    <div id="dvMonthlyTitle" class="chart-title"></div>
-                    <div id="dvMonthlyChart" class="chart"></div>
-                    <div id="dvMonthlyChartLegend" class="chart-legend"></div>
-                    <div id="dvMonthlyChartControls" class="chart-controls">
-                        <div class="left">
-                            <div class="container">
-                                <input id="btnPrevMonthly" type="button" class="chart-control" value="Previous Year" />
+                    <?php
+                        if ($data['meter_type'] === 'historical') {
+                    ?>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <img src="<?php echo '/repository/charts_history/' . $site_id . '/monthly_' . $data['historical_end_year'] . '.png'; ?>"
+                                         class="img-responsive" alt="Yearly Chart" />
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
                             </div>
-                        </div>
-                        <div class="right">
-                            <div class="container hidden">
-                                <input id="btnNextMonthly" type="button" class="chart-control" value="Next Year" />
+                    <?php
+                        }
+                        else {
+                    ?>
+                            <div id="dvMonthlyTitle" class="chart-title"></div>
+                            <div id="dvMonthlyChart" class="chart"></div>
+                            <div id="dvMonthlyChartLegend" class="chart-legend"></div>
+                            <div id="dvMonthlyChartControls" class="chart-controls">
+                                <div class="left">
+                                    <div class="container">
+                                        <input id="btnPrevMonthly" type="button" class="chart-control" value="Previous Year" />
+                                    </div>
+                                </div>
+                                <div class="right">
+                                    <div class="container hidden">
+                                        <input id="btnNextMonthly" type="button" class="chart-control" value="Next Year" />
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
+                    <?php
+                        }
+                    ?>
                 </div><!--/#monthly -->
         <?php
             }
         ?>
 
         <!-- Div for details -->
-        <div class="tab-pane <?php if ($data['meter_type'] === 'none') echo 'active'; ?>" id="details">
+        <div class="tab-pane <?php if ($data['meter_type'] === 'none' || $data['meter_type'] === 'historical') echo 'active'; ?>" id="details">
             <p class="lead">
                 Installation Specifics
             </p>
