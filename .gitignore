@@ -5,3 +5,6 @@
 
 *.DS_Store
 *~
+
+# ignore certain directories
+public_html/repository
