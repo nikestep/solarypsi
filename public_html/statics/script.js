@@ -111,16 +111,6 @@ $(function () {
  * Bind events to DOM elements.
  */
 function bindEvents () {
-    // Change the page to the newly selected site
-    $("#selSites").on ('change', function (event) {
-        if ($("#selSites").val () === 'SELECT') {
-            return;
-        }
-        else {
-            window.location.href = '/installations/' + $("#selSites").val ();
-        }
-    });
-    
     // If we are on the site page, handle clicking a button to change a chart
     // index
     $(".chart-control").on ('click', function (event) {
@@ -326,19 +316,6 @@ function buildPieCharts () {
 
     var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
     chart.draw(data, options);*/
-}
-
-
-function switchVideo (newVid) {
-    if (g_currViedo == newVid) {
-        return;
-    }
-    
-    $('#li' + g_currViedo).removeClass ('vidActive');
-    $('#li' + newVid).addClass ('vidActive');
-    $('#vid' + g_currViedo).addClass ('hidden');
-    $('#vid' + newVid).removeClass ('hidden');
-    g_currViedo = newVid;
 }
 
 
