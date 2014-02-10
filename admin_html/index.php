@@ -782,12 +782,7 @@ $db_link = new mysqli ($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE, $DB
 						<div class="top10px">
 							<textarea id="txaEvents" rows="25" cols="117">
 								<?php
-									if ($PRODUCTION) {
-										include ('/home/solaryps/content/events.html');
-									}
-									else {
-										include ('../public_html/content/events.html');
-									}
+									include ('/home/solaryps/content/events.html');
 								?>
 							</textarea>
 						</div>
@@ -804,12 +799,7 @@ $db_link = new mysqli ($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE, $DB
 						<div class="top10px">
 							<textarea id="txaAbout" rows="25" cols="117">
 								<?php
-									if ($PRODUCTION) {
-										include ('/home/solaryps/content/about.html');
-									}
-									else {
-										include ('../public_html/content/about.html');
-									}
+									include ('/home/solaryps/content/about.html');
 								?>
 							</textarea>
 						</div>
@@ -826,12 +816,7 @@ $db_link = new mysqli ($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE, $DB
 						<div class="top10px">
 							<textarea id="txaContact" rows="25" cols="117">
 								<?php
-									if ($PRODUCTION) {
-										include ('/home/solaryps/content/contact.html');
-									}
-									else {
-										include ('../public_html/content/contact.html');
-									}
+									include ('/home/solaryps/content/contact.html');
 								?>
 							</textarea>
 						</div>

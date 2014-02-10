@@ -9,34 +9,18 @@
 // Set the timezone
 date_default_timezone_set ('America/New_York');
 
-// Flag for setting variables
-$PRODUCTION = TRUE;
-
 // Database connection settings
-//$DB_SERVER = '216.51.232.170';
 $DB_SERVER = 'localhost';
-$DB_DATABASE = 'solaryps_data';
-$DB_USERNAME = 'solaryps_db';
-$DB_PASSWORD = 'solardb102011';
+$DB_DATABASE = 'db';
+$DB_USERNAME = 'db_user';
+$DB_PASSWORD = 'db_password';
 $DB_PORT = 3306;
-if ($PRODUCTION) {
-	$DB_SOCKET = NULL;
-}
-else {
-	$DB_SOCKET = '/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock';
-}
+$DB_SOCKET = NULL;
 
 // File repository settings
-if ($PRODUCTION) {
-	$REPOS_PATH_TO_PUBLIC_HTML = "/home/solaryps/public_html";
-	$REPOS_ROOT_PATH = "/";
-	$REPOS_ROOT_URL = "http://solar.ypsi.com";
-}
-else {
-	$REPOS_PATH_TO_PUBLIC_HTML = "/Users/nestep/Sites/public_html";
-	$REPOS_ROOT_PATH = "/public_html";
-	$REPOS_ROOT_URL = "http://localhost/~nestep/public_html";
-}
+$REPOS_PATH_TO_PUBLIC_HTML = "/home/solaryps/public_html";
+$REPOS_ROOT_PATH = "/";
+$REPOS_ROOT_URL = "http://solar.ypsi.com";
 $REPOS_PATTERN = "/repository/{resource_type}s/{site_id}/";
 
 // Thumbnail size settings (px)
