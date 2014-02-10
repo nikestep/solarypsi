@@ -435,7 +435,7 @@ else if ($data['meter_type'] === 'historical') {
                                         <a class="fancybox" rel="gallery" href="<?php echo $REPOS_ROOT_URL . '/' . $obj['path']; ?>"
                                            title="<?php echo $obj['desc']; ?>">
                                             <?php
-                                                echo "<img src='$REPOS_ROOT_URL/" . $obj['path'] . "' alt='" . $obj['title'] . "'\n"; 
+                                                echo "<img src='$REPOS_ROOT_URL/" . $obj['path'] . "._thumb.jpg' alt='" . $obj['title'] . "'\n"; 
                                                 echo "class='img-responsive' />\n"; 
                                             ?>
                                         </a>

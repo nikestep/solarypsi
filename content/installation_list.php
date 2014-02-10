@@ -60,7 +60,7 @@ while ($stmt->fetch ()) {
                         echo "<img src='/statics/images/blank.png' alt='Image Not Found' class='img-responsive' />\n";
                     }
                     else {
-                        echo "<img src='$REPOS_ROOT_URL$img_file_path' alt='$img_alt' class='img-responsive' />\n";
+                        echo "<img src='${REPOS_ROOT_URL}${img_file_path}._thumb.jpg' alt='$img_alt' class='img-responsive' />\n";
                     }
                 ?>
             </div><!--/.col-md-2 -->

@@ -15,12 +15,12 @@ $db_link->autocommit (FALSE);
 
 // Get the resource type and path
 $stmt = $db_link->prepare ("SELECT " .
-						   "    res_type, " .
-						   "    file_path " .
-						   "FROM " .
-						   "    site_resource " .
-						   "WHERE " .
-						   "    id=?");
+                           "    res_type, " .
+                           "    file_path " .
+                           "FROM " .
+                           "    site_resource " .
+                           "WHERE " .
+                           "    id=?");
 $stmt->bind_param ('i', $_POST['id']);
 $stmt->execute ();
 $stmt->bind_result ($type, $path);
@@ -29,36 +29,40 @@ $stmt->close ();
 
 // If this is a physical file, delete the file from disk
 if ($type !== 'link') {
-	if (!unlink ('../../public_html' . $path)) {
-		header ('Content-Type: application/json');
-		header ('Cache-Control: no-cache, must-revalidate');
-		header ('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
-		echo json_encode (array ('success' => false,
-								 'err_msg' => 'Cannot delete ' . $type));
-		exit ();
-	}
+    if (!unlink ('../../public_html' . $path)) {
+        header ('Content-Type: application/json');
+        header ('Cache-Control: no-cache, must-revalidate');
+        header ('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
+        echo json_encode (array ('success' => false,
+                                 'err_msg' => 'Cannot delete ' . $type));
+        exit ();
+    }
+    if ($type === 'image') {
+        // Try to delete the thumbnail, but silently ignore if it fails
+        unlink ('../../public_html' . $path . '._thumb.jpg');
+    }
 }
 
 // Delete the resource
 $stmt = $db_link->prepare ("DELETE FROM " .
-						   "    site_resource " .
-						   "WHERE " .
-						   "    id=?");
+                           "    site_resource " .
+                           "WHERE " .
+                           "    id=?");
 $stmt->bind_param ('i', $_POST['id']);
 $err_msg = '';
 $success = TRUE;
 if (!$stmt->execute ()) {
-	$success = FALSE;
-	$err_msg = $db_link->error;
+    $success = FALSE;
+    $err_msg = $db_link->error;
 }
 $stmt->close ();
 
 // Commit or rollback the transaction
 if ($success) {
-	$db_link->commit ();
+    $db_link->commit ();
 }
 else {
-	$db_link->rollback ();
+    $db_link->rollback ();
 }
 
 // Close the database connection
@@ -68,5 +72,5 @@ header ('Content-Type: application/json');
 header ('Cache-Control: no-cache, must-revalidate');
 header ('Expires: Sat, 26 Jul 1997 05:00:00 GMT');
 echo json_encode (array ('success' => $success,
-					     'err_msg' => $err_msg));
+                         'err_msg' => $err_msg));
 ?>
