@@ -10,12 +10,7 @@
 include ('/home/solaryps/config/config.php');
 
 // Determine the path to save the file to
-if ($PRODUCTION) {
-	$file_path = '../../content/' . $_POST['type'] . '.html';
-}
-else {
-	$file_path = '../../public_html/content/' . $_POST['type'] . '.html';
-}
+$file_path = '../../content/' . $_POST['type'] . '.html';
 
 // Prepare content
 $content = html_entity_decode ($_POST['html']);
