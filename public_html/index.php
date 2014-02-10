@@ -54,15 +54,17 @@ if (isset ($_GET['siteID'])) {
                 <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/leaflet-0.5.1.ie.css" />
         <?php
             }
-        ?>
-        
-        <?php
-            if ($page === 'install') {
+            else if ($page === 'install') {
         ?>
                 <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-plugins/fancyapps/fancybox/jquery.fancybox.pack.js"></script>
                 <!--[if lte IE 8]><script type="text/javascript" src="http://statics.solar.ypsi.com/js/excanvas.min.js"></script><![endif]-->
                 <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-plugins/flot/jquery.flot.js"></script>
                 <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-plugins/flot/jquery.flot.stack.js"></script>
+        <?php
+            }
+            else if ($page === 'presentations') {
+        ?>
+                <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/bootstrap.vertical-tabs.min.css" />
         <?php
             }
         ?>

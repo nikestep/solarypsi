@@ -1,367 +1,113 @@
-div {
-	box-sizing: border-box;
-	-moz-box-sizing: border-box; /* Firefox */
-	-webkit-box-sizing: border-box; /* Safari, Chrome */
-}
-
-#container {
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 15px;
-	width: 970px;
-}
-	#nav {
-		/*height: 31px;*/
-		width: 100%;
-	}
-	#inner {
-		display: inline-block;
-		padding-left: 15px;
-		padding-top: 5px;
-		width: 100%;
-	}
-		#header {
-			background-image: url(images/logo.png);
-			height: 101px;
-			margin-bottom: 10px;
-			width: 930px;
-		}
-		#content {
-			display: inline-block;
-			width: 730px;
-			vertical-align: top;
-		}
-		#right {
-			display: inline-block;
-			margin-left: 10px;
-			width: 210px;
-			vertical-align: top;
-		}
-	#footer {
-		background-color: #FFF568;
-		color: #CC0000;
-		font: 13px/14px "Century Gothic",Arial,Helvetica,sans-serif;
-		height: 20px;
-    	margin: 10px auto;
-    	padding-top: 1px;
-    	text-align: right;
-    	width: 970px;
-	}
-
-#nav {
-	background: url(images/tab-line.gif) repeat-x 50% bottom;
-	padding-right: 5px;
-}
-	#nav ul {
-		font-size: 85%;
-		list-style-type: none;
-		margin: 8px 0px 0px;
-		padding: 2px 0px 0px 16px;
-	}
-	#nav li {
-		background: url(images/tab-back.png) 100% -100px;
-		border-bottom: #BBBBBB 1px solid;
-		display: inline-block;
-		padding-right: 5px;
-		margin-right: 1px;
-		text-align: center;
-	}
-		#nav li a {
-			background: url(images/tab-back.png) 0px -100px;
-			color: black;
-			display: block;
-			/*float: left;*/
-			font-weight: bold;
-			font-size: 125%;
-			letter-spacing: -0.02em;
-			min-height: 17px;
-			padding-bottom: 5px;
-			padding-left: 16px;
-			padding-right: 11px;
-			padding-top: 5px;
-			text-align: center;
-			text-decoration: none;
-			white-space: nowrap;
-		}
-		#nav li a:visited {
-			background: url(images/tab-back.png) 0px -100px;
-			color: black;
-			display: block;
-			min-height: 17px;
-			padding-bottom: 5px;
-			padding-left: 16px;
-			padding-right: 11px;
-			padding-top: 5px;
-			text-align: center;
-			text-decoration: none;
-			white-space: nowrap;
-		}
-	#nav li:hover {
-		background-position: 100% -200px;
-	}
-		#nav li:hover a {
-			background-position: 0px -200px;
-		}
-	#nav li.active {
-		background: url(images/tab-back.png) 100% 0px;
-		border-bottom: #FFFFFF 1px solid;
-	}
-		#nav li.active a {
-			background: url(images/tab-back.png) 0px 0px;
-		}
-	#nav li.active:hover {
-		background-position: 100% 0px;
-	}
-		#nav li.active:hover a {
-			background-position: 0px 0px;
-			text-decoration: underline;
-		}
-
 #dvMap {
-	height: 500px;
-	width: 100%;
+    height: 500px;
+    width: 100%;
 }
 
-#dvVideoWrapper {
-	float: left;
-	margin-bottom: 10px;
-	width: 698px;
-}
-#dvVideoNavWrapper {
-	float: left;
-	margin-left: 0px;
-	position: float;
-	width: 150px;
-}
-	#dvVideoNavWrapper ul {
-		list-style-type: none;
-		margin-bottom: 0px;
-		margin-top: 0px;
-		padding-left: 0px;
-	}
-		#dvVideoNavWrapper ul li {
-			border: 1px solid black;
-			margin-bottom: 3px;
-			padding-bottom: 3px;
-			padding-left: 3px;
-			padding-top: 3px;
-		}
-			#dvVideoNavWrapper ul li p {
-				margin-bottom: 0px;
-			}
-				#dvVideoNavWrapper ul li p a {
-					color: black;
-				}
-				#dvVideoNavWrapper ul li p a:visited {
-					color: black;
-				}
-.vidActive {
-	background-color: #EEEEEE;
-}
-#dvVideoContainer {
-	float: left;
-	margin-left: 15px;
-	position: float;
+.installation-list-row {
+    margin-bottom: 10px;
 }
 
 .hidden {
-	display: none;
+    display: none;
 }
 
-.text-centered {
-	text-align: center;
+.type-icon {
+    display: inline-block;
+    height: 25px;
+    width: 25px;
 }
-
-.bold {
-	font-weight: bold;
+.pdf {
+    background: url(images/pdf.jpg) no-repeat;
 }
-
-.install-block {
-	margin-bottom: 20px;
+.ppt {
+    background: url(images/ppt.jpg) no-repeat;
 }
-	.install-block .header {
-		font-size: 105%;
-		font-weight: bold;
-	}
-		.install-block .header a {
-			color: black;
-			text-decoration: none;
-		}
-		.install-block .header a:visited {
-			color: black;
-		}
-		.install-block .header a:hover {
-			text-decoration: underline;
-		}
-	.install-block .image {
-		display: inline-block;
-		height: 77px;
-		width: 116px;
-		vertical-align: middle;
-	}
-		.install-block .image img {
-			max-height: 77px;
-			max-width: 116px;
-		}
-	.install-block .text {
-		display: inline-block;
-		margin-left: 10px;
-		width: 600px;
-		vertical-align: middle;
-	}
-
-.sitenav-item {
-	border: 2px solid;
-	border-radius: 10px;
-	/*color: #0000BD;*/
-	cursor: pointer;
-	display: inline-block;
-	font-weight: bold;
-	margin-right: 10px;
-	padding-left: 2px;
-	padding-right: 2px;
-	padding-top: 2px;
-	text-align: center;
-	width: 105px;
-	vertical-align: top;
-	
-	-moz-border-radius: 10px;
+.flash {
+    background: url(images/flash.jpg) no-repeat;
 }
-	.sitenav-item .type {
-		display: none;
-	}
-.sitenav-item-active {
-	background-color: #FFFFFF;
+.link {
+    background: url(http://statics.solar.ypsi.com/images/link_arrow.png) no-repeat;
 }
-	.sitenav-item-active:hover {
-		text-decoration: underline;
-	}
-.sitenav-item-inactive {
-	background-color: #F7F6F6;
-}
-	.sitenav-item-inactive:hover {
-		background-color: #E0E0E0;
-	}
-
-.site-group {
-	display: none;
-	margin-top: 10px;
-}
-	.site-group .detail-row {
-		margin-bottom: 5px;
-	}
-		.site-group .detail-row .label {
-			font-weight: bold;
-		}
-		.site-group .detail-row .type-icon {
-			display: inline-block;
-			height: 25px;
-			width: 25px;
-		}
-		.site-group .detail-row .pdf {
-			background: url(images/pdf.jpg) no-repeat;
-		}
-		.site-group .detail-row .ppt {
-			background: url(images/ppt.jpg) no-repeat;
-		}
-		.site-group .detail-row .flash {
-			background: url(images/flash.jpg) no-repeat;
-		}
-		.site-group .detail-row .link {
-			background: url(http://statics.solar.ypsi.com/images/link_arrow.png) no-repeat;
-		}
-	.site-group .detail-image {
-		display: inline-block;
-		font-weight: bold;
-		margin-right: 5px;
-		text-align: center;
-		height: 330px;
-		width: 355px;
-	}
-		.site-group .detail-image img {
-			max-height: 325px;
-			max-width: 375px;
-		}
-		.site-group .detail-image .caption {
-			font-weight: bold;
-		}
-	.site-group .files {
-		display: inline-block;
-		margin-left: 10px;
-		width: 350px;
-		vertical-align: top;
-	}
-		.site-group .files .header {
-			font-size: 105%;
-			font-weight: bold;
-		}
-		.site-group .files .label {
-			color: #0000BD;
-		}
-			.site-group .files .label a {
-				text-decoration: none;
-			}
-			.site-group .files .label a:visited {
-				color: #0000BD;
-			}
-			.site-group .files .label a:hover {
-				text-decoration: underline;
-			}
 
 .chart {
-	height: 400px;
-	width: 725px;
+    height: 400px;
+    width: 725px;
 }
 
 .chart-title {
-	font-size: smaller;
-	font-weight: bold;
-	text-align: center;
+    font-size: smaller;
+    font-weight: bold;
+    text-align: center;
 }
 
 .chart-legend {
-	border: 2px solid black;
-	display: none;
-	margin-left: auto;
-	margin-right: auto;
-	margin-top: 10px;
-	text-align: center;
-	width: 500px;
+    border: 2px solid black;
+    display: none;
+    margin-left: 110px;
+    margin-top: 10px;
+    text-align: center;
+    width: 500px;
 }
 
 .chart-controls {
-	display: none;
-	margin-top: 10px;
-	padding-left: 10px;
-	padding-right: 10px;
+    display: none;
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
-	.chart-controls .left {
-		display: inline-block;
-		text-align: left;
-		width: 49.5%;
-	}
-	.chart-controls .right {
-		display: inline-block;
-		text-align: right;
-		width: 49.5%;
-	}
+    .chart-controls .left {
+        display: inline-block;
+        text-align: left;
+        width: 49.5%;
+    }
+    .chart-controls .right {
+        display: inline-block;
+        text-align: right;
+        width: 49.5%;
+    }
 
-.link-row {
-	margin-bottom: 10px;
+html,
+body {
+    background: #FFFFFF;
+    height: 100%;
+    /* The html and body elements cannot have any padding or margin. */
 }
 
-.right-block {
-	margin-bottom: 20px;
+/* Wrapper for page content to push down footer */
+#wrap {
+    min-height: 100%;
+    height: auto;
+    /* Negative indent footer by its height */
+    margin: 0 auto -60px;
+    /* Pad bottom by footer height */
+    padding: 0 0 60px;
 }
-	.right-block .label {
-		font-size: 110%;
-		font-weight: bold;
-		text-align: center;
-	}
-	.right-block .pie {
-		margin-top: 5px;
-	}
 
-.attribute {
-	margin-right: 5px;
+/* Set the fixed height of the footer here */
+#footer {
+    background-color: #f5f5f5;
+    height: 60px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+
+#wrap > .container {
+    padding: 60px 15px 0;
+}
+.container .text-muted {
+    margin: 20px 0;
+}
+
+#footer > .container {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+code {
+    font-size: 80%;
 }
