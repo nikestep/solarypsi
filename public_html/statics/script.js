@@ -222,7 +222,7 @@ function updateWeather () {
         jsonpCallback: 'jsonpSYWCallback',
         success: function (data) {
             if (data.currTemp) {
-                $("#spnWeatherTemp").html (data.currTemp + ' F');
+                $("#spnWeatherTemp").html (data.currTemp + '&deg; F');
             }
             if (data.imageURL) {
                 $("#imgWeatherImg").attr ('src', data.imageURL);

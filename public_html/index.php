@@ -86,7 +86,7 @@ if (isset ($_GET['siteID'])) {
         <!-- Wrap all page content here -->
         <div id="wrap">
             <!-- Fixed navbar -->
-            <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+            <div class="navbar navbar-default navbar-wrapper navbar-fixed-top" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -101,7 +101,7 @@ if (isset ($_GET['siteID'])) {
                             SolarYpsi
                         </a>
                     </div><!--/.navbar-header -->
-                    <div class="collapse navbar-collapse">
+                    <div class="collapse navbar-collapse bs-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li <?php if ($page === "index") { echo "class='active'"; } ?>><a href="/index">Home</a></li>
                             <li <?php if ($page === "install") { echo "class='active'"; }?>><a href="/installations">Installations</a></li>
