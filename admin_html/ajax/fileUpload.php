@@ -52,6 +52,7 @@ if ($_POST['resourceType'] == 'image') {
     $idx = intval ($idx);
     $file_name = $_POST['siteID'] . '_' . sprintf ('%03d', $idx) .
                  substr ($file_name, strrpos ($file_name, '.', -4));  // File extension
+    $upload_file = $upload_dir . $file_name;
     
     $stmt->close ();
     
@@ -97,7 +98,7 @@ if ($_POST['resourceType'] == 'image') {
                                     "    ?, " .
                                     "    ? " .
                                     ")");
-        $stmt2->->bind_param ('sii', $upload_file, $thumb_width, $thumb_height);
+        $stmt2->bind_param ('sii', $upload_file, $thumb_width, $thumb_height);
         $stmt2->execute ();
         $stmt2->close (); 
     }
@@ -184,17 +185,17 @@ if ($success) {
     if ($success) {
         $index_path = $repos_pattern . $file_name;
         $stmt->bind_param ('ssisssiiii', $_POST['siteID'],
-                                          $_POST['resourceType'],
-                                          $cnt,
-                                          $_POST['title'],
-                                          $_POST['description'],
-                                          $index_path,
-                                          $orig_width,
-                                          $orig_height,
-                                          $thumb_width,
-                                          $thumb_height);
+                                         $_POST['resourceType'],
+                                         $cnt,
+                                         $_POST['title'],
+                                         $_POST['description'],
+                                         $index_path,
+                                         $orig_width,
+                                         $orig_height,
+                                         $thumb_width,
+                                         $thumb_height);
         $stmt->execute ();
-    
+        
         if ($stmt->affected_rows == 0) {
             $success = FALSE;
             $err_msg = $db_link->error;
@@ -202,7 +203,7 @@ if ($success) {
         else {
             $db_id = $db_link->insert_id;
         }
-    
+        
         $stmt->close ();
     }
 }
