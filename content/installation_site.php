@@ -432,10 +432,10 @@ else if ($data['meter_type'] === 'historical') {
                         ?>
                                 <div class="col-md-3">
                                     <p>
-                                        <a class="fancybox" rel="gallery" href="<?php echo $REPOS_ROOT_URL . '/' . $obj['path']; ?>"
+                                        <a class="fancybox" rel="gallery" href="<?php echo $REPOS_ROOT_URL . $obj['path']; ?>"
                                            title="<?php echo $obj['desc']; ?>">
                                             <?php
-                                                echo "<img src='$REPOS_ROOT_URL/" . $obj['path'] . "._thumb.jpg' alt='" . $obj['title'] . "'\n"; 
+                                                echo "<img src='$REPOS_ROOT_URL" . $obj['path'] . "._thumb.jpg' alt='" . $obj['title'] . "'\n"; 
                                                 echo "class='img-responsive' />\n"; 
                                             ?>
                                         </a>
@@ -488,7 +488,7 @@ else if ($data['meter_type'] === 'historical') {
                                                 if ($obj['res_type'] === 'document') {
                                             ?>
                                                     <span class="<?php echo getFiletypeClass ($obj['path']); ?>"></span>
-                                                    <?php echo "<a href='$REPOS_ROOT_URL/" . $obj['path'] . "' target='_blank'>" . $obj['title'] . "</a>\n"; ?>
+                                                    <?php echo "<a href='$REPOS_ROOT_URL" . $obj['path'] . "' target='_blank'>" . $obj['title'] . "</a>\n"; ?>
                                             <?php
                                                 }
                                                 else {
@@ -519,7 +519,7 @@ else if ($data['meter_type'] === 'historical') {
                                     ?>
                                         <p>
                                             <span class="<?php echo getFiletypeClass ($obj['path']); ?>"></span>
-                                            <?php echo "<a href='$REPOS_ROOT_URL/" . $obj['path'] . "' target='_blank'>" . $obj['title'] . "</a>\n"; ?>
+                                            <?php echo "<a href='$REPOS_ROOT_URL" . $obj['path'] . "' target='_blank'>" . $obj['title'] . "</a>\n"; ?>
                                         </p>
                                     <?php
                                         }
