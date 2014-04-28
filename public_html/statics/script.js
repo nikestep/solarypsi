@@ -366,110 +366,44 @@ function loadHistoryChart (type) {
 
 function loadDailyChart () {
     var currdate = g_charts['Daily'].curr_date;
-    var startdate = currdate.getFullYear () + '-' + ((currdate.getMonth () + 1) < 10 ? '0' + (currdate.getMonth () + 1) : (currdate.getMonth () + 1)) + '-' + (currdate.getDate < 10 ? '0' + currdate.getDate () : currdate.getDate ()) + 'T00:00-5:00';
+    var startdate = currdate.getFullYear () + '-' + ((currdate.getMonth () + 1) < 10 ? '0' + (currdate.getMonth () + 1) : (currdate.getMonth () + 1)) + '-' + (currdate.getDate < 10 ? '0' + currdate.getDate () : currdate.getDate ());
     var titledate = 'Data from Today';
     var enphaseAPI = 'https://api.enphaseenergy.com/api/systems/' + $("#spnEnphaseSystemID").html () + '/stats';
     $.ajax ({
-        url: enphaseAPI,
+        url: '/ajax/getDailyChartData.php',
         method: 'GET',
         data: {
-            start: startdate,
-            key: $("#spnEnphaseKey").html ()
+            siteID: g_site_id,
+            date: startdate
         },
-        dataType: 'jsonp',
+        dataType: 'json',
         success: function (data) {
-            if (data.system_id !== undefined) {
+            if (data.success !== undefined && data.success) {
                 // Prepare the data
                 var plotdata = {
                     label: 'Generation Meter',
                     color: '#F6BD0F',
                     data: []
                 };
-                var hour = 0;
-                var minute = 5;
-                var intidx = 0;
-                var plotidx = 1;
-                var dt = new Date (data.intervals[intidx].end_date);
-                var units = parseInt ($("#spnEphaseNumUnits").html ());
-                while (hour < 24) {
-                    
-                    if (dt.getHours () === hour && dt.getMinutes () === minute) {
-                        var enwh = data.intervals[intidx].enwh;
-                        if (units !== 1) {
-                            enwh = enwh * (units / data.total_devices);
-                        }
-                        plotdata.data.push ([plotidx, enwh]);
-                        intidx += 1;
-                        if (intidx < data.intervals.length) {
-                            dt = new Date (data.intervals[intidx].end_date);
-                        }
-                    }
-                    else {
-                        plotdata.data.push ([plotidx, null]);
-                    }
-                    
-                    minute += 5;
-                    if (minute === 60) {
-                        hour += 1;
-                        minute = 0;
-                    }
-                    plotidx += 1;
-                }
                 //data.intervals = [{devices_reporting, end_date, powr, enwh}]
                 // Load or update the chart
                 if (!g_charts.Daily.loaded) {
-                    // Load x-axis ticks
-                    var hour = 0, minute = 0, idx = 1;
-                    while (hour < 23 || minute < 55) {
-                        if (hour === 3 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '3:00']);
-                        }
-                        else if (hour === 6 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '6:00']);
-                        }
-                        else if (hour === 9 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '9:00']);
-                        }
-                        else if (hour === 12 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '12:00']);
-                        }
-                        else if (hour === 15 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '3:00']);
-                        }
-                        else if (hour === 18 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '6:00']);
-                        }
-                        else if (hour === 21 && minute === 0) {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '9:00']);
-                        }
-                        else {
-                            g_charts.Daily.options.xaxis.ticks.push ([idx, '']);
-                        }
-                        
-                        idx += 1;
-                        minute += 5;
-                        if (minute === 60) {
-                            hour += 1;
-                            if (hour != 23) {
-                                minute = 0;
-                            }
-                        }
-                    }
                     // Load the chart
+                    g_charts.Daily.options.xaxis.ticks = data.options.xaxis.ticks;
                     g_charts.Daily.options.legend.container = $("#dvDailyChartLegend");
                     $("#dvDailyChartLegend").show ();
-                    g_charts.Daily.plot = $.plot ($("#dvDailyChart"), [plotdata], g_charts.Daily.options);
+                    g_charts.Daily.plot = $.plot ($("#dvDailyChart"), [data.data[2]], g_charts.Daily.options);
                     //$("#dvDailyChartControls").show ();
                     g_charts.Daily.loaded = true;
                 }
                 else {
-                    g_charts.Daily.plot.setData (data.data);
+                    g_charts.Daily.plot.setData ([data.data[2]]);
                     g_charts.Daily.plot.setupGrid ();
                     g_charts.Daily.plot.draw ();
                 }
                 
                 // Set the title
-                $("#dvDailyTitle").html (titledate);
+                $("#dvDailyTitle").html (data.title);
                 
                 // Set the navigation buttons
                 /*if (g_charts.Daily.curr_idx === g_charts.Daily.min_idx) {
