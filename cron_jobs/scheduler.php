@@ -15,6 +15,14 @@ function component_matches ($comp, $time_elem) {
                 }
             }
         }
+        else if (strpos ($comp, '-') !== false) {
+            $parts = explode ('-', $comp);
+            foreach (range(intval($parts[0]), intval($parts[1])) as $part) {
+                if (intval($part) === $time_elem) {
+                    return true;
+                }
+            }
+        }
         else if (strpos ($comp, '/') !== false) {
             $parts = explode ('/', $comp);
             if (($time_elem % intval ($parts[1])) === 0) {
