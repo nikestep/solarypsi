@@ -11,7 +11,7 @@ g_charts = {
     Daily: {
         plot: null,
         loaded: false,
-        curr_date: new Date(),
+        curr_date: moment (),
         min_idx: 0,
         max_idx: 4,
         options: {
@@ -87,7 +87,7 @@ $(function () {
     // Run chart tasks if necessary
     var meter_type = $("#spnMeterType").html ();
     if (meter_type === 'enphase') {
-        loadChart ('Daily');
+        loadDailyChart ();
     }
     else if (meter_type === 'historical') {
         g_charts.Yearly.curr_idx = parseInt($("#spnHistoricalEnd").html ());
@@ -111,24 +111,17 @@ $(function () {
  * Bind events to DOM elements.
  */
 function bindEvents () {
-    // If we are on the site page, handle clicking a button to change a chart
-    // index
-    $(".chart-control").on ('click', function (event) {
-        // Call the load method with the proper parameters
-        if ($(this).attr ('id').indexOf ('PrevYearly') > 0) {
-            loadChartIndex ('Yearly', g_charts.Yearly.curr_idx + 1);
-        }
-        else if ($(this).attr ('id').indexOf ('NextYearly') > 0) {
-            loadChartIndex ('Yearly', g_charts.Yearly.curr_idx - 1);
-        }
-        else if ($(this).attr ('id').indexOf ('PrevMonthly') > 0) {
-            loadChartIndex ('Monthly', g_charts.Monthly.curr_idx + 1);
-        }
-        else if ($(this).attr ('id').indexOf ('NextMonthly') > 0) {
-            loadChartIndex ('Monthly', g_charts.Monthly.curr_idx - 1);
-        }
+    // If we are on a regular stie page, handle clicking a button to change
+    // the data view
+    $("#btnPrevDaily").on ('click', function (event) {
+        g_charts.Daily.curr_date.subtract ('days', 1);
+        loadDailyChart ();
     });
-    
+    $("#btnNextDaily").on ('click', function (event) {
+        g_charts.Daily.curr_date.add ('days', 1);
+        loadDailyChart ();
+    });
+
     // If we are on a historical site page, handle clicking a button to change
     // a chart year
     $("#btnPrevHistYearly").on ('click', function (event) {
@@ -304,24 +297,6 @@ function buildPieCharts () {
 }
 
 
-function loadChart (type) {
-    if (type === 'Daily' && !g_charts.Daily.loaded) {
-        if ($("#spnMeterType").html () === 'enphase') {
-            loadDailyChart ();
-        }
-    }
-    else if (type === 'Weekly' && !g_charts.Weekly.loaded) {
-        loadChartIndex ('Weekly', 0);
-    }
-    else if (type === 'Yearly' && !g_charts.Yearly.loaded) {
-        loadChartIndex ('Yearly', 0);
-    }
-    else if (type === 'Monthly' && !g_charts.Monthly.loaded) {
-        loadChartIndex ('Monthly', 0);
-    }
-}
-
-
 function loadHistoryChart (type) {
     if (type === 'Yearly') {
         $("#imgHistYearly").attr ('src', '/repository/charts_history/' +
@@ -365,9 +340,8 @@ function loadHistoryChart (type) {
 
 
 function loadDailyChart () {
-    var currdate = g_charts['Daily'].curr_date;
-    var startdate = currdate.getFullYear () + '-' + ((currdate.getMonth () + 1) < 10 ? '0' + (currdate.getMonth () + 1) : (currdate.getMonth () + 1)) + '-' + (currdate.getDate < 10 ? '0' + currdate.getDate () : currdate.getDate ());
-    var titledate = 'Data from Today';
+    var currdate = g_charts.Daily.curr_date;
+    var startdate = currdate.format ('YYYY-MM-DD');
     var enphaseAPI = 'https://api.enphaseenergy.com/api/systems/' + $("#spnEnphaseSystemID").html () + '/stats';
     $.ajax ({
         url: '/ajax/getDailyChartData.php',
@@ -385,7 +359,7 @@ function loadDailyChart () {
                     color: '#F6BD0F',
                     data: []
                 };
-                //data.intervals = [{devices_reporting, end_date, powr, enwh}]
+                
                 // Load or update the chart
                 if (!g_charts.Daily.loaded) {
                     // Load the chart
@@ -393,7 +367,6 @@ function loadDailyChart () {
                     g_charts.Daily.options.legend.container = $("#dvDailyChartLegend");
                     $("#dvDailyChartLegend").show ();
                     g_charts.Daily.plot = $.plot ($("#dvDailyChart"), [data.data[2]], g_charts.Daily.options);
-                    //$("#dvDailyChartControls").show ();
                     g_charts.Daily.loaded = true;
                 }
                 else {
@@ -406,19 +379,19 @@ function loadDailyChart () {
                 $("#dvDailyTitle").html (data.title);
                 
                 // Set the navigation buttons
-                /*if (g_charts.Daily.curr_idx === g_charts.Daily.min_idx) {
-                    $("#dvDailyChartControls > .right > .container").hide ();
+                if (g_charts.Daily.curr_date.isSame (moment ('2014-01-01', 'day'))) {
+                    $("#btnPrevDaily").addClass ('disabled');
                 }
                 else {
-                    $("#dvDailyChartControls > .right > .container").show ();
+                    $("#btnPrevDaily").removeClass ('disabled');
                 }
                 
-                if (g_charts.Daily.curr_idx === g_charts.Daily.max_idx) {
-                    $("#dvDailyChartControls > .left > .container").hide ();
+                if (g_charts.Daily.curr_date.isSame (moment (), 'day')) {
+                    $("#btnNextDaily").addClass ('disabled');
                 }
                 else {
-                    $("#dvDailyChartControls > .left > .container").show ();
-                }*/
+                    $("#btnNextDaily").removeClass ('disabled');
+                }
             }
         },
         error: function () {
