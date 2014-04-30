@@ -235,6 +235,7 @@ else if ($data['meter_type'] === 'historical') {
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
+                                    <h5 id="dailyTitle" class="text-center"></h5>
                                     <div id="dvDailyChart" class="chart"></div>
                                     <div id="dvDailyChartLegend" class="chart-legend"></div>
                                 </div><!--/.col-md-8 -->

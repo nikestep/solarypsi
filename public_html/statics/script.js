@@ -376,7 +376,12 @@ function loadDailyChart () {
                 }
                 
                 // Set the title
-                $("#dvDailyTitle").html (data.title);
+                if (g_charts.Daily.curr_date.isSame (moment (), 'day')) {
+                    $("#dailyTitle").html ('Today');
+                }
+                else {
+                    $("#dailyTitle").html (g_charts.Daily.curr_date.format ('MMMM D, YYYY'));
+                }
                 
                 // Set the navigation buttons
                 if (g_charts.Daily.curr_date.isSame (moment ('2014-01-01', 'day'))) {
