@@ -233,20 +233,27 @@ else if ($data['meter_type'] === 'historical') {
                             <p>
                                 Right now, historical data is not available, but it will be soon!
                             </p>
-                            <div id="dvDailyChart" class="chart"></div>
-                            <div id="dvDailyChartLegend" class="chart-legend"></div>
-                            <!--<div id="dvDailyChartControls" class="chart-controls">
-                                <div class="left">
-                                    <div class="container">
-                                        <input id="btnPrevDaily" type="button" class="chart-control" value="Previous Day" />
-                                    </div>
-                                </div>
-                                <div class="right">
-                                    <div class="container hidden">
-                                        <input id="btnNextDaily" type="button" class="chart-control" value="Next Day" />
-                                    </div>
-                                </div>
-                            </div>-->
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div id="dvDailyChart" class="chart"></div>
+                                    <div id="dvDailyChartLegend" class="chart-legend"></div>
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <p>&nbsp;</p>
+                                    <button id="btnPrevDaily" type="button" class="btn btn-default pull-left">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        Previous Day
+                                    </button>
+                                    <button id="btnNextDaily" type="button" class="btn btn-default pull-right disabled">
+                                        Next Day
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </div><!--/.col-md-7 -->
+                                <div class="col-md-5">&nbsp;</div>
+                            </div>
                         </div><!--/#daily -->
                 <?php
                     }
