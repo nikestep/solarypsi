@@ -1,7 +1,6 @@
 <?php
 // Include the configuration file and shared methods file
 include ('/home/solaryps/config/config.php');
-include ('../data/shared_methods.php');
 
 // Declare a function to return the tick display value for a date
 function getTickVal ($indx) {
