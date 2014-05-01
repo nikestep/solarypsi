@@ -227,11 +227,7 @@ else if ($data['meter_type'] === 'historical') {
                 ?>
                         <div class="tab-pane active" id="daily">
                             <p>
-                                Below is view of generated electricity from today. This chart may be behind
-                                the current time and may change throughout the day as data is updated.
-                            </p>
-                            <p>
-                                Right now, historical data is not available, but it will be soon!
+                                This chart shows solar production in five-minute increments throughout the day.
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
@@ -260,13 +256,13 @@ else if ($data['meter_type'] === 'historical') {
                     }
                 ?>
                 <div class="tab-pane" id="yearly">
-                    <p>
-                        Yearly metering of this installation is currently unavailable. The data
-                        below is historical and offered for reference purposes.
-                    </p>
                     <?php
                         if ($data['meter_type'] === 'historical') {
                     ?>
+                            <p>
+                                Yearly metering of this installation is currently unavailable. The data
+                                below is historical and offered for reference purposes.
+                            </p>
                             <div class="row">
                                 <div class="col-md-8">
                                     <img id="imgHistYearly" src="<?php echo '/repository/charts_history/' . $site_id . '/yearly_' . $data['historical_end_year'] . '.png'; ?>"
@@ -291,20 +287,30 @@ else if ($data['meter_type'] === 'historical') {
                         }
                         else {
                     ?>
-                            <div id="dvYearlyTitle" class="chart-title"></div>
-                            <div id="dvYearlyChart" class="chart"></div>
-                            <div id="dvYearlyChartLegend" class="chart-legend"></div>
-                            <div id="dvYearlyChartControls" class="chart-controls">
-                                <div class="left">
-                                    <div class="container">
-                                        <input id="btnPrevYearly" type="button" class="chart-control" value="Previous Year" />
-                                    </div>
-                                </div>
-                                <div class="right">
-                                    <div class="container hidden">
-                                        <input id="btnNextYearly" type="button" class="chart-control" value="Next Year" />
-                                    </div>
-                                </div>
+                            <p>
+                                This chart shows daily totals of solar production in a given year.
+                            </p>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 id="yearlyTitle" class="text-center"></h5>
+                                    <div id="dvYearlyChart" class="chart"></div>
+                                    <div id="dvYearlyChartLegend" class="chart-legend"></div>
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <p>&nbsp;</p>
+                                    <button id="btnPrevYearly" type="button" class="btn btn-default pull-left">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        Previous Year
+                                    </button>
+                                    <button id="btnNextYearly" type="button" class="btn btn-default pull-right disabled">
+                                        Next Year
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </div><!--/.col-md-7 -->
+                                <div class="col-md-5">&nbsp;</div>
                             </div>
                     <?php
                         }
