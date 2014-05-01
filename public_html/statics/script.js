@@ -353,20 +353,13 @@ function loadDailyChart () {
         dataType: 'json',
         success: function (data) {
             if (data.success !== undefined && data.success) {
-                // Prepare the data
-                var plotdata = {
-                    label: 'Generation Meter',
-                    color: '#F6BD0F',
-                    data: []
-                };
-                
                 // Load or update the chart
                 if (!g_charts.Daily.loaded) {
                     // Load the chart
-                    g_charts.Daily.options.xaxis.ticks = data.options.xaxis.ticks;
+                    g_charts.Daily.options.xaxis.ticks = data.x_ticks;
                     g_charts.Daily.options.legend.container = $("#dvDailyChartLegend");
                     $("#dvDailyChartLegend").show ();
-                    g_charts.Daily.plot = $.plot ($("#dvDailyChart"), [data.data[2]], g_charts.Daily.options);
+                    g_charts.Daily.plot = $.plot ($("#dvDailyChart"), [data.data.generation], g_charts.Daily.options);
                     g_charts.Daily.loaded = true;
                 }
                 else {
