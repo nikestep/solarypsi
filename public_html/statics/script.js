@@ -121,7 +121,7 @@ $(function () {
     $('#dvSiteTabs a').click(function (e) {
       e.preventDefault()
       $(this).tab('show')
-    })
+    });
     
     // Show the sleeping alert
     if (moment ().hours () < 8) {
@@ -130,7 +130,7 @@ $(function () {
     
     // Retrieve the weather
     updateWeather ();
-    setInterval (function () { updateWeather (); }, 600000);  // 10 minutes
+    setInterval (function () { updateWeather (); }, 900000);  // 15 minutes
     
     // Build the pie charts
     buildPieCharts ();
@@ -144,8 +144,8 @@ $(function () {
         // Calculate minimums for the charts
         var earliest_date = moment ($("#spnEarliestDate").html (), 'YYYY-MM-DD');
         g_charts.Daily.earliest_date = earliest_date;
-        g_charts.Yearly.min_year = parseInt (earliest_date.format ('YYYY'));
-        g_charts.Monthly.min_year = g_charts.Yearly.min_year;
+        g_charts.Yearly.min_year = earliest_date.year ();
+        g_charts.Monthly.min_year = earliest_date.year ();
         
         // Build the charts
         loadDailyChart ();
@@ -514,7 +514,7 @@ function loadYearlyChart () {
                     $("#btnPrevYearly").removeClass ('disabled');
                 }
                 
-                if (g_charts.Yearly.curr_year === parseInt (moment ().format ('YYYY'))) {
+                if (g_charts.Yearly.curr_year === moment ().year ()) {
                     $("#btnNextYearly").addClass ('disabled');
                 }
                 else {
@@ -566,7 +566,7 @@ function loadMonthlyChart () {
                     $("#btnPrevMonthly").removeClass ('disabled');
                 }
                 
-                if (g_charts.Monthly.curr_year === parseInt (moment ().format ('YYYY'))) {
+                if (g_charts.Monthly.curr_year === moment ().year ()) {
                     $("#btnNextMonthly").addClass ('disabled');
                 }
                 else {
