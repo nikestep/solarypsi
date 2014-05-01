@@ -197,7 +197,22 @@ else if ($data['meter_type'] === 'historical') {
                     }
                 ?>
                 <li><a href="#yearly" data-toggle="tab">Yearly Chart</a></li>
-                <li><a href="#monthly" data-toggle="tab">Monthly Usage Chart</a></li>
+                <li>
+                    <a href="#monthly" data-toggle="tab">
+                        <?php
+                            if ($data['meter_type'] === 'historical') {
+                        ?>
+                                Monthly Usage Chart
+                        <?php
+                            }
+                            else {
+                        ?>
+                                Monthly Chart
+                        <?php
+                            }
+                        ?>
+                    </a>
+                </li>
         <?php
             }
         ?>
