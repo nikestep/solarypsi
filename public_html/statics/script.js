@@ -123,6 +123,11 @@ $(function () {
       $(this).tab('show')
     })
     
+    // Show the sleeping alert
+    if (moment ().hours () < 8) {
+        $("#dvSleepingWarning").removeClass ('hide');
+    }
+    
     // Retrieve the weather
     updateWeather ();
     setInterval (function () { updateWeather (); }, 600000);  // 10 minutes

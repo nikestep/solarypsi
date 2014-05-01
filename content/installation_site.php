@@ -234,14 +234,25 @@ else if ($data['meter_type'] === 'historical') {
                             <div class="row">
                                 <div class="col-md-7">
                                     <p>&nbsp;</p>
-                                    <button id="btnPrevDaily" type="button" class="btn btn-default pull-left">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                        Previous Day
-                                    </button>
-                                    <button id="btnNextDaily" type="button" class="btn btn-default pull-right disabled">
-                                        Next Day
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <button id="btnPrevDaily" type="button" class="btn btn-default pull-left">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                Previous Day
+                                            </button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div id="dvSleepingWarning" class="alert alert-warning text-center hide">
+                                                It's early and the panels might still be sleeping!
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <button id="btnNextDaily" type="button" class="btn btn-default pull-right disabled">
+                                                Next Day
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </button>
+                                        </div>
+                                    </div>
                                 </div><!--/.col-md-7 -->
                                 <div class="col-md-5">&nbsp;</div>
                             </div>
