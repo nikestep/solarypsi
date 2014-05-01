@@ -81,30 +81,15 @@ if (isset ($_GET['siteID'])) {
     }
     
     // Format the data for return
-    $data['title'] = "Today";
-    $markings = array ();
-    array_push ($markings, array ('xaxis' => array ('from' => 0,
-                                                    'to' => 0),
-                                  'color' => '#000000'));
-    $data['options'] = array ('series' => array ('lines' => array ('show' => TRUE,
-                                                                    'steps' => FALSE),
-                                                 'bars' => array ('show' => FALSE),
-                                                 'hoverable' => TRUE),
-                              'xaxis' => array ('ticks' => array (),
-                                                  'tickLength' => 0),
-                              'legend' => array ('show' => TRUE,
-                                                   'noColumns' => 3),
-                              'grid' => array ('borderWidth' => 2,
-                                                 'aboveData' => TRUE,
-                                                 'markings' => $markings));
     $data['data'] = array ();
+    $data['x_ticks'] = array ();
     $temp = array ();
     foreach ($raw_data['inflow'] as $idx => $obj) {
         // Push the tick label
         $tick = array ();
         array_push ($tick, $idx);
         array_push ($tick, getTickVal ($idx));
-        array_push ($data['options']['xaxis']['ticks'], $tick);
+        array_push ($data['x_ticks'], $tick);
         
         // Push the data point
         $point = array ();
@@ -112,9 +97,9 @@ if (isset ($_GET['siteID'])) {
         array_push ($point, $obj['value']);
         array_push ($temp, $point);
     }
-    array_push ($data['data'], array ('label' => 'Inflow Meter',
-                                      'color' => '#' . $INFLOW_COLOR,
-                                      'data' => $temp));
+    $data['data']['inflow'] = array ('label' => 'Inflow Meter',
+                                     'color' => '#' . $INFLOW_COLOR,
+                                     'data' => $temp);
     
     $temp = array ();
     foreach ($raw_data['outflow'] as $idx => $obj) {
@@ -124,9 +109,9 @@ if (isset ($_GET['siteID'])) {
         array_push ($point, $obj['value']);
         array_push ($temp, $point);
     }
-    array_push ($data['data'], array ('label' => 'Outflow Meter',
-                                      'color' => '#' . $OUTFLOW_COLOR,
-                                      'data' => $temp));
+    $data['data']['outflow'] =  array ('label' => 'Outflow Meter',
+                                       'color' => '#' . $OUTFLOW_COLOR,
+                                       'data' => $temp);
     
     $temp = array ();
     foreach ($raw_data['generation'] as $idx => $obj) {
@@ -136,9 +121,9 @@ if (isset ($_GET['siteID'])) {
         array_push ($point, $obj['value']);
         array_push ($temp, $point);
     }
-    array_push ($data['data'], array ('label' => 'Generation Meter',
-                                      'color' => '#' . $GENERATION_COLOR,
-                                      'data' => $temp));
+    $data['data']['generation'] =  array ('label' => 'Generation Meter',
+                                          'color' => '#' . $GENERATION_COLOR,
+                                          'data' => $temp);
 }
 else {
     // No site ID and metering type was provided so we cannot load data
