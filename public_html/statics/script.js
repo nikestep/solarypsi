@@ -76,9 +76,34 @@ g_charts = {
     Monthly: {
         plot: null,
         loaded: false,
-        curr_idx: 0,
-        min_idx: 0,
-        max_idx: 4
+        curr_year: parseInt (moment ().format ('YYYY')),
+        options: {
+            series: {
+                stack: 0,
+                lines: {
+                    show: false,
+                    steps: false
+                },
+                bars: {
+                    show: true,
+                    barWidth: 0.9,
+                    align: 'center'
+                },
+                hoverable: true
+            },
+            xaxis: {
+                ticks: [],
+                tickLength: 0
+            },
+            legend: {
+                show: true,
+                noColums: 1
+            },
+            grid: {
+                borderWidth: 2,
+                aboveData: true
+            }
+        }
     }
 };
 
@@ -110,6 +135,7 @@ $(function () {
     if (meter_type === 'enphase') {
         loadDailyChart ();
         loadYearlyChart ();
+        loadMonthlyChart ();
     }
     else if (meter_type === 'historical') {
         g_charts.Yearly.curr_idx = parseInt($("#spnHistoricalEnd").html ());
@@ -150,6 +176,14 @@ function bindEvents () {
     $("#btnNextYearly").on ('click', function (event) {
         g_charts.Yearly.curr_year += 1;
         loadYearlyChart ();
+    });
+    $("#btnPrevMonthly").on ('click', function (event) {
+        g_charts.Monthly.curr_year -= 1;
+        loadMonthlyChart ();
+    });
+    $("#btnNextMonthly").on ('click', function (event) {
+        g_charts.Monthly.curr_year += 1;
+        loadMonthlyChart ();
     });
 
     // If we are on a historical site page, handle clicking a button to change
@@ -458,7 +492,7 @@ function loadYearlyChart () {
                 $("#yearlyTitle").html (g_charts.Yearly.curr_year);
                 
                 // Set the navigation buttons
-                if (g_charts.Yearly.curr_year === 2011) {
+                if (g_charts.Yearly.curr_year === 2008) {
                     $("#btnPrevYearly").addClass ('disabled');
                 }
                 else {
@@ -470,6 +504,58 @@ function loadYearlyChart () {
                 }
                 else {
                     $("#btnNextYearly").removeClass ('disabled');
+                }
+            }
+        },
+        error: function () {
+            alert ('error');
+        }
+    });
+}
+
+
+function loadMonthlyChart () {
+    $.ajax ({
+        url: '/ajax/getMonthlyChartData.php',
+        method: 'GET',
+        data: {
+            siteID: g_site_id,
+            year: g_charts.Monthly.curr_year
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.success !== undefined && data.success) {
+                // Load or update the chart
+                if (!g_charts.Monthly.loaded) {
+                    // Load the chart
+                    g_charts.Monthly.options.xaxis.ticks = data.x_ticks;
+                    g_charts.Monthly.options.legend.container = $("#dvMonthlyChartLegend");
+                    $("#dvMonthlyChartLegend").show ();
+                    g_charts.Monthly.plot = $.plot ($("#dvMonthlyChart"), [data.data.generation], g_charts.Monthly.options);
+                    g_charts.Monthly.loaded = true;
+                }
+                else {
+                    g_charts.Monthly.plot.setData ([data.data.generation]);
+                    g_charts.Monthly.plot.setupGrid ();
+                    g_charts.Monthly.plot.draw ();
+                }
+                
+                // Set the title
+                $("#monthlyTitle").html (g_charts.Monthly.curr_year);
+                
+                // Set the navigation buttons
+                if (g_charts.Monthly.curr_year === 2008) {
+                    $("#btnPrevMonthly").addClass ('disabled');
+                }
+                else {
+                    $("#btnPrevMonthly").removeClass ('disabled');
+                }
+                
+                if (g_charts.Monthly.curr_year === parseInt (moment ().format ('YYYY'))) {
+                    $("#btnNextMonthly").addClass ('disabled');
+                }
+                else {
+                    $("#btnNextMonthly").removeClass ('disabled');
                 }
             }
         },

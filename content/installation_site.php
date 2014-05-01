@@ -317,13 +317,13 @@ else if ($data['meter_type'] === 'historical') {
                     ?>
                 </div><!--/#yearly -->
                 <div class="tab-pane" id="monthly">
-                    <p>
-                        Monthly usage metering of this installation is currently unavailable. The
-                        data below is historical and offered for reference purposes.
-                    </p>
                     <?php
                         if ($data['meter_type'] === 'historical') {
                     ?>
+                            <p>
+                                Monthly usage metering of this installation is currently unavailable. The
+                                data below is historical and offered for reference purposes.
+                            </p>
                             <div class="row">
                                 <div class="col-md-8">
                                     <img id="imgHistMonthly" src="<?php echo '/repository/charts_history/' . $site_id . '/monthly_' . $data['historical_end_year'] . '.png'; ?>"
@@ -348,20 +348,30 @@ else if ($data['meter_type'] === 'historical') {
                         }
                         else {
                     ?>
-                            <div id="dvMonthlyTitle" class="chart-title"></div>
-                            <div id="dvMonthlyChart" class="chart"></div>
-                            <div id="dvMonthlyChartLegend" class="chart-legend"></div>
-                            <div id="dvMonthlyChartControls" class="chart-controls">
-                                <div class="left">
-                                    <div class="container">
-                                        <input id="btnPrevMonthly" type="button" class="chart-control" value="Previous Year" />
-                                    </div>
-                                </div>
-                                <div class="right">
-                                    <div class="container hidden">
-                                        <input id="btnNextMonthly" type="button" class="chart-control" value="Next Year" />
-                                    </div>
-                                </div>
+                            <p>
+                                This chart shows monthly totals of solar production in a given year.
+                            </p>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5 id="monthlyTitle" class="text-center"></h5>
+                                    <div id="dvMonthlyChart" class="chart"></div>
+                                    <div id="dvMonthlyChartLegend" class="chart-legend"></div>
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">&nbsp;</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-7">
+                                    <p>&nbsp;</p>
+                                    <button id="btnPrevMonthly" type="button" class="btn btn-default pull-left">
+                                        <span class="glyphicon glyphicon-chevron-left"></span>
+                                        Previous Year
+                                    </button>
+                                    <button id="btnNextMonthly" type="button" class="btn btn-default pull-right disabled">
+                                        Next Year
+                                        <span class="glyphicon glyphicon-chevron-right"></span>
+                                    </button>
+                                </div><!--/.col-md-7 -->
+                                <div class="col-md-5">&nbsp;</div>
                             </div>
                     <?php
                         }
