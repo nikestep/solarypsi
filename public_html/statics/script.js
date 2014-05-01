@@ -12,8 +12,6 @@ g_charts = {
         plot: null,
         loaded: false,
         curr_date: moment (),
-        min_idx: 0,
-        max_idx: 4,
         options: {
             series: {
                 lines: {
@@ -49,9 +47,31 @@ g_charts = {
     Yearly: {
         plot: null,
         loaded: false,
-        curr_idx: 0,
-        min_idx: 0,
-        max_idx: 4
+        curr_year: parseInt (moment ().format ('YYYY')),
+        options: {
+            series: {
+                lines: {
+                    show: true,
+                    steps: false
+                },
+                bars: {
+                    show: false
+                },
+                hoverable: true
+            },
+            xaxis: {
+                ticks: [],
+                tickLength: 0
+            },
+            legend: {
+                show: true,
+                noColums: 1
+            },
+            grid: {
+                borderWidth: 2,
+                aboveData: true
+            }
+        }
     },
     Monthly: {
         plot: null,
@@ -61,6 +81,7 @@ g_charts = {
         max_idx: 4
     }
 };
+
 
 $(function () {
     // Detect if the map is in view
@@ -88,6 +109,7 @@ $(function () {
     var meter_type = $("#spnMeterType").html ();
     if (meter_type === 'enphase') {
         loadDailyChart ();
+        loadYearlyChart ();
     }
     else if (meter_type === 'historical') {
         g_charts.Yearly.curr_idx = parseInt($("#spnHistoricalEnd").html ());
@@ -120,6 +142,14 @@ function bindEvents () {
     $("#btnNextDaily").on ('click', function (event) {
         g_charts.Daily.curr_date.add ('days', 1);
         loadDailyChart ();
+    });
+    $("#btnPrevYearly").on ('click', function (event) {
+        g_charts.Yearly.curr_year -= 1;
+        loadYearlyChart ();
+    });
+    $("#btnNextYearly").on ('click', function (event) {
+        g_charts.Yearly.curr_year += 1;
+        loadYearlyChart ();
     });
 
     // If we are on a historical site page, handle clicking a button to change
@@ -342,7 +372,6 @@ function loadHistoryChart (type) {
 function loadDailyChart () {
     var currdate = g_charts.Daily.curr_date;
     var startdate = currdate.format ('YYYY-MM-DD');
-    var enphaseAPI = 'https://api.enphaseenergy.com/api/systems/' + $("#spnEnphaseSystemID").html () + '/stats';
     $.ajax ({
         url: '/ajax/getDailyChartData.php',
         method: 'GET',
@@ -363,7 +392,7 @@ function loadDailyChart () {
                     g_charts.Daily.loaded = true;
                 }
                 else {
-                    g_charts.Daily.plot.setData ([data.data[2]]);
+                    g_charts.Daily.plot.setData ([data.data.generation]);
                     g_charts.Daily.plot.setupGrid ();
                     g_charts.Daily.plot.draw ();
                 }
@@ -389,6 +418,58 @@ function loadDailyChart () {
                 }
                 else {
                     $("#btnNextDaily").removeClass ('disabled');
+                }
+            }
+        },
+        error: function () {
+            alert ('error');
+        }
+    });
+}
+
+
+function loadYearlyChart () {
+    $.ajax ({
+        url: '/ajax/getYearlyChartData.php',
+        method: 'GET',
+        data: {
+            siteID: g_site_id,
+            year: g_charts.Yearly.curr_year
+        },
+        dataType: 'json',
+        success: function (data) {
+            if (data.success !== undefined && data.success) {
+                // Load or update the chart
+                if (!g_charts.Yearly.loaded) {
+                    // Load the chart
+                    g_charts.Yearly.options.xaxis.ticks = data.x_ticks;
+                    g_charts.Yearly.options.legend.container = $("#dvYearlyChartLegend");
+                    $("#dvYearlyChartLegend").show ();
+                    g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [data.data.generation], g_charts.Yearly.options);
+                    g_charts.Yearly.loaded = true;
+                }
+                else {
+                    g_charts.Yearly.plot.setData ([data.data.generation]);
+                    g_charts.Yearly.plot.setupGrid ();
+                    g_charts.Yearly.plot.draw ();
+                }
+                
+                // Set the title
+                $("#yearlyTitle").html (g_charts.Yearly.curr_year);
+                
+                // Set the navigation buttons
+                if (g_charts.Yearly.curr_year === 2011) {
+                    $("#btnPrevYearly").addClass ('disabled');
+                }
+                else {
+                    $("#btnPrevYearly").removeClass ('disabled');
+                }
+                
+                if (g_charts.Yearly.curr_year === parseInt (moment ().format ('YYYY'))) {
+                    $("#btnNextYearly").addClass ('disabled');
+                }
+                else {
+                    $("#btnNextYearly").removeClass ('disabled');
                 }
             }
         },
