@@ -75,18 +75,14 @@ $stmt->close ();
 // Get extra parameters if we have a metering type
 if ($data['meter_type'] === 'enphase') {
     $stmt = $db_link->prepare ("SELECT " .
-                               "    system_id, " .
-                               "    api_key, " .
-                               "    num_units " .
+                               "    earliest_date " .
                                "FROM " .
                                "    enphase_system " .
                                "WHERE " .
                                "    site_id=?");
     $stmt->bind_param ('s', $site_id);
     $stmt->execute ();
-    $stmt->bind_result ($data['enphase_system_id'],
-                        $data['enphase_key'],
-                        $data['enphase_num_units']);
+    $stmt->bind_result ($data['earliest_date']);
     $stmt->fetch ();
     $stmt->close ();
 }
@@ -171,9 +167,7 @@ while ($stmt->fetch ()) {
 <?php
 if ($data['meter_type'] === 'enphase') {
 ?>
-    <span id='spnEnphaseSystemID' class='hidden'><?php echo $data['enphase_system_id']; ?></span>
-    <span id='spnEnphaseKey' class='hidden'><?php echo $data['enphase_key']; ?></span>
-    <span id='spnEphaseNumUnits' class='hidden'><?php echo $data['enphase_num_units']; ?></span>
+    <span id='spnEarliestDate' class='hidden'><?php echo $data['earliest_date']; ?></span>
 <?php
 }
 else if ($data['meter_type'] === 'historical') {

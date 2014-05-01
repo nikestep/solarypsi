@@ -12,6 +12,7 @@ g_charts = {
         plot: null,
         loaded: false,
         curr_date: moment (),
+        earliest_date: null,
         options: {
             series: {
                 lines: {
@@ -48,6 +49,7 @@ g_charts = {
         plot: null,
         loaded: false,
         curr_year: parseInt (moment ().format ('YYYY')),
+        min_year: null,
         options: {
             series: {
                 lines: {
@@ -77,6 +79,7 @@ g_charts = {
         plot: null,
         loaded: false,
         curr_year: parseInt (moment ().format ('YYYY')),
+        min_year: null,
         options: {
             series: {
                 stack: 0,
@@ -133,6 +136,13 @@ $(function () {
     // Run chart tasks if necessary
     var meter_type = $("#spnMeterType").html ();
     if (meter_type === 'enphase') {
+        // Calculate minimums for the charts
+        var earliest_date = moment ($("#spnEarliestDate").html (), 'YYYY-MM-DD');
+        g_charts.Daily.earliest_date = earliest_date;
+        g_charts.Yearly.min_year = parseInt (earliest_date.format ('YYYY'));
+        g_charts.Monthly.min_year = g_charts.Yearly.min_year;
+        
+        // Build the charts
         loadDailyChart ();
         loadYearlyChart ();
         loadMonthlyChart ();
@@ -440,7 +450,7 @@ function loadDailyChart () {
                 }
                 
                 // Set the navigation buttons
-                if (g_charts.Daily.curr_date.isSame (moment ('2014-01-01', 'day'))) {
+                if (g_charts.Daily.curr_date.isSame (g_charts.Daily.earliest_date, 'day')) {
                     $("#btnPrevDaily").addClass ('disabled');
                 }
                 else {
@@ -492,7 +502,7 @@ function loadYearlyChart () {
                 $("#yearlyTitle").html (g_charts.Yearly.curr_year);
                 
                 // Set the navigation buttons
-                if (g_charts.Yearly.curr_year === 2008) {
+                if (g_charts.Yearly.curr_year === g_charts.Yearly.min_year) {
                     $("#btnPrevYearly").addClass ('disabled');
                 }
                 else {
@@ -544,7 +554,7 @@ function loadMonthlyChart () {
                 $("#monthlyTitle").html (g_charts.Monthly.curr_year);
                 
                 // Set the navigation buttons
-                if (g_charts.Monthly.curr_year === 2008) {
+                if (g_charts.Monthly.curr_year === g_charts.Monthly.min_year) {
                     $("#btnPrevMonthly").addClass ('disabled');
                 }
                 else {
