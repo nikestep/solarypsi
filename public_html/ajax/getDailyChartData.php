@@ -121,7 +121,7 @@ if (isset ($_GET['siteID'])) {
         array_push ($point, $obj['value']);
         array_push ($temp, $point);
     }
-    $data['data']['generation'] =  array ('label' => 'Generation Meter',
+    $data['data']['generation'] =  array ('label' => 'Solar Panel Output',
                                           'color' => '#' . $GENERATION_COLOR,
                                           'data' => $temp);
 }
