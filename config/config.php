@@ -19,6 +19,8 @@ $DB_SOCKET = NULL;
 
 // Forecast.io settings
 $FORECAST_IO_API_KEY = '';
+$SITE_WEATHER_LATITUDE = 0;
+$SITE_WEATHER_LONGITUDE = 0;
 
 // File repository settings
 $REPOS_PATH_TO_PUBLIC_HTML = "/home/solaryps/public_html";

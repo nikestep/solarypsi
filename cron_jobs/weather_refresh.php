@@ -1,29 +1,48 @@
 <?php
+function translate_to_css_style ($icon) {
+    switch ($icon) {
+        case 'clear-day':
+            return 'wi-day-sunny';
+        case 'clear-night':
+            return 'wi-night-clear';
+        case 'rain':
+            return 'wi-showers';
+        case 'snow':
+            return 'wi-snow';
+        case 'sleet':
+            return 'wi-snow';
+        case 'wind':
+            return 'wi-day-cloudy-gusts';
+        case 'fog':
+            return 'wi-fog';
+        case 'cloudy':
+            return 'wi-cloudy';
+        case 'partly-cloudy-day':
+            return 'wi-day-sunny-overcast';
+        case 'partly-cloudy-night':
+            return 'wi-night-cloudy';
+        default:
+            return 'wi-cloudy';
+    }
+}
+
 // Array to hold the data points
 $data_points = array ();
 
-// Open the stream to the Yahoo! weather RSS feed
-$fp = fopen ("http://weather.yahooapis.com/forecastrss?p=48197", "r") or die ("Cannot read RSS data file.");
+// Retrieve the data from the internets
+$url = 'https://api.forecast.io/forecast/' . $FORECAST_IO_API_KEY . '/' .
+       $SITE_WEATHER_LATITUDE . ',' . $SITE_WEATHER_LONGITUDE;
+$str = file_get_contents ($url);
 
-// Parse the temperature and weather type image URL
-$data = fread ($fp, 1000000);
-$data = preg_split ("/\<img/", $data);
+// Parse JSON
+$json = json_decode ($str, TRUE);
 
-$data2 = $data[0];
-$data2 = preg_split ("/yweather:condition/", $data2);
-$temp = preg_split ("/temp=/", $data2[1]);
-$temp = preg_split ('/"/', $temp[1]);
-$data_points['currTemp'] = $temp[1];
-
-$imgURL = $data[1];
-$imgURL = preg_split ('/"/', $imgURL);
-$data_points['imageURL'] = $imgURL[1];
-
-// Close the stream
-fclose ($fp);
+// Load data points
+$data_points['curr_temp'] = intVal ($json['currently']['temperature']);
+$data_points['icon_class'] = translate_to_css_style ($json['currently']['icon']);
 
 // If we got both data points, update the JSON file
-if ($data_points['currTemp'] != '' && $data_points['imageURL'] != '') {
+if ($data_points['curr_temp'] != '' && $data_points['icon_class'] != '') {
     $fp = fopen ("../statics_html/json/weather.json", "w");
     fwrite ($fp, "jsonpSYWCallback(");
     fwrite ($fp, json_encode ($data_points));

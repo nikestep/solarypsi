@@ -78,6 +78,7 @@ if (isset ($_GET['siteID'])) {
         
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/jquery.fancybox.css" />
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/weather-icons.min.css" />
         <link rel="stylesheet" type="text/css" href="/statics/style.css" />
         
         <!-- Bookmark Icon -->
@@ -114,10 +115,9 @@ if (isset ($_GET['siteID'])) {
                             <li><a href="/blog" target="_blank">Blog</a></li>
                         </ul>
                         <div class="col-sm-3 col-md-3 pull-right">
-                            <img id="imgWeatherImg" src="/statics/images/blank.png" alt="Weather"
-                                 style="height: 50px; width: 50px;" />
+                            <i id="iWeatherIcon"></i>
                             <span id="spnWeatherTemp"></span>
-                            - Ypsilanti, MI
+                            <i class="wi-fahrenheit"></i> - Ypsilanti, MI
                         </div>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container -->

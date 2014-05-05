@@ -66,6 +66,11 @@
         width: 49.5%;
     }
 
+.weather-icon-sizer {
+    font-size: 250%;
+    vertical-align: middle;
+}
+
 html,
 body {
     background: #FFFFFF;

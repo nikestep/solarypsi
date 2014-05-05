@@ -293,11 +293,13 @@ function updateWeather () {
         dataType: 'jsonp',
         jsonpCallback: 'jsonpSYWCallback',
         success: function (data) {
-            if (data.currTemp) {
-                $("#spnWeatherTemp").html (data.currTemp + '&deg; F');
+            if (data.curr_temp) {
+                $("#spnWeatherTemp").html (data.curr_temp);
             }
-            if (data.imageURL) {
-                $("#imgWeatherImg").attr ('src', data.imageURL);
+            if (data.icon_class) {
+                $("#iWeatherIcon").removeClass ();
+                $("#iWeatherIcon").addClass ('weather-icon-sizer');
+                $("#iWeatherIcon").addClass (data.icon_class);
             }
         }
     });
