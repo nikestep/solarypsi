@@ -21,6 +21,12 @@ function formatInstallationType ($type) {
     }
 }
 
+function formatMeteringType ($type) {
+    switch ($type) {
+        case 'enphase': return "<a href='https://enphase.com' target='_blank'>Enphase Energy</a>";
+    }
+}
+
 function getFiletypeClass ($path) {
     $ext = substr ($path, -4);
     
@@ -240,11 +246,35 @@ else if ($data['meter_type'] === 'historical') {
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5 id="dailyTitle" class="text-center"></h5>
+                                    <h3 id="dailyTitle" class="text-center"></h3>
                                     <div id="dvDailyChart" class="chart"></div>
                                     <div id="dvDailyChartLegend" class="chart-legend"></div>
                                 </div><!--/.col-md-8 -->
-                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <h3>Data Source</h3>
+                                        <p class='daily-weather-sizer'>
+                                            <?php echo formatMeteringType ($data['meter_type']); ?>
+                                        </p>
+                                        <h3>Weather</h3>
+                                        <p class='daily-weather-sizer'>
+                                            <i id="iDailyWeatherIcon"></i>&nbsp;&nbsp;&nbsp;
+                                            <i class='glyphicon glyphicon-chevron-down'></i>
+                                            <span id="spnDailyTempMin"></span>
+                                            <i class="wi-fahrenheit"></i>&nbsp; &nbsp;
+                                            <i class='glyphicon glyphicon-chevron-up'></i>
+                                            <span id="spnDailyTempMax"></span>
+                                            <i class="wi-fahrenheit"></i>
+                                        </p>
+                                        <p>
+                                            <a href="http://forecast.io/">
+                                                <span class="label label-primary" target="_blank">
+                                                    Powered by Forecast.io
+                                                </span>
+                                            </a>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-7">

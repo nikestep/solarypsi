@@ -70,6 +70,9 @@
     font-size: 250%;
     vertical-align: middle;
 }
+.daily-weather-sizer {
+    font-size: 150%;
+}
 
 html,
 body {

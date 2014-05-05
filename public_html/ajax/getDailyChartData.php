@@ -1,4 +1,31 @@
 <?php
+function translate_to_css_style ($icon) {
+    switch ($icon) {
+        case 'clear-day':
+            return 'wi-day-sunny';
+        case 'clear-night':
+            return 'wi-night-clear';
+        case 'rain':
+            return 'wi-showers';
+        case 'snow':
+            return 'wi-snow';
+        case 'sleet':
+            return 'wi-snow';
+        case 'wind':
+            return 'wi-day-cloudy-gusts';
+        case 'fog':
+            return 'wi-fog';
+        case 'cloudy':
+            return 'wi-cloudy';
+        case 'partly-cloudy-day':
+            return 'wi-day-sunny-overcast';
+        case 'partly-cloudy-night':
+            return 'wi-night-cloudy';
+        default:
+            return 'wi-cloudy';
+    }
+}
+
 // Include the configuration file and shared methods file
 include ('/home/solaryps/config/config.php');
 
@@ -66,6 +93,7 @@ if (isset ($_GET['siteID'])) {
         $idx += 1;
         $last_point_index = $point_index;
     }
+    $stmt->close ();
 
     // Pad end (will only execute if necessary)
     while ($idx < 288) {
@@ -124,6 +152,39 @@ if (isset ($_GET['siteID'])) {
     $data['data']['generation'] =  array ('label' => 'Solar Panel Output',
                                           'color' => '#' . $GENERATION_COLOR,
                                           'data' => $temp);
+    
+    // Get weather data
+    $stmt = $db_link->prepare ("SELECT " .
+                               "    sunrise_hour, " .
+                               "    sunrise_minute, " .
+                               "    noon_hour, " .
+                               "    noon_minute, " .
+                               "    sunset_hour, " .
+                               "    sunset_minute, " .
+                               "    icon, " .
+                               "    temperature_min, " .
+                               "    temperature_max " .
+                               "FROM " .
+                               "    weather_data " .
+                               "WHERE " .
+                               "    site_id = ? " .
+                               "  AND " .
+                               "    day = ?");
+    $stmt->bind_param ('ss', $_GET['siteID'], $date);
+    $stmt->execute ();
+    $stmt->bind_result ($sunrise_hour, $sunrise_minute,
+                        $noon_hour, $noon_minute,
+                        $sunset_hour, $sunset_minute,
+                        $icon,
+                        $temp_min, $temp_max);
+    $stmt->fetch ();
+    $stmt->close ();
+    
+    $data['sunrise'] = Array ('hour' => $sunrise_hour, 'minute' => $sunrise_minute);
+    $data['noon'] = Array ('hour' => $noon_hour, 'minute' => $noon_minute);
+    $data['sunset'] = Array ('hour' => $sunset_hour, 'minute' => $sunset_minute);
+    $data['icon_class'] = translate_to_css_style ($icon);
+    $data['temps'] = Array ('min' => $temp_min, 'max' => $temp_max);
 }
 else {
     // No site ID and metering type was provided so we cannot load data

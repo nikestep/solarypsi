@@ -456,6 +456,13 @@ function loadDailyChart () {
                     $("#dailyTitle").html (g_charts.Daily.curr_date.format ('MMMM D, YYYY'));
                 }
                 
+                // Set the weather
+                $("#iDailyWeatherIcon").removeClass ();
+                $("#iDailyWeatherIcon").addClass ('weather-icon-sizer');
+                $("#iDailyWeatherIcon").addClass (data.icon_class);
+                $("#spnDailyTempMin").html (data.temps.min);
+                $("#spnDailyTempMax").html (data.temps.max);
+                
                 // Set the navigation buttons
                 if (g_charts.Daily.curr_date.isSame (g_charts.Daily.earliest_date, 'day')) {
                     $("#btnPrevDaily").addClass ('disabled');
