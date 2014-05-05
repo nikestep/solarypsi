@@ -212,19 +212,29 @@ CREATE TABLE IF NOT EXISTS `site_resource` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `sun_time`
+-- Table structure for table `weather_data`
 --
 
-CREATE TABLE IF NOT EXISTS `sun_time` (
-  `group_id` varchar(16) NOT NULL,
-  `day` date NOT NULL,
+CREATE TABLE IF NOT EXISTS `weather_data` (
+  `site_id` varchar(16) NOT NULL,
+  `day` varchar(10) NOT NULL,
   `sunrise_hour` tinyint(3) unsigned NOT NULL,
   `sunrise_minute` tinyint(3) unsigned NOT NULL,
   `noon_hour` tinyint(3) unsigned NOT NULL,
   `noon_minute` tinyint(3) unsigned NOT NULL,
   `sunset_hour` tinyint(3) unsigned NOT NULL,
   `sunset_minute` tinyint(3) unsigned NOT NULL,
-  PRIMARY KEY (`group_id`,`day`)
+  `description` varchar(128) NOT NULL,
+  `icon` varchar(64) NOT NULL,
+  `temperature_min` smallint(6) NOT NULL,
+  `temperature_min_time` varchar(10) NOT NULL,
+  `temperature_max` smallint(6) NOT NULL,
+  `temperature_max_time` varchar(10) NOT NULL,
+  `apparent_temperature_min` smallint(6) NOT NULL,
+  `apparent_temperature_min_time` varchar(10) NOT NULL,
+  `apparent_temperature_max` smallint(6) NOT NULL,
+  `apparent_temperature_max_time` varchar(10) NOT NULL,
+  PRIMARY KEY (`site_id`,`day`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -294,6 +304,12 @@ ALTER TABLE `site_info`
 --
 ALTER TABLE `site_resource`
   ADD CONSTRAINT `site_resource_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `weather_data`
+--
+ALTER TABLE `weather_data`
+  ADD CONSTRAINT `weather_data_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

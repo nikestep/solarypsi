@@ -17,6 +17,9 @@ $DB_PASSWORD = 'db_password';
 $DB_PORT = 3306;
 $DB_SOCKET = NULL;
 
+// Forecast.io settings
+$FORECAST_IO_API_KEY = '';
+
 // File repository settings
 $REPOS_PATH_TO_PUBLIC_HTML = "/home/solaryps/public_html";
 $REPOS_ROOT_PATH = "/";
