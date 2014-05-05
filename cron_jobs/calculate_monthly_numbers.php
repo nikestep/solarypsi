@@ -52,8 +52,6 @@ else {
 // Store the new calculations
 if ($success) {
     foreach ($systems as $site_id => $vals) {
-        error_log ($site_id);
-        error_log ($vals);
         $stmt_inner = $db_link->prepare ("INSERT INTO " .
                                          "    data_monthly " .
                                          "VALUES " .
