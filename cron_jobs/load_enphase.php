@@ -115,7 +115,7 @@ if ($success) {
                     $stmt_inner->bind_param ('ss', $site_id, $date_str);
                     if (!$stmt_inner->execute ()) {
                         $job_result = 'Error';
-                        $job_msg = '112 ' . $db_link->error;
+                        $job_msg = '118 ' . $db_link->error;
                         $success = False;
                         break;
                     }
@@ -123,7 +123,7 @@ if ($success) {
                 }
                 else if ($success) {
                     $job_result = 'Error';
-                    $job_msg = '120 ' . $db_link->error;
+                    $job_msg = '126 ' . $db_link->error;
                     $success = false;
                     break;
                 }
@@ -152,7 +152,7 @@ if ($success) {
                                                               $vals['inflow_free']);
                         if (!$stmt_inner->execute ()) {
                             $job_result = 'Error';
-                            $job_msg = '149 ' . $db_link->error;
+                            $job_msg = '155 ' . $db_link->error;
                             $success = false;
                             break;
                         }
@@ -161,7 +161,7 @@ if ($success) {
                 }
                 else if ($success) {
                     $job_result = 'Error';
-                    $job_msg = '158 ' . $db_link->error;
+                    $job_msg = '164 ' . $db_link->error;
                     $success = false;
                     break;
                 }
@@ -169,7 +169,7 @@ if ($success) {
         }
         else if ($success) {
             $job_result = 'Error';
-            $job_msg = '166 ' . $system_id . ' ' . $db_link->error;
+            $job_msg = '172 ' . $system_id . ' ' . $db_link->error;
             $success = false;
             break;
         }

@@ -64,7 +64,7 @@ if ($success) {
                                            $vals['generation']);
         if (!$stmt_inner->execute ()) {
             $job_result = 'Error';
-            $job_msg = '69 ' . $db_link->error;
+            $job_msg = '67 ' . $db_link->error;
             $success = false;
         }
     }

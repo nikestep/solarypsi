@@ -17,7 +17,7 @@ if ($stmt_inner = $db_link->prepare ("SELECT " .
                                      "    api_key")) {
     if (!$stmt_inner->execute ()) {
         $job_result = 'Error';
-        $job_msg = '19 ' . $db_link->error;
+        $job_msg = '20 ' . $db_link->error;
         $success = False;
     }
     else {
@@ -30,7 +30,7 @@ if ($stmt_inner = $db_link->prepare ("SELECT " .
 }
 else {
     $job_result = 'Error';
-    $job_msg = '32 ' . $db_link->error;
+    $job_msg = '33 ' . $db_link->error;
     $success = false;
 }
 
@@ -101,7 +101,7 @@ if ($success) {
                                                         $enwh);
                     if (!$stmt_inner->execute ()) {
                         $job_result = 'Error';
-                        $job_msg = '99 ' . $db_link->error;
+                        $job_msg = '104 ' . $db_link->error;
                         $success = false;
                         break;
                     }
@@ -109,7 +109,7 @@ if ($success) {
                 }
                 else if ($success) {
                     $job_result = 'Error';
-                    $job_msg = '107 ' . $db_link->error;
+                    $job_msg = '112 ' . $db_link->error;
                     $success = false;
                     break;
                 }
@@ -117,7 +117,7 @@ if ($success) {
         }
         else if ($success) {
             $job_result = 'Error';
-            $job_msg = '115 ' . $system_id . ' ' . $db_link->error;
+            $job_msg = '120 ' . $system_id . ' ' . $db_link->error;
             $success = false;
             break;
         }

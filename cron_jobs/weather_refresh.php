@@ -33,6 +33,6 @@ if ($data_points['currTemp'] != '' && $data_points['imageURL'] != '') {
 }
 else {
     $job_result = 'Error';
-    $job_msg = 'Unable to collect data points';
+    $job_msg = '36 Unable to collect data points';
 }
 ?>

@@ -6,7 +6,7 @@ if ($stmt_inner = $db_link->prepare ("DELETE FROM " .
                                      "    run_time < NOW() - INTERVAL 1 WEEK")) {
     if (!$stmt_inner->execute ()) {
            $job_result = 'Error';
-           $job_msg = $db_link->error;
+           $job_msg = '9 ' . $db_link->error;
     }
     else {
         $job_result = 'Success';
@@ -16,6 +16,6 @@ if ($stmt_inner = $db_link->prepare ("DELETE FROM " .
 }
 else {
     $job_result = 'Error';
-    $job_msg = $db_link->error;
+    $job_msg = '19 ' . $db_link->error;
 }
 ?>
