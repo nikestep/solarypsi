@@ -91,6 +91,8 @@ if ($data['meter_type'] === 'enphase') {
     $stmt->bind_result ($data['earliest_date']);
     $stmt->fetch ();
     $stmt->close ();
+    $temp = new DateTime ($data['earliest_date']);
+    $data['earliest_date'] = $temp->format ('F j, Y');
 }
 else if ($data['meter_type'] === 'historical') {
     $stmt = $db_link->prepare ("SELECT " .
@@ -256,7 +258,19 @@ else if ($data['meter_type'] === 'historical') {
                                         <p class='daily-weather-sizer'>
                                             <?php echo formatMeteringType ($data['meter_type']); ?>
                                         </p>
+                                        <p class='daily-weather-sizer'>
+                                            Data back until <?php echo $data['earliest_date']; ?>
+                                        </p>
                                         <h3>Weather</h3>
+                                        <p class='daily-weather-sizer'>
+                                            Sunrise at <span id="spnSunrise"></span>
+                                        </p>
+                                        <p class='daily-weather-sizer'>
+                                            Solar noon at <span id="spnNoon"></span>
+                                        </p>
+                                        <p class='daily-weather-sizer'>
+                                            Sunset at <span id="spnSunset"></span>
+                                        </p>
                                         <p class='daily-weather-sizer'>
                                             <i id="iDailyWeatherIcon"></i>&nbsp;&nbsp;&nbsp;
                                             <i class='glyphicon glyphicon-chevron-down'></i>

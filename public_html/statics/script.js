@@ -456,6 +456,11 @@ function loadDailyChart () {
                     $("#dailyTitle").html (g_charts.Daily.curr_date.format ('MMMM D, YYYY'));
                 }
                 
+                // Set the sun
+                $("#spnSunrise").html (formatTime (data.sunrise));
+                $("#spnNoon").html (formatTime (data.noon));
+                $("#spnSunset").html (formatTime (data.sunset));
+                
                 // Set the weather
                 $("#iDailyWeatherIcon").removeClass ();
                 $("#iDailyWeatherIcon").addClass ('weather-icon-sizer');
@@ -650,4 +655,24 @@ function rationalizeWatts (watts) {
     else {
         return watts + 'W';
     }
+}
+
+
+function formatTime (obj) {
+    var ampm = ' am';
+    if (obj.hour > 11) {
+        ampm = ' pm';
+    }
+    
+    var mins = '' + obj.minute;
+    if (obj.minute < 10) {
+        mins = '0' + mins;
+    }
+    
+    var hours = '' + obj.hour;
+    if (obj.hour > 12) {
+        hours = '' + (obj.hour - 12);
+    }
+    
+    return hours + ':' + mins + ampm;
 }
