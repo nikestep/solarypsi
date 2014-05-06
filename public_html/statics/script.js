@@ -28,6 +28,7 @@ g_charts = {
                 ticks: [],
                 tickLength: 0
             },
+            yaxis: {},
             legend: {
                 show: true,
                 noColums: 1
@@ -437,6 +438,8 @@ function loadDailyChart () {
                 if (!g_charts.Daily.loaded) {
                     // Load the chart
                     g_charts.Daily.options.xaxis.ticks = data.x_ticks;
+                    g_charts.Daily.options.yaxis.min = 0;
+                    g_charts.Daily.options.yaxis.max = data.max_y;
                     g_charts.Daily.options.legend.container = $("#dvDailyChartLegend");
                     $("#dvDailyChartLegend").show ();
                     g_charts.Daily.plot = $.plot ($("#dvDailyChart"), [data.data.generation], g_charts.Daily.options);

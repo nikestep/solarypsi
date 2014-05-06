@@ -183,6 +183,7 @@ CREATE TABLE IF NOT EXISTS `site_info` (
   `max_kw` float NOT NULL DEFAULT '0',
   `meter_type` enum('none','solarypsi','enphase','historical') DEFAULT 'none',
   `qr_code` varchar(16) NOT NULL,
+  `max_y_axis` smallint unsigned ZEROFILL NULL,
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 

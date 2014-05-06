@@ -185,6 +185,21 @@ if (isset ($_GET['siteID'])) {
     $data['sunset'] = Array ('hour' => $sunset_hour, 'minute' => $sunset_minute);
     $data['icon_class'] = translate_to_css_style ($icon);
     $data['temps'] = Array ('min' => $temp_min, 'max' => $temp_max);
+    
+    // Get y-axis
+    $stmt = $db_link->prepare ("SELECT " .
+                               "    max_y_axis " .
+                               "FROM " .
+                               "    site_info " .
+                               "WHERE " .
+                               "    site_id = ?");
+    $stmt->bind_param ('s', $_GET['siteID']);
+    $stmt->execute ();
+    $stmt->bind_result ($max_y);
+    $stmt->fetch ();
+    $stmt->close ();
+    
+    $data['max_y'] = $max_y;
 }
 else {
     // No site ID and metering type was provided so we cannot load data
