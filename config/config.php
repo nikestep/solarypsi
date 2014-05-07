@@ -22,6 +22,11 @@ $FORECAST_IO_API_KEY = '';
 $SITE_WEATHER_LATITUDE = 0;
 $SITE_WEATHER_LONGITUDE = 0;
 
+// Google Analytics settings
+$GA_TRACK_ID = '';
+$GA_QR_TRACK_ID = '';
+$GA_DOMAIN = 'example.com';
+
 // File repository settings
 $REPOS_PATH_TO_PUBLIC_HTML = "/home/solaryps/public_html";
 $REPOS_ROOT_PATH = "/";

@@ -190,7 +190,7 @@ if (isset ($_GET['siteID'])) {
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', 'UA-8609577-1', 'ypsi.com');
+            ga('create', '<?php echo $GA_TRACK_ID; ?>', '<?php echo $GA_DOMAIN; ?>');
             ga('send', 'pageview');
         </script>
     </body>
