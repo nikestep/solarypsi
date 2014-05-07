@@ -13,7 +13,7 @@ $db_link = new mysqli ($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE, $DB
 		
 		<meta charset="UTF-8" />
 		
-		<script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-1.9.1.min.js"></script>
+		<script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-1.11.1.min.js"></script>
 		<script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-ui-1.10.1.custom.min.js"></script>
 		<script type="text/javascript" src="http://statics.solar.ypsi.com/js/jwysiwyg/jquery.wysiwyg.js"></script>
 		<script type="text/javascript" src="http://statics.solar.ypsi.com/js/jwysiwyg/controls/wysiwyg.colorpicker.js"></script>

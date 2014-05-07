@@ -43,7 +43,7 @@ if (isset ($_GET['siteID'])) {
         <meta charset="UTF-8" />
         
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
-        <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-1.11.1.min.js"></script>
         <script type="text/javascript" src="http://statics.solar.ypsi.com/js/bootstrap.min.js"></script>
         <script type="text/javascript" src="http://statics.solar.ypsi.com/js/moment.min.js"></script>
         
