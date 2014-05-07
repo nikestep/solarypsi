@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.0.8
+-- version 4.1.8
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Feb 18, 2014 at 08:35 AM
+-- Generation Time: May 06, 2014 at 10:09 PM
 -- Server version: 5.5.32-cll-lve
--- PHP Version: 5.3.17
+-- PHP Version: 5.4.23
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -19,22 +19,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `solaryps_data`
 --
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cache_time`
---
-
-CREATE TABLE IF NOT EXISTS `cache_time` (
-  `site_id` varchar(32) NOT NULL,
-  `daily` datetime NOT NULL,
-  `weekly` datetime NOT NULL,
-  `yearly` date NOT NULL,
-  `combined` date NOT NULL,
-  `last_two_line` varchar(32) NOT NULL,
-  PRIMARY KEY (`site_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -103,12 +87,30 @@ CREATE TABLE IF NOT EXISTS `data_monthly` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `data_weekly`
+--
+
+CREATE TABLE IF NOT EXISTS `data_weekly` (
+  `site_id` varchar(16) NOT NULL,
+  `point_date` date NOT NULL,
+  `point_index` tinyint(3) unsigned NOT NULL,
+  `inflow` float DEFAULT NULL,
+  `outflow` float DEFAULT NULL,
+  `generation` float DEFAULT NULL,
+  PRIMARY KEY (`site_id`,`point_date`,`point_index`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `data_yearly`
 --
 
 CREATE TABLE IF NOT EXISTS `data_yearly` (
   `site_id` varchar(16) NOT NULL,
   `point_date` date NOT NULL,
+  `point_year` int(11) NOT NULL,
+  `point_month` int(11) NOT NULL,
   `inflow` float DEFAULT NULL,
   `outflow` float DEFAULT NULL,
   `generation` float DEFAULT NULL,
@@ -123,9 +125,10 @@ CREATE TABLE IF NOT EXISTS `data_yearly` (
 
 CREATE TABLE IF NOT EXISTS `enphase_system` (
   `site_id` varchar(16) NOT NULL,
+  `earliest_date` varchar(10) NOT NULL,
   `system_id` varchar(8) NOT NULL,
   `api_key` varchar(64) NOT NULL,
-  `num_units` int(11) NOT NULL,
+  `num_units` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -141,6 +144,20 @@ CREATE TABLE IF NOT EXISTS `historical_system` (
   `end_year` int(11) NOT NULL,
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `images_to_convert`
+--
+
+CREATE TABLE IF NOT EXISTS `images_to_convert` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `path` varchar(512) NOT NULL,
+  `thumb_width` int(11) NOT NULL,
+  `thumb_height` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 -- --------------------------------------------------------
 
@@ -182,8 +199,8 @@ CREATE TABLE IF NOT EXISTS `site_info` (
   `max_wh` int(11) NOT NULL DEFAULT '0',
   `max_kw` float NOT NULL DEFAULT '0',
   `meter_type` enum('none','solarypsi','enphase','historical') DEFAULT 'none',
-  `qr_code` varchar(16) NOT NULL,
-  `max_y_axis` smallint unsigned ZEROFILL NULL,
+  `qr_code` varchar(16) DEFAULT NULL,
+  `max_y_axis` smallint(5) unsigned zerofill DEFAULT NULL,
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -208,7 +225,7 @@ CREATE TABLE IF NOT EXISTS `site_resource` (
   `deleted` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `idx_resource_display` (`site_id`,`deleted`,`res_type`,`disp_order`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=741 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=778 ;
 
 -- --------------------------------------------------------
 
@@ -254,15 +271,25 @@ CREATE TABLE IF NOT EXISTS `website_link` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `website_presentation`
+--
+
+CREATE TABLE IF NOT EXISTS `website_presentation` (
+  `id` tinyint(3) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(128) NOT NULL,
+  `pres_type` enum('file','video') NOT NULL,
+  `pres_path` varchar(512) NOT NULL,
+  `file_type` enum('external','flash') NOT NULL DEFAULT 'external',
+  `preview_image_path` varchar(512) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `cache_time`
---
-ALTER TABLE `cache_time`
-  ADD CONSTRAINT `cache_time_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `data_daily`
@@ -275,6 +302,12 @@ ALTER TABLE `data_daily`
 --
 ALTER TABLE `data_monthly`
   ADD CONSTRAINT `data_monthly_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`);
+
+--
+-- Constraints for table `data_weekly`
+--
+ALTER TABLE `data_weekly`
+  ADD CONSTRAINT `data_weekly_ibfk_2` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`);
 
 --
 -- Constraints for table `data_yearly`
