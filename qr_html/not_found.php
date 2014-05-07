@@ -8,6 +8,10 @@ include ('/home/solaryps/config/config.php');
         <title>SolarYpsi | Ypsilanti, Michigan</title>
         
         <meta charset="UTF-8" />
+        
+        <!-- Bookmark Icon -->
+        <link rel='shortcut icon' href='http://statics.solar.ypsi.com/images/icon.png' />
+        
         <!-- Google Analytics tacking code -->
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
