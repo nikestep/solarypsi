@@ -134,7 +134,9 @@ $(function () {
     setInterval (function () { updateWeather (); }, 900000);  // 15 minutes
     
     // Build the pie charts
-    buildPieCharts ();
+    if ($("#dvPieSites").length === 1) {
+        buildPieCharts ();
+    }
     
     // Bind DOM events
     bindEvents ();
