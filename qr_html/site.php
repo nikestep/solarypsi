@@ -78,10 +78,8 @@ else {
         
         <!-- Bookmark Icon -->
         <link rel='shortcut icon' href='http://statics.solar.ypsi.com/images/icon.png' />
-    </head>
-    <body>
-        <h1><?php echo $desc; ?></h1>
-        <div id="player"></div>
+        
+        <!-- Google Analytics tacking code -->
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -92,5 +90,9 @@ else {
             ga('send', 'pageview');
 
         </script>
+    </head>
+    <body>
+        <h1><?php echo $desc; ?></h1>
+        <div id="player"></div>
     </body>
 </html>

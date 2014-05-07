@@ -83,6 +83,17 @@ if (isset ($_GET['siteID'])) {
         
         <!-- Bookmark Icon -->
         <link rel='shortcut icon' href='http://statics.solar.ypsi.com/images/icon.png' />
+        
+        <!-- Google Analytics tracking code -->
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+            ga('create', '<?php echo $GA_TRACK_ID; ?>', '<?php echo $GA_DOMAIN; ?>');
+            ga('send', 'pageview');
+        </script>
     </head>
     <body>
         <!-- Wrap all page content here -->
@@ -183,16 +194,6 @@ if (isset ($_GET['siteID'])) {
                 </p>
             </div><!--/.container -->
         </div><!--/.footer -->
-
-        <script>
-            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-            })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-            ga('create', '<?php echo $GA_TRACK_ID; ?>', '<?php echo $GA_DOMAIN; ?>');
-            ga('send', 'pageview');
-        </script>
     </body>
 </html>
 
