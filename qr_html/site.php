@@ -24,21 +24,20 @@ if (isset ($_GET['siteID'])) {
                                "    site.id=?");
     $stmt->bind_param ('s', $site_id);
     $stmt->execute ();
-    $stmt->bind_result ($desc,
-                        $video_id);
+    $stmt->bind_result ($desc, $video_id);
     $stmt->fetch ();
     $stmt->close ();
     
     // Close the database connection
     $db_link->close ();
     
-    if ($video_id === '') {
-        header ('Location: http://qr.solar.ypsi.com/not_found.html');
+    if ($video_id === '' || $video_id === null) {
+        header ('Location: http://qr.solar.ypsi.com/not_found.php');
         exit();
     }
 }
 else {
-    header ('Location: http://qr.solar.ypsi.com/not_found.html');
+    header ('Location: http://qr.solar.ypsi.com/not_found.php');
     exit();
 }
 ?>
@@ -88,7 +87,6 @@ else {
 
             ga('create', '<?php echo $GA_QR_TRACK_ID; ?>', '<?php echo $GA_DOMAIN; ?>');
             ga('send', 'pageview');
-
         </script>
     </head>
     <body>
