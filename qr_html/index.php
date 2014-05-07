@@ -69,10 +69,12 @@ $db_link->close ();
                     foreach ($sites as $site_id => $desc) {
                 ?>
                         <p>
-                            <button type="button" class="btn btn-default form-control">
-                                <a href="http://qr.solar.ypsi.com/installations/<?php echo $site_id; ?>">
+                            
+                            <a href="http://qr.solar.ypsi.com/installations/<?php echo $site_id; ?>">
+                                <button type="button" class="btn btn-default form-control">
                                     <?php echo $desc; ?>
-                            </button>
+                                </button>
+                            </a>
                         </p>
                 <?php
                     }
