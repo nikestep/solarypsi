@@ -59,6 +59,13 @@ $db_link->close ();
                     The following sites have videos.
                 </p>
                 <?php
+                    if (isset ($_GET['notfound'])) {
+                ?>
+                        <div class="alert alert-danger">Requested site not found</div>
+                <?php
+                    }
+                ?>
+                <?php
                     foreach ($sites as $site_id => $desc) {
                 ?>
                         <p>

@@ -32,12 +32,12 @@ if (isset ($_GET['siteID'])) {
     $db_link->close ();
     
     if ($video_id === '' || $video_id === null) {
-        header ('Location: http://qr.solar.ypsi.com/not_found.php');
+        header ('Location: http://qr.solar.ypsi.com/index.php?notfound');
         exit();
     }
 }
 else {
-    header ('Location: http://qr.solar.ypsi.com/not_found.php');
+    header ('Location: http://qr.solar.ypsi.com/index.php?notfound');
     exit();
 }
 ?>
