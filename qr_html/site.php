@@ -49,6 +49,8 @@ else {
         
         <meta charset="UTF-8" />
         
+        <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/bootstrap.min.css" />
+        
         <script type="application/x-javascript" src="https://www.youtube.com/iframe_api"></script>
         <script type="application/x-javascript">
             var player;
@@ -90,7 +92,12 @@ else {
         </script>
     </head>
     <body>
-        <h1><?php echo $desc; ?></h1>
-        <div id="player"></div>
+        <!-- Wrap all page content here -->
+        <div id="wrap">
+            <div class="container">
+                <h2><?php echo $desc; ?></h2>
+                <div id="player"></div>
+            </div><!--/.container -->
+        </div><!--/#wrap -->
     </body>
 </html>
