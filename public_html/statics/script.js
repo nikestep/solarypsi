@@ -5,6 +5,7 @@
  * @date March 12, 2013
  */
 
+g_mobile = false;
 g_currViedo = 'GoogleSearch';
 g_map = null;
 g_charts = {
@@ -113,6 +114,11 @@ g_charts = {
 
 
 $(function () {
+    // Detect mobile
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test (navigator.userAgent)) {
+        g_mobile = true;
+    }
+    
     // Detect if the map is in view
     if ($("#dvMap").length === 1) {
         // Set map size
@@ -133,9 +139,13 @@ $(function () {
         $(".sleep-warning").removeClass ('hide');
     }
     
-    // Retrieve the weather
-    updateWeather ();
-    setInterval (function () { updateWeather (); }, 900000);  // 15 minutes
+    // Retrieve the weather and update it if not mobile
+    if ($("#iWeatherIcon").length === 1) {
+        updateWeather ();
+    }
+    if (!g_mobile) {
+        setInterval (function () { updateWeather (); }, 900000);  // 15 minutes
+    }
     
     // Build the pie charts
     if ($("#dvPieSites").length === 1) {

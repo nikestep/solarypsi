@@ -120,7 +120,7 @@ if (isset ($_GET['siteID'])) {
                             <li <?php if ($page === "about") { echo "class='active'"; } ?>><a href="/about">About</a></li>
                             <li <?php if ($page === "contact") { echo "class='active'"; } ?>><a href="/contact">Contact</a></li>
                             <li><a href="/blog" target="_blank">Blog</a></li>
-                            <li>
+                            <li class="hidden-xs">
                                 <i id="iWeatherIcon"></i>
                                 <span id="spnWeatherTemp"></span>
                                 <i class="wi-fahrenheit"></i> - Ypsilanti, MI
