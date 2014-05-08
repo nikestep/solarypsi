@@ -133,7 +133,7 @@ if (isset ($_GET['siteID'])) {
         // Push the tick label
         $tick = array ();
         array_push ($tick, $idx);
-        array_push ($tick, getTickVal ($obj['month'], $_GET['mobile']));
+        array_push ($tick, getTickVal ($obj['month'], $_GET['mobile'] === 'true'));
         array_push ($data['x_ticks'], $tick);
         
         // Push the data point
