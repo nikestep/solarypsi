@@ -519,7 +519,7 @@ else if ($data['meter_type'] === 'historical') {
                             $imgNum = 1;
                             foreach ($data['image'] as $id => $obj) {
                         ?>
-                                <div class="col-sm-6 col-md-3">
+                                <div class="col-md-3 col-sm-6 col-xs-12">
                                     <p>
                                         <a class="fancybox" rel="gallery" href="<?php echo $REPOS_ROOT_URL . $obj['path']; ?>"
                                            title="<?php echo $obj['desc']; ?>">
@@ -532,7 +532,7 @@ else if ($data['meter_type'] === 'historical') {
                                     <p class="text-center">
                                         <?php echo $obj['desc']; ?>
                                     </p>
-                                </div><!--/.col-md-3 col-sm-6 -->
+                                </div><!--/.col-md-3 col-sm-6 col-xs-12 -->
                         <?php
                                 if ($imgNum % 4 === 0) {
                                     # End the row and open the next one
@@ -543,11 +543,11 @@ else if ($data['meter_type'] === 'historical') {
 
                             # Finish off the row with empty cells now that we are out of images
                             while ($imgNum % 4 !== 0) {
-                                echo "<div class='col-md-3 col-sm-6'>&nbsp;</div>\n";
+                                echo "<div class='col-md-3 col-sm-6 col-xs-12'>&nbsp;</div>\n";
                                 $imgNum += 1;
                             }
                         ?>
-                        <div class='col-md-3'>&nbsp;</div>
+                        <div class='col-md-3 col-sm-6 col-xs-12'>&nbsp;</div>
                     </div><!--/.row -->
             <?php
                 }
