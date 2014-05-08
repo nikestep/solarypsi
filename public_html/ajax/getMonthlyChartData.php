@@ -3,44 +3,44 @@
 include ('/home/solaryps/config/config.php');
 
 // Declare a function to return the tick display value for a month
-function getTickVal ($month) {
+function getTickVal ($month, $mobile) {
     $month_str = '';
     switch ($month) {
         case 1:
-            $month_str = 'Jan';
+            $month_str = $mobile ? 'J' : 'Jan';
             break;
         case 2:
-            $month_str = 'Feb';
+            $month_str = $mobile ? 'F' : 'Feb';
             break;
         case 3:
-            $month_str = 'Mar';
+            $month_str = $mobile ? 'M' : 'Mar';
             break;
         case 4:
-            $month_str = 'Apr';
+            $month_str = $mobile ? 'A' : 'Apr';
             break;
         case 5:
-            $month_str = 'May';
+            $month_str = $mobile ? 'M' : 'May';
             break;
         case 6:
-            $month_str = 'Jun';
+            $month_str = $mobile ? 'J' : 'Jun';
             break;
         case 7:
-            $month_str = 'Jul';
+            $month_str = $mobile ? 'J' : 'Jul';
             break;
         case 8:
-            $month_str = 'Aug';
+            $month_str = $mobile ? 'A' : 'Aug';
             break;
         case 9:
-            $month_str = 'Sep';
+            $month_str = $mobile ? 'S' : 'Sep';
             break;
         case 10:
-            $month_str = 'Oct';
+            $month_str = $mobile ? 'O' : 'Oct';
             break;
         case 11:
-            $month_str = 'Nov';
+            $month_str = $mobile ? 'N' : 'Nov';
             break;
         case 12:
-            $month_str = 'Dec';
+            $month_str = $mobile ? 'D' : 'Dec';
             break;
         default:
             break;
@@ -133,7 +133,7 @@ if (isset ($_GET['siteID'])) {
         // Push the tick label
         $tick = array ();
         array_push ($tick, $idx);
-        array_push ($tick, getTickVal ($obj['month']));
+        array_push ($tick, getTickVal ($obj['month'], $_GET['mobile']));
         array_push ($data['x_ticks'], $tick);
         
         // Push the data point

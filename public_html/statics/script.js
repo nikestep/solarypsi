@@ -454,7 +454,8 @@ function loadDailyChart () {
         method: 'GET',
         data: {
             siteID: g_site_id,
-            date: startdate
+            date: startdate,
+            mobile: g_mobile
         },
         dataType: 'json',
         success: function (data) {
@@ -525,7 +526,8 @@ function loadYearlyChart () {
         method: 'GET',
         data: {
             siteID: g_site_id,
-            year: g_charts.Yearly.curr_year
+            year: g_charts.Yearly.curr_year,
+            mobile: g_mobile
         },
         dataType: 'json',
         success: function (data) {
@@ -577,7 +579,8 @@ function loadMonthlyChart () {
         method: 'GET',
         data: {
             siteID: g_site_id,
-            year: g_charts.Monthly.curr_year
+            year: g_charts.Monthly.curr_year,
+            mobile: g_mobile
         },
         dataType: 'json',
         success: function (data) {
