@@ -115,6 +115,10 @@ g_charts = {
 $(function () {
     // Detect if the map is in view
     if ($("#dvMap").length === 1) {
+        // Set map size
+        var width = $("#dvMap").width ();
+        var height = width * 0.58;
+        $("#dvMap").css ('height', height + 'px');
         setupMap ();
     }
     

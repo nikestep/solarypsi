@@ -1,5 +1,9 @@
+.padded-container {
+    padding-left: 2%;
+    padding-right: 2%;
+}
+
 #dvMap {
-    height: 500px;
     width: 100%;
 }
 

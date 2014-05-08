@@ -41,6 +41,7 @@ if (isset ($_GET['siteID'])) {
         <title>SolarYpsi | Ypsilanti, Michigan</title>
         
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
         <script type="text/javascript" src="https://www.google.com/jsapi"></script>
         <script type="text/javascript" src="http://statics.solar.ypsi.com/js/jquery-1.11.1.min.js"></script>
@@ -101,19 +102,14 @@ if (isset ($_GET['siteID'])) {
             <!-- Fixed navbar -->
             <div class="navbar navbar-default navbar-wrapper navbar-fixed-top" role="navigation">
                 <div class="container">
-                    <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
-                        <a class="navbar-brand" href="/index">
-                            <img src="http://statics.solar.ypsi.com/images/icon.png" alt="SolarYpsi | Ypsilanti, MI"
-                                 style="height: 32px; margin-top: -9px; width: 32px;" />
-                            SolarYpsi
-                        </a>
-                    </div><!--/.navbar-header -->
+                    <a class="navbar-brand" href="/index">
+                        <img src="http://statics.solar.ypsi.com/images/icon.png" alt="SolarYpsi | Ypsilanti, MI"
+                             style="height: 32px; margin-top: -9px; width: 32px;" />
+                        SolarYpsi
+                    </a>
+                    <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="glyphicon glyphicon-align-justify"></span>
+                    </button>
                     <div class="collapse navbar-collapse bs-navbar-collapse">
                         <ul class="nav navbar-nav">
                             <li <?php if ($page === "index") { echo "class='active'"; } ?>><a href="/index">Home</a></li>
@@ -124,62 +120,64 @@ if (isset ($_GET['siteID'])) {
                             <li <?php if ($page === "about") { echo "class='active'"; } ?>><a href="/about">About</a></li>
                             <li <?php if ($page === "contact") { echo "class='active'"; } ?>><a href="/contact">Contact</a></li>
                             <li><a href="/blog" target="_blank">Blog</a></li>
+                            <li>
+                                <i id="iWeatherIcon"></i>
+                                <span id="spnWeatherTemp"></span>
+                                <i class="wi-fahrenheit"></i> - Ypsilanti, MI
+                            </li>
                         </ul>
-                        <div class="col-sm-3 col-md-3 pull-right">
-                            <i id="iWeatherIcon"></i>
-                            <span id="spnWeatherTemp"></span>
-                            <i class="wi-fahrenheit"></i> - Ypsilanti, MI
-                        </div>
                     </div><!--/.nav-collapse -->
                 </div><!--/.container -->
             </div><!--/.navbar -->
 
             <div class="container">
-                <div class="row">
-                    <?php
-                        switch ($page) {
-                            case "index":
-                                include ('../content/index.html');
-                                break;
-                            case "install":
-                                if ($site_id === NULL) {
-                                    include ('../content/installation_list.php');
-                                }
-                                else if ($site_id === 'comparison') {
-                                    include ('../content/installation_comparison.php');
-                                }
-                                else {
-                                    include ('../content/installation_site.php');
-                                }
-                                break;
-                            case "links":
-                                echo "<div class='page-header'><h2>Links</h2></div>\n";
-                                echo "<p class='lead'>Useful resources regarding solar power</p>\n";
-                                include ('../content/links.php');
-                                break;
-                            case "presentations":
-                                include ('../content/presentations.html');
-                                break;
-                            case "events":
-                                echo "<div class='page-header'><h2>Upcoming Events</h2></div>\n";
-                                echo "<p class='lead'>Come out and see us!</p>\n";
-                                include ('../content/events.html');
-                                break;
-                            case "about":
-                                echo "<div class='page-header'><h2>About</h2></div>\n";
-                                echo "<p class='lead'>Some history on the project</p>\n";
-                                include ('../content/about.html');
-                                break;
-                            case "contact":
-                                echo "<div class='page-header'><h2>Contact</h2></div>\n";
-                                echo "<p class='lead'>Get in touch with us to learn more!</p>\n";
-                                include ('../content/contact.html');
-                                break;
-                            default:
-                                include ('../content/404.html');
-                                break;
-                        }
-                    ?>
+                <div class="row padded-container">
+                    <div class="col-xs-12">
+                        <?php
+                            switch ($page) {
+                                case "index":
+                                    include ('../content/index.html');
+                                    break;
+                                case "install":
+                                    if ($site_id === NULL) {
+                                        include ('../content/installation_list.php');
+                                    }
+                                    else if ($site_id === 'comparison') {
+                                        include ('../content/installation_comparison.php');
+                                    }
+                                    else {
+                                        include ('../content/installation_site.php');
+                                    }
+                                    break;
+                                case "links":
+                                    echo "<div class='page-header'><h2>Links</h2></div>\n";
+                                    echo "<p class='lead'>Useful resources regarding solar power</p>\n";
+                                    include ('../content/links.php');
+                                    break;
+                                case "presentations":
+                                    include ('../content/presentations.html');
+                                    break;
+                                case "events":
+                                    echo "<div class='page-header'><h2>Upcoming Events</h2></div>\n";
+                                    echo "<p class='lead'>Come out and see us!</p>\n";
+                                    include ('../content/events.html');
+                                    break;
+                                case "about":
+                                    echo "<div class='page-header'><h2>About</h2></div>\n";
+                                    echo "<p class='lead'>Some history on the project</p>\n";
+                                    include ('../content/about.html');
+                                    break;
+                                case "contact":
+                                    echo "<div class='page-header'><h2>Contact</h2></div>\n";
+                                    echo "<p class='lead'>Get in touch with us to learn more!</p>\n";
+                                    include ('../content/contact.html');
+                                    break;
+                                default:
+                                    include ('../content/404.html');
+                                    break;
+                            }
+                        ?>
+                    </div><!--/.col-xs-12 -->
                 </div><!--/.row -->
             </div><!--/.container -->
         </div><!--/.wrap -->
