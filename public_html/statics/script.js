@@ -125,9 +125,9 @@ $(function () {
     });
     
     // Show the sleeping alert
-    //if (moment ().hours () < 8) {
+    if (moment ().hours () < 8) {
         $("#dvSleepingWarning").removeClass ('hide');
-    //}
+    }
     
     // Retrieve the weather
     updateWeather ();
@@ -144,7 +144,7 @@ $(function () {
     // Run chart tasks if necessary
     var meter_type = $("#spnMeterType").html ();
     if (meter_type === 'enphase') {
-        // Set chart sizes
+        // Set chart sizes (copy width to yearly and monthly because they are not visible)
         var width = $("#dvDailyChart").width ();
         var height = width * 0.55;
         $("#dvDailyChart").css ('height', height + 'px');
