@@ -46,10 +46,15 @@
 .chart-legend {
     border: 2px solid black;
     display: none;
-    margin-left: 110px;
+    margin-left: 20%;
     margin-top: 10px;
+    padding: .75%;
     text-align: center;
-    width: 500px;
+    width: 60%
+}
+
+.chart-legend-lower {
+    margin-top: 15px;
 }
 
 .chart-controls {

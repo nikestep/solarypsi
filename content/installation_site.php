@@ -367,7 +367,7 @@ else if ($data['meter_type'] === 'historical') {
                                     <div class="row">
                                         <h3 id="yearlyTitle" class="text-center"></h3>
                                         <div id="dvYearlyChart" class="chart"></div>
-                                        <div id="dvYearlyChartLegend" class="chart-legend"></div>
+                                        <div id="dvYearlyChartLegend" class="chart-legend chart-legend-lower"></div>
                                     </div>
                                     <div class="row">
                                         <p>&nbsp;</p>
@@ -428,7 +428,7 @@ else if ($data['meter_type'] === 'historical') {
                                     <div class="row">
                                         <h3 id="monthlyTitle" class="text-center"></h5>
                                         <div id="dvMonthlyChart" class="chart"></div>
-                                        <div id="dvMonthlyChartLegend" class="chart-legend"></div>
+                                        <div id="dvMonthlyChartLegend" class="chart-legend chart-legend-lower"></div>
                                     </div>
                                     <div class="row">
                                         <p>&nbsp;</p>
