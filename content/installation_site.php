@@ -261,16 +261,24 @@ else if ($data['meter_type'] === 'historical') {
                                                 Previous Day
                                             </button>
                                         </div>
-                                        <div class="col-xs-6 vert-middle">
-                                            <div id="dvSleepingWarning" class="alert alert-warning text-center hide">
+                                        <div class="col-md-6 hidden-xs hidden-sm vert-middle">
+                                            <div class="sleep-warning alert alert-warning text-center hide">
                                                 It's early and the panels might still be sleeping!
                                             </div>
                                         </div>
+                                        <div class="col-xs-6 visible-xs visible-sm">&nbsp;</div>
                                         <div class="col-xs-3">
                                             <button id="btnNextDaily" type="button" class="btn btn-default pull-right disabled vert-middle">
                                                 Next Day
                                                 <span class="glyphicon glyphicon-chevron-right"></span>
                                             </button>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 visible-xs visible-sm small-top-margin">
+                                            <div class="sleep-warning alert alert-warning text-center hide">
+                                                It's early and the panels might still be sleeping!
+                                            </div>
                                         </div>
                                     </div>
                                 </div><!--/.col-md-8 -->

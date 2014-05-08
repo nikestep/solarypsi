@@ -130,7 +130,7 @@ $(function () {
     
     // Show the sleeping alert
     if (moment ().hours () < 8) {
-        $("#dvSleepingWarning").removeClass ('hide');
+        $(".sleep-warning").removeClass ('hide');
     }
     
     // Retrieve the weather

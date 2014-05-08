@@ -79,6 +79,9 @@
 .vert-middle {
     vertical-align: middle;
 }
+.small-top-margin {
+    margin-top: 5px;
+}
 
 html,
 body {
