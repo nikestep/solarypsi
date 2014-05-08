@@ -30,8 +30,7 @@
 }
 
 .chart {
-    height: 400px;
-    width: 725px;
+    width: 97%;
 }
 
 .chart-title {
@@ -70,8 +69,11 @@
     font-size: 250%;
     vertical-align: middle;
 }
-.daily-weather-sizer {
+.chart-sizer {
     font-size: 150%;
+}
+.vert-middle {
+    vertical-align: middle;
 }
 
 html,

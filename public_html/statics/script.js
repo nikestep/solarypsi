@@ -125,9 +125,9 @@ $(function () {
     });
     
     // Show the sleeping alert
-    if (moment ().hours () < 8) {
+    //if (moment ().hours () < 8) {
         $("#dvSleepingWarning").removeClass ('hide');
-    }
+    //}
     
     // Retrieve the weather
     updateWeather ();
@@ -144,6 +144,15 @@ $(function () {
     // Run chart tasks if necessary
     var meter_type = $("#spnMeterType").html ();
     if (meter_type === 'enphase') {
+        // Set chart sizes
+        var width = $("#dvDailyChart").width ();
+        var height = width * 0.55;
+        $("#dvDailyChart").css ('height', height + 'px');
+        $("#dvYearlyChart").css ('width', width + 'px');
+        $("#dvYearlyChart").css ('height', height + 'px');
+        $("#dvMonthlyChart").css ('width', width + 'px');
+        $("#dvMonthlyChart").css ('height', height + 'px');
+        
         // Calculate minimums for the charts
         var earliest_date = moment ($("#spnEarliestDate").html (), 'YYYY-MM-DD');
         g_charts.Daily.earliest_date = earliest_date;

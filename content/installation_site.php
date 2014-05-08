@@ -248,72 +248,73 @@ else if ($data['meter_type'] === 'historical') {
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h3 id="dailyTitle" class="text-center"></h3>
-                                    <div id="dvDailyChart" class="chart"></div>
-                                    <div id="dvDailyChartLegend" class="chart-legend"></div>
-                                </div><!--/.col-md-8 -->
-                                <div class="col-md-4">
                                     <div class="row">
-                                        <h3>Data Source</h3>
-                                        <p class='daily-weather-sizer'>
-                                            <?php echo formatMeteringType ($data['meter_type']); ?>
-                                        </p>
-                                        <p class='daily-weather-sizer'>
-                                            Data back until <?php echo $data['earliest_date']; ?>
-                                        </p>
-                                        <h3>Weather</h3>
-                                        <p class='daily-weather-sizer'>
-                                            Sunrise at <span id="spnSunrise"></span>
-                                        </p>
-                                        <p class='daily-weather-sizer'>
-                                            Solar noon at <span id="spnNoon"></span>
-                                        </p>
-                                        <p class='daily-weather-sizer'>
-                                            Sunset at <span id="spnSunset"></span>
-                                        </p>
-                                        <p class='daily-weather-sizer'>
-                                            <i id="iDailyWeatherIcon"></i>&nbsp;&nbsp;&nbsp;
-                                            <i class='glyphicon glyphicon-chevron-down'></i>
-                                            <span id="spnDailyTempMin"></span>
-                                            <i class="wi-fahrenheit"></i>&nbsp; &nbsp;
-                                            <i class='glyphicon glyphicon-chevron-up'></i>
-                                            <span id="spnDailyTempMax"></span>
-                                            <i class="wi-fahrenheit"></i>
-                                        </p>
-                                        <p>
-                                            <a href="http://forecast.io/">
-                                                <span class="label label-primary" target="_blank">
-                                                    Powered by Forecast.io
-                                                </span>
-                                            </a>
-                                        </p>
+                                        <h3 id="dailyTitle" class="text-center"></h3>
+                                        <div id="dvDailyChart" class="chart"></div>
+                                        <div id="dvDailyChartLegend" class="chart-legend"></div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-7">
                                     <p>&nbsp;</p>
                                     <div class="row">
-                                        <div class="col-md-3">
-                                            <button id="btnPrevDaily" type="button" class="btn btn-default pull-left">
+                                        <div class="col-xs-3">
+                                            <button id="btnPrevDaily" type="button" class="btn btn-default pull-left vert-middle">
                                                 <span class="glyphicon glyphicon-chevron-left"></span>
                                                 Previous Day
                                             </button>
                                         </div>
-                                        <div class="col-md-6">
+                                        <div class="col-xs-6 vert-middle">
                                             <div id="dvSleepingWarning" class="alert alert-warning text-center hide">
                                                 It's early and the panels might still be sleeping!
                                             </div>
                                         </div>
-                                        <div class="col-md-3">
-                                            <button id="btnNextDaily" type="button" class="btn btn-default pull-right disabled">
+                                        <div class="col-xs-3">
+                                            <button id="btnNextDaily" type="button" class="btn btn-default pull-right disabled vert-middle">
                                                 Next Day
                                                 <span class="glyphicon glyphicon-chevron-right"></span>
                                             </button>
                                         </div>
                                     </div>
-                                </div><!--/.col-md-7 -->
-                                <div class="col-md-5">&nbsp;</div>
+                                </div><!--/.col-md-8 -->
+                                <div class="col-md-4">
+                                    <div class="row">
+                                        <div class="col-md-12 col-sm-6">
+                                            <h3>Data Source</h3>
+                                            <p class='chart-sizer'>
+                                                <?php echo formatMeteringType ($data['meter_type']); ?>
+                                            </p>
+                                            <p class='chart-sizer'>
+                                                Data back until <?php echo $data['earliest_date']; ?>
+                                            </p>
+                                        </div>
+                                        <div class="col-md-12 col-sm-6">
+                                            <h3>Weather</h3>
+                                            <p class='chart-sizer'>
+                                                Sunrise at <span id="spnSunrise"></span>
+                                            </p>
+                                            <p class='chart-sizer'>
+                                                Solar noon at <span id="spnNoon"></span>
+                                            </p>
+                                            <p class='chart-sizer'>
+                                                Sunset at <span id="spnSunset"></span>
+                                            </p>
+                                            <p class='chart-sizer'>
+                                                <i id="iDailyWeatherIcon"></i>&nbsp;&nbsp;&nbsp;
+                                                <i class='glyphicon glyphicon-chevron-down'></i>
+                                                <span id="spnDailyTempMin"></span>
+                                                <i class="wi-fahrenheit"></i>&nbsp; &nbsp;
+                                                <i class='glyphicon glyphicon-chevron-up'></i>
+                                                <span id="spnDailyTempMax"></span>
+                                                <i class="wi-fahrenheit"></i>
+                                            </p>
+                                            <p>
+                                                <a href="http://forecast.io/">
+                                                    <span class="label label-primary" target="_blank">
+                                                        Powered by Forecast.io
+                                                    </span>
+                                                </a>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div><!--/#daily -->
                 <?php
@@ -323,27 +324,26 @@ else if ($data['meter_type'] === 'historical') {
                     <?php
                         if ($data['meter_type'] === 'historical') {
                     ?>
-                            <p>
+                            <p class="chart-sizer">
                                 Yearly metering of this installation is currently unavailable. The data
                                 below is historical and offered for reference purposes.
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <img id="imgHistYearly" src="<?php echo '/repository/charts_history/' . $site_id . '/yearly_' . $data['historical_end_year'] . '.png'; ?>"
-                                         class="img-responsive" alt="Yearly Chart" />
-                                </div><!--/.col-md-8 -->
-                                <div class="col-md-4">&nbsp;</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <button id="btnPrevHistYearly" type="button" class="btn btn-default pull-left">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                        Previous Year
-                                    </button>
-                                    <button id="btnNextHistYearly" type="button" class="btn btn-default pull-right disabled">
-                                        Next Year
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
+                                    <div class="row">
+                                        <img id="imgHistYearly" src="<?php echo '/repository/charts_history/' . $site_id . '/yearly_' . $data['historical_end_year'] . '.png'; ?>"
+                                             class="img-responsive" alt="Yearly Chart" />
+                                    </div>
+                                    <div class="row">
+                                        <button id="btnPrevHistYearly" type="button" class="btn btn-default pull-left">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                            Previous Year
+                                        </button>
+                                        <button id="btnNextHistYearly" type="button" class="btn btn-default pull-right disabled">
+                                            Next Year
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </div>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
                             </div>
@@ -356,25 +356,26 @@ else if ($data['meter_type'] === 'historical') {
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5 id="yearlyTitle" class="text-center"></h5>
-                                    <div id="dvYearlyChart" class="chart"></div>
-                                    <div id="dvYearlyChartLegend" class="chart-legend"></div>
+                                    <div class="row">
+                                        <h3 id="yearlyTitle" class="text-center"></h3>
+                                        <div id="dvYearlyChart" class="chart"></div>
+                                        <div id="dvYearlyChartLegend" class="chart-legend"></div>
+                                    </div>
+                                    <div class="row">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="row">
+                                        <button id="btnPrevYearly" type="button" class="btn btn-default pull-left">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                            Previous Year
+                                        </button>
+                                        <button id="btnNextYearly" type="button" class="btn btn-default pull-right disabled">
+                                            Next Year
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </div>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <p>&nbsp;</p>
-                                    <button id="btnPrevYearly" type="button" class="btn btn-default pull-left">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                        Previous Year
-                                    </button>
-                                    <button id="btnNextYearly" type="button" class="btn btn-default pull-right disabled">
-                                        Next Year
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
-                                </div><!--/.col-md-7 -->
-                                <div class="col-md-5">&nbsp;</div>
                             </div>
                     <?php
                         }
@@ -390,21 +391,20 @@ else if ($data['meter_type'] === 'historical') {
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <img id="imgHistMonthly" src="<?php echo '/repository/charts_history/' . $site_id . '/monthly_' . $data['historical_end_year'] . '.png'; ?>"
-                                         class="img-responsive" alt="Yearly Chart" />
-                                </div><!--/.col-md-8 -->
-                                <div class="col-md-4">&nbsp;</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <button id="btnPrevHistMonthly" type="button" class="btn btn-default pull-left">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                        Previous Year
-                                    </button>
-                                    <button id="btnNextHistMonthly" type="button" class="btn btn-default pull-right disabled">
-                                        Next Year
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
+                                    <div class="row">
+                                        <img id="imgHistMonthly" src="<?php echo '/repository/charts_history/' . $site_id . '/monthly_' . $data['historical_end_year'] . '.png'; ?>"
+                                             class="img-responsive" alt="Monthly Usage Chart" />
+                                    </div>
+                                    <div class="row">
+                                        <button id="btnPrevHistMonthly" type="button" class="btn btn-default pull-left">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                            Previous Year
+                                        </button>
+                                        <button id="btnNextHistMonthly" type="button" class="btn btn-default pull-right disabled">
+                                            Next Year
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </div>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
                             </div>
@@ -417,25 +417,26 @@ else if ($data['meter_type'] === 'historical') {
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
-                                    <h5 id="monthlyTitle" class="text-center"></h5>
-                                    <div id="dvMonthlyChart" class="chart"></div>
-                                    <div id="dvMonthlyChartLegend" class="chart-legend"></div>
+                                    <div class="row">
+                                        <h3 id="monthlyTitle" class="text-center"></h5>
+                                        <div id="dvMonthlyChart" class="chart"></div>
+                                        <div id="dvMonthlyChartLegend" class="chart-legend"></div>
+                                    </div>
+                                    <div class="row">
+                                        <p>&nbsp;</p>
+                                    </div>
+                                    <div class="row">
+                                        <button id="btnPrevMonthly" type="button" class="btn btn-default pull-left">
+                                            <span class="glyphicon glyphicon-chevron-left"></span>
+                                            Previous Year
+                                        </button>
+                                        <button id="btnNextMonthly" type="button" class="btn btn-default pull-right disabled">
+                                            Next Year
+                                            <span class="glyphicon glyphicon-chevron-right"></span>
+                                        </button>
+                                    </div>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-7">
-                                    <p>&nbsp;</p>
-                                    <button id="btnPrevMonthly" type="button" class="btn btn-default pull-left">
-                                        <span class="glyphicon glyphicon-chevron-left"></span>
-                                        Previous Year
-                                    </button>
-                                    <button id="btnNextMonthly" type="button" class="btn btn-default pull-right disabled">
-                                        Next Year
-                                        <span class="glyphicon glyphicon-chevron-right"></span>
-                                    </button>
-                                </div><!--/.col-md-7 -->
-                                <div class="col-md-5">&nbsp;</div>
                             </div>
                     <?php
                         }
@@ -518,7 +519,7 @@ else if ($data['meter_type'] === 'historical') {
                             $imgNum = 1;
                             foreach ($data['image'] as $id => $obj) {
                         ?>
-                                <div class="col-md-3">
+                                <div class="col-sm-6 col-md-3">
                                     <p>
                                         <a class="fancybox" rel="gallery" href="<?php echo $REPOS_ROOT_URL . $obj['path']; ?>"
                                            title="<?php echo $obj['desc']; ?>">
@@ -531,7 +532,7 @@ else if ($data['meter_type'] === 'historical') {
                                     <p class="text-center">
                                         <?php echo $obj['desc']; ?>
                                     </p>
-                                </div><!--/.col-md-3 -->
+                                </div><!--/.col-md-3 col-sm-6 -->
                         <?php
                                 if ($imgNum % 4 === 0) {
                                     # End the row and open the next one
@@ -542,7 +543,7 @@ else if ($data['meter_type'] === 'historical') {
 
                             # Finish off the row with empty cells now that we are out of images
                             while ($imgNum % 4 !== 0) {
-                                echo "<div class='col-md-3'>&nbsp;</div>\n";
+                                echo "<div class='col-md-3 col-sm-6'>&nbsp;</div>\n";
                                 $imgNum += 1;
                             }
                         ?>
@@ -564,7 +565,7 @@ else if ($data['meter_type'] === 'historical') {
                         <?php
                             if (count ($data['doc_link']) > 0) {
                         ?>
-                                <div class="col-md-5">
+                                <div class="col-md-5 col-sm-12">
                                     <p class="lead">
                                         Files
                                     </p>
@@ -590,15 +591,15 @@ else if ($data['meter_type'] === 'historical') {
                                     <?php
                                         }
                                     ?>
-                                </div><!--/.col-md-5 -->
+                                </div><!--/.col-md-5 col-sm-12 -->
                         <?php
                             }
                             else {
-                                echo "<div class='col-md-5'>&nbsp;</div>\n";
+                                echo "<div class='col-md-5 col-sm-12'>&nbsp;</div>\n";
                             }
                             if (count ($data['report']) > 0) {
                         ?>
-                                <div class="col-md-5">
+                                <div class="col-md-5 col-sm-12">
                                     <p class="lead">
                                         Progress Reports
                                     </p>
@@ -612,11 +613,11 @@ else if ($data['meter_type'] === 'historical') {
                                     <?php
                                         }
                                     ?>
-                                </div><!--/.col-md-5 -->
+                                </div><!--/.col-md-5 col-sm-12 -->
                         <?php
                             }
                             else {
-                                echo "<div class='col-md-5'>&nbsp;</div>\n";
+                                echo "<div class='col-md-5 col-sm-12'>&nbsp;</div>\n";
                             }
                         ?>
                         <div class="col-md-1">&nbsp;</div>
