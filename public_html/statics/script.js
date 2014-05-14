@@ -52,28 +52,58 @@ g_charts = {
         loaded: false,
         curr_year: parseInt (moment ().format ('YYYY')),
         min_year: null,
+        data: null,
         options: {
-            series: {
-                lines: {
+            line: {
+                series: {
+                    lines: {
+                        show: true,
+                        steps: false
+                    },
+                    bars: {
+                        show: false
+                    },
+                    hoverable: true
+                },
+                xaxis: {
+                    ticks: [],
+                    tickLength: 0
+                },
+                legend: {
                     show: true,
-                    steps: false
+                    noColums: 1
                 },
-                bars: {
-                    show: false
+                grid: {
+                    borderWidth: 2,
+                    aboveData: true
+                }
+            },
+            bar: {
+                series: {
+                    stack: 0,
+                    lines: {
+                        show: false,
+                        steps: false
+                    },
+                    bars: {
+                        show: true,
+                        barWidth: 0.9,
+                        align: 'center'
+                    },
+                    hoverable: true
                 },
-                hoverable: true
-            },
-            xaxis: {
-                ticks: [],
-                tickLength: 0
-            },
-            legend: {
-                show: true,
-                noColums: 1
-            },
-            grid: {
-                borderWidth: 2,
-                aboveData: true
+                xaxis: {
+                    ticks: [],
+                    tickLength: 0
+                },
+                legend: {
+                    show: true,
+                    noColums: 1
+                },
+                grid: {
+                    borderWidth: 2,
+                    aboveData: true
+                }
             }
         }
     },
@@ -174,9 +204,10 @@ $(function () {
         g_charts.Monthly.min_year = earliest_date.year ();
         
         // Build the charts
+        $("#rbtnYearlyDaily").prop ('checked', 'checked');
+        $("#rbtnYearlyMonthly").removeProp ('checked');
         loadDailyChart ();
         loadYearlyChart ();
-        loadMonthlyChart ();
     }
     else if (meter_type === 'historical') {
         g_charts.Yearly.curr_idx = parseInt($("#spnHistoricalEnd").html ());
@@ -217,6 +248,18 @@ function bindEvents () {
     $("#btnNextYearly").on ('click', function (event) {
         g_charts.Yearly.curr_year += 1;
         loadYearlyChart ();
+    });
+    $("#rbtnYearlyDaily").on ('change', function (event) {
+        if ($("#rbtnYearlyDaily").attr ('checked')) {
+            g_charts.Yearly.view = 'line';
+            swapYearlyView ();
+        }
+    });
+    $("#rbtnYearlyMonthly").on ('change', function (event) {
+        if ($("#rbtnYearlyDaily").attr ('checked')) {
+            g_charts.Yearly.view = 'bar';
+            swapYearlyView ();
+        }
     });
     $("#btnPrevMonthly").on ('click', function (event) {
         g_charts.Monthly.curr_year -= 1;
@@ -532,17 +575,27 @@ function loadYearlyChart () {
         dataType: 'json',
         success: function (data) {
             if (data.success !== undefined && data.success) {
+                // Save the data
+                g_charts.Yearly.data = data.data;
+                g_charts.Yearly.options.line.xaxis.ticks = data.x_ticks.line;
+                g_charts.Yearly.options.bar.xaxis.ticks = data.x_ticks.bar;
+                
                 // Load or update the chart
                 if (!g_charts.Yearly.loaded) {
                     // Load the chart
-                    g_charts.Yearly.options.xaxis.ticks = data.x_ticks;
-                    g_charts.Yearly.options.legend.container = $("#dvYearlyChartLegend");
+                    g_charts.Yearly.options.line.legend.container = $("#dvYearlyChartLegend");
+                    g_charts.Yearly.options.bar.legend.container = $("#dvYearlyChartLegend");
                     $("#dvYearlyChartLegend").show ();
-                    g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [data.data.generation], g_charts.Yearly.options);
+                    g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [g_charts.Yearly.data.line.generation], g_charts.Yearly.options.line);
                     g_charts.Yearly.loaded = true;
                 }
                 else {
-                    g_charts.Yearly.plot.setData ([data.data.generation]);
+                    if (g_charts.Yearly.view === 'line') {
+                        g_charts.Yearly.plot.setData ([g_charts.Yearly.data.line.generation]);
+                    }
+                    else {
+                        g_charts.Yearly.plot.setData ([g_charts.Yearly.data.bar.generation]);
+                    }
                     g_charts.Yearly.plot.setupGrid ();
                     g_charts.Yearly.plot.draw ();
                 }
@@ -570,6 +623,19 @@ function loadYearlyChart () {
             alert ('error');
         }
     });
+}
+
+
+function swapYearlyView () {
+    $("#dvYearlyChart").empty ();
+    $("#dvYearlyChartLegend").empty ();
+    
+    if (g_charts.Yearly.view === 'line') {
+        g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [g_charts.Yearly.data.line.generation], g_charts.Yearly.options.line);
+    }
+    else {
+        g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [g_charts.Yearly.data.bar.generation], g_charts.Yearly.options.bar);
+    }
 }
 
 
@@ -621,56 +687,6 @@ function loadMonthlyChart () {
         },
         error: function () {
             alert ('error');
-        }
-    });
-}
-
-
-function loadChartIndex (type, idx) {
-    g_charts[type].curr_idx = idx;
-    
-    $.ajax ({
-        url: '/ajax/get' + type + 'ChartData.php',
-        method: 'POST',
-        data: {
-            siteID: g_site_id,
-            chartIdx: g_charts[type].curr_idx = idx
-        },
-        dataType: 'json',
-        success: function (data) {
-            if (data.success) {
-                if (!g_charts[type].loaded) {
-                    data.options.legend.container = $("#dv" + type + "ChartLegend");
-                    $("#dv" + type + "ChartLegend").show ();
-                    g_charts[type].plot = $.plot ($("#dv" + type + "Chart"), data.data, data.options);
-                    $("#dv" + type + "ChartControls").show ();
-                    g_charts[type].loaded = true;
-                }
-                else {
-                    g_charts[type].plot.setData (data.data);
-                    g_charts[type].plot.setupGrid ();
-                    g_charts[type].plot.draw ();
-                }
-                
-                $("#dv" + type + "Title").html (data.title);
-                    
-                if (g_charts[type].curr_idx === g_charts[type].min_idx) {
-                    $("#dv" + type + "ChartControls > .right > .container").hide ();
-                }
-                else {
-                    $("#dv" + type + "ChartControls > .right > .container").show ();
-                }
-                
-                if (g_charts[type].curr_idx === g_charts[type].max_idx) {
-                    $("#dv" + type + "ChartControls > .left > .container").hide ();
-                }
-                else {
-                    $("#dv" + type + "ChartControls > .left > .container").show ();
-                }
-            }
-        },
-        error: function () {
-        
         }
     });
 }

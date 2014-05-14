@@ -205,22 +205,13 @@ else if ($data['meter_type'] === 'historical') {
                     }
                 ?>
                 <li><a href="#yearly" data-toggle="tab">Yearly Chart</a></li>
-                <li>
-                    <a href="#monthly" data-toggle="tab">
-                        <?php
-                            if ($data['meter_type'] === 'historical') {
-                        ?>
-                                Monthly Usage Chart
-                        <?php
-                            }
-                            else {
-                        ?>
-                                Monthly Chart
-                        <?php
-                            }
-                        ?>
-                    </a>
-                </li>
+                <?php
+                    if ($data['meter_type'] === 'historical') {
+                ?>
+                        <li><a href="#monthly" data-toggle="tab">Monthly Usage Chart</a></li>
+                <?php
+                    }
+                ?>
         <?php
             }
         ?>
@@ -360,7 +351,8 @@ else if ($data['meter_type'] === 'historical') {
                         else {
                     ?>
                             <p>
-                                This chart shows daily totals of solar production in a given year.
+                                This chart shows solar production during the given year. The line chart has daily generation
+                                totals and the bar chart has monthly generation totals.
                             </p>
                             <div class="row">
                                 <div class="col-md-8">
@@ -373,14 +365,28 @@ else if ($data['meter_type'] === 'historical') {
                                         <p>&nbsp;</p>
                                     </div>
                                     <div class="row">
-                                        <button id="btnPrevYearly" type="button" class="btn btn-default pull-left">
-                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                            Previous Year
-                                        </button>
-                                        <button id="btnNextYearly" type="button" class="btn btn-default pull-right disabled">
-                                            Next Year
-                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                        </button>
+                                        <div class="col-md-4 col-xs-12">
+                                            <button id="btnPrevYearly" type="button" class="btn btn-default pull-left">
+                                                <span class="glyphicon glyphicon-chevron-left"></span>
+                                                Previous Year
+                                            </button>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <span>
+                                                <input type="radio" id="rbtnYearlyDaily" name="yearlyChartType" value="line"
+                                                       class="rbtn-yearly" checked="checked" /> Daily Totals
+                                            </span>
+                                            <span>
+                                                <input type="radio" id="rbtnYearlyMonthly" name="yearlyChartType" value="bar"
+                                                       class="rbtn-yearly" />Monthly Totals
+                                            </span>
+                                        </div>
+                                        <div class="col-md-4 col-xs-12">
+                                            <button id="btnNextYearly" type="button" class="btn btn-default pull-right disabled">
+                                                Next Year
+                                                <span class="glyphicon glyphicon-chevron-right"></span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
@@ -389,10 +395,10 @@ else if ($data['meter_type'] === 'historical') {
                         }
                     ?>
                 </div><!--/#yearly -->
-                <div class="tab-pane" id="monthly">
-                    <?php
-                        if ($data['meter_type'] === 'historical') {
-                    ?>
+                <?php
+                    if ($data['meter_type'] === 'historical') {
+                ?>
+                        <div class="tab-pane" id="monthly">
                             <p>
                                 Monthly usage metering of this installation is currently unavailable. The
                                 data below is historical and offered for reference purposes.
@@ -416,40 +422,10 @@ else if ($data['meter_type'] === 'historical') {
                                 </div><!--/.col-md-8 -->
                                 <div class="col-md-4">&nbsp;</div>
                             </div>
-                    <?php
-                        }
-                        else {
-                    ?>
-                            <p>
-                                This chart shows monthly totals of solar production in a given year.
-                            </p>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div class="row">
-                                        <h3 id="monthlyTitle" class="text-center"></h5>
-                                        <div id="dvMonthlyChart" class="chart"></div>
-                                        <div id="dvMonthlyChartLegend" class="chart-legend chart-legend-lower"></div>
-                                    </div>
-                                    <div class="row">
-                                        <p>&nbsp;</p>
-                                    </div>
-                                    <div class="row">
-                                        <button id="btnPrevMonthly" type="button" class="btn btn-default pull-left">
-                                            <span class="glyphicon glyphicon-chevron-left"></span>
-                                            Previous Year
-                                        </button>
-                                        <button id="btnNextMonthly" type="button" class="btn btn-default pull-right disabled">
-                                            Next Year
-                                            <span class="glyphicon glyphicon-chevron-right"></span>
-                                        </button>
-                                    </div>
-                                </div><!--/.col-md-8 -->
-                                <div class="col-md-4">&nbsp;</div>
-                            </div>
-                    <?php
-                        }
-                    ?>
-                </div><!--/#monthly -->
+                        </div><!--/#monthly -->
+                <?php
+                    }
+                ?>
         <?php
             }
         ?>

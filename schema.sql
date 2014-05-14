@@ -71,22 +71,6 @@ CREATE TABLE IF NOT EXISTS `data_daily` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `data_monthly`
---
-
-CREATE TABLE IF NOT EXISTS `data_monthly` (
-  `site_id` varchar(16) NOT NULL,
-  `year` smallint(5) unsigned NOT NULL,
-  `month` tinyint(3) unsigned NOT NULL,
-  `inflow` float DEFAULT NULL,
-  `outflow` float DEFAULT NULL,
-  `generation` float DEFAULT NULL,
-  PRIMARY KEY (`site_id`,`year`,`month`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
 -- Table structure for table `data_weekly`
 --
 
@@ -296,12 +280,6 @@ CREATE TABLE IF NOT EXISTS `website_presentation` (
 --
 ALTER TABLE `data_daily`
   ADD CONSTRAINT `data_daily_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`);
-
---
--- Constraints for table `data_monthly`
---
-ALTER TABLE `data_monthly`
-  ADD CONSTRAINT `data_monthly_ibfk_1` FOREIGN KEY (`site_id`) REFERENCES `site` (`id`);
 
 --
 -- Constraints for table `data_weekly`
