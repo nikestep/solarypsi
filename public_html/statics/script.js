@@ -53,6 +53,7 @@ g_charts = {
         curr_year: parseInt (moment ().format ('YYYY')),
         min_year: null,
         data: null,
+		view: 'line',
         options: {
             line: {
                 series: {
