@@ -23,7 +23,8 @@ function formatInstallationType ($type) {
 
 function formatMeteringType ($type) {
     switch ($type) {
-        case 'enphase': return "<a href='https://enphase.com' target='_blank'>Enphase Energy</a>";
+		case 'enphase':
+			return "<a href='https://www.enphase.com/'><img src='http://statics.solar.ypsi.com/images/enphase_logo.png' alt='Enphase Energy' /></a>";
     }
 }
 
@@ -276,10 +277,10 @@ else if ($data['meter_type'] === 'historical') {
                                 <div class="col-md-4">
                                     <div class="row">
                                         <div class="col-md-12 col-sm-6">
-                                            <h3>Data Source</h3>
-                                            <p class='chart-sizer'>
-                                                <?php echo formatMeteringType ($data['meter_type']); ?>
-                                            </p>
+											<h3>Data Source</h3>
+											<p class='chart-sizer'>
+											    <?php echo formatMeteringType ($data['meter_type']); ?>
+											</p>
                                             <p class='chart-sizer'>
                                                 Data back until <?php echo $data['earliest_date']; ?>
                                             </p>
@@ -389,7 +390,17 @@ else if ($data['meter_type'] === 'historical') {
                                         </div>
                                     </div>
                                 </div><!--/.col-md-8 -->
-                                <div class="col-md-4">&nbsp;</div>
+                                <div class="col-md-4">
+                                	<div class="col-sm-12">
+										<h3>Data Source</h3>
+										<p class='chart-sizer'>
+										    <?php echo formatMeteringType ($data['meter_type']); ?>
+										</p>
+                                        <p class='chart-sizer'>
+                                            Data back until <?php echo $data['earliest_date']; ?>
+                                        </p>
+                                    </div><!--/.col-sm-12 -->
+                                </div><!--/.col-md-4 -->
                             </div>
                     <?php
                         }
