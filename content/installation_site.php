@@ -373,13 +373,13 @@ else if ($data['meter_type'] === 'historical') {
                                             </button>
                                         </div>
                                         <div class="col-md-4 col-xs-12">
-                                            <span>
+                                            <span class="padded-container">
                                                 <input type="radio" id="rbtnYearlyDaily" name="yearlyChartType" value="line"
                                                        class="rbtn-yearly" checked="checked" /> Daily Totals
                                             </span>
-                                            <span>
+                                            <span class="padded-container">
                                                 <input type="radio" id="rbtnYearlyMonthly" name="yearlyChartType" value="bar"
-                                                       class="rbtn-yearly" />Monthly Totals
+                                                       class="rbtn-yearly" /> Monthly Totals
                                             </span>
                                         </div>
                                         <div class="col-md-4 col-xs-12">
