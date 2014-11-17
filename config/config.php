@@ -17,6 +17,9 @@ $DB_PASSWORD = 'db_password';
 $DB_PORT = 3306;
 $DB_SOCKET = NULL;
 
+// Enphase settings
+$ENPHASE_API_KEY = '';
+
 // Forecast.io settings
 $FORECAST_IO_API_KEY = '';
 $SITE_WEATHER_LATITUDE = 0;
