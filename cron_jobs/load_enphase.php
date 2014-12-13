@@ -63,7 +63,6 @@ if ($success) {
         $indx = 0;
         foreach ($json['intervals'] as $point) {
             $time = new DateTime('@' . $point['end_at']);
-            $time->setTimestamp($time->getTimestamp() + $curr_interval->getOffset());
 
             while ($curr_interval < $time) {
                 // Populate this interval with zeros
