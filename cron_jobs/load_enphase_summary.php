@@ -9,21 +9,21 @@ $success = True;
 $systems = Array ();
 if ($stmt_inner = $db_link->prepare ("SELECT " .
                                      "    system_id, " .
-                                     "    api_key " .
+                                     "    user_id " .
                                      "FROM " .
                                      "    enphase_system " .
                                      "GROUP BY " .
                                      "    system_id, " .
-                                     "    api_key")) {
+                                     "    user_id")) {
     if (!$stmt_inner->execute ()) {
         $job_result = 'Error';
         $job_msg = '20 ' . $db_link->error;
         $success = False;
     }
     else {
-        $stmt_inner->bind_result ($system_id, $api_key);
+        $stmt_inner->bind_result ($system_id, $user_id);
         while ($stmt_inner->fetch ()) {
-            $systems[$system_id] = $api_key;
+            $systems[$system_id] = $user_id;
         }
     }
     $stmt_inner->close ();
@@ -36,7 +36,7 @@ else {
 
 // Get data for each system
 if ($success) {
-    foreach ($systems as $system_id => $api_key) {
+    foreach ($systems as $system_id => $user_id) {
         // Set the date
         $curr_interval = new DateTime (null, $local_tz);
         $curr_interval->setTime (0, 0);
@@ -45,8 +45,9 @@ if ($success) {
         $month_str = $curr_interval->format ('m');
 
         // Retrieve the data from the internets and parse it
-        $url = 'https://api.enphaseenergy.com/api/systems/' . $system_id . '/summary?' .
-               'summary_date=' . $date_str . 'T00:00-5:00&key=' . $api_key;
+        $url = 'https://api.enphaseenergy.com/api/v2/systems/' . $system_id . '/summary?' .
+               'summary_date=' . $date_str . '&key=' . $ENPHASE_API_KEY .
+			   '&user_id=' . $user_id;
         $str = file_get_contents ($url);
         $json = json_decode ($str, TRUE);
 
@@ -101,7 +102,7 @@ if ($success) {
                                                         $enwh);
                     if (!$stmt_inner->execute ()) {
                         $job_result = 'Error';
-                        $job_msg = '104 ' . $db_link->error;
+                        $job_msg = '105 ' . $db_link->error;
                         $success = false;
                         break;
                     }
@@ -109,7 +110,7 @@ if ($success) {
                 }
                 else if ($success) {
                     $job_result = 'Error';
-                    $job_msg = '112 ' . $db_link->error;
+                    $job_msg = '113 ' . $db_link->error;
                     $success = false;
                     break;
                 }
@@ -117,13 +118,14 @@ if ($success) {
         }
         else if ($success) {
             $job_result = 'Error';
-            $job_msg = '120 ' . $system_id . ' ' . $db_link->error;
+            $job_msg = '121 ' . $system_id . ' ' . $db_link->error;
             $success = false;
             break;
         }
 
         // Sleep for five seconds before we request the next set of data
         // (try not to hit the enphase server too quickly)
+		break;
         sleep (5);
     }
 }
