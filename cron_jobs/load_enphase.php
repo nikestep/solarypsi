@@ -8,21 +8,21 @@ $success = True;
 $systems = Array ();
 if ($stmt_inner = $db_link->prepare ("SELECT " .
                                      "    system_id, " .
-                                     "    api_key " .
+                                     "    user_id " .
                                      "FROM " .
                                      "    enphase_system " .
                                      "GROUP BY " .
                                      "    system_id, " .
-                                     "    api_key")) {
+                                     "    user_id")) {
     if (!$stmt_inner->execute ()) {
         $job_result = 'Error';
         $job_msg = '19 ' . $db_link->error;
         $success = False;
     }
     else {
-        $stmt_inner->bind_result ($system_id, $api_key);
+        $stmt_inner->bind_result ($system_id, $user_id);
         while ($stmt_inner->fetch ()) {
-            $systems[$system_id] = $api_key;
+            $systems[$system_id] = $user_id;
         }
     }
     $stmt_inner->close ();
@@ -35,15 +35,15 @@ else {
 
 // Get data for each system
 if ($success) {
-    foreach ($systems as $system_id => $api_key) {
+    foreach ($systems as $system_id => $user_id) {
         // Set the date
         $curr_interval = new DateTime(null, $local_tz);
-        $curr_interval->setTime(0, 0);
-        $date_str = $curr_interval->format('Y-m-d');
+		$curr_interval->setTime(0, 0);
+		$date_str = $curr_interval->format('Y-m-d');
 
         // Retrieve the data from the internets and parse it
-        $url = 'https://api.enphaseenergy.com/api/systems/' . $system_id . '/stats?' .
-               'start=' . $date_str . 'T00:00-5:00&key=' . $api_key;
+        $url = 'https://api.enphaseenergy.com/api/v2/systems/' . $system_id . '/stats?' .
+               'key=' . $ENPHASE_API_KEY . '&user_id=' . $user_id;
         $str = file_get_contents ($url);
         $json = json_decode ($str, TRUE);
 
@@ -62,8 +62,8 @@ if ($success) {
         $points = Array ();
         $indx = 0;
         foreach ($json['intervals'] as $point) {
-            $time = new DateTime($point['end_date']);
-            $time->setTimezone($local_tz);
+            $time = new DateTime('@' . $point['end_at']);
+            $time->setTimestamp($time->getTimestamp() + $curr_interval->getOffset());
 
             while ($curr_interval < $time) {
                 // Populate this interval with zeros
