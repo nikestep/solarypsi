@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `enphase_system` (
   `site_id` varchar(16) NOT NULL,
   `earliest_date` varchar(10) NOT NULL,
   `system_id` varchar(8) NOT NULL,
-  `api_key` varchar(64) NOT NULL,
+  `user_id` varchar(64) NOT NULL,
   `num_units` smallint(5) unsigned NOT NULL,
   PRIMARY KEY (`site_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
