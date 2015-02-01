@@ -123,10 +123,9 @@ if ($success) {
             break;
         }
 
-        // Sleep for five seconds before we request the next set of data
+        // Sleep for three seconds before we request the next set of data
         // (try not to hit the enphase server too quickly)
-		break;
-        sleep (5);
+        sleep (3);
     }
 }
 
