@@ -53,7 +53,7 @@ g_charts = {
         curr_year: parseInt (moment ().format ('YYYY')),
         min_year: null,
         data: null,
-		view: 'line',
+		view: 'bar',
         options: {
             line: {
                 series: {
@@ -205,8 +205,8 @@ $(function () {
         g_charts.Monthly.min_year = earliest_date.year ();
         
         // Build the charts
-        $("#rbtnYearlyDaily").prop ('checked', 'checked');
-        $("#rbtnYearlyMonthly").removeProp ('checked');
+        $("#rbtnYearlyMonthly").prop ('checked', 'checked');
+        $("#rbtnYearlyDaily").removeProp ('checked');
         loadDailyChart ();
         loadYearlyChart ();
     }
@@ -587,7 +587,7 @@ function loadYearlyChart () {
                     g_charts.Yearly.options.line.legend.container = $("#dvYearlyChartLegend");
                     g_charts.Yearly.options.bar.legend.container = $("#dvYearlyChartLegend");
                     $("#dvYearlyChartLegend").show ();
-                    g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [g_charts.Yearly.data.line.generation], g_charts.Yearly.options.line);
+                    g_charts.Yearly.plot = $.plot ($("#dvYearlyChart"), [g_charts.Yearly.data.bar.generation], g_charts.Yearly.options.bar);
                     g_charts.Yearly.loaded = true;
                 }
                 else {
