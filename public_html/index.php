@@ -184,6 +184,59 @@ if (isset ($_GET['siteID'])) {
 
         <div id="footer">
             <div class="container">
+				<?php
+				if ($SI_FACEBOOK_URL !== NULL || $SI_GOOGLE_PLUS_URL !== NULL ||
+				    $SI_TWITTER_URL !== NULL || $SI_YOUTUBE_URL !== NULL) {
+				?>
+					<p>
+						<?php
+						if ($SI_FACEBOOK_URL !== NULL) {
+						?>
+							<a href="<?php echo $SI_FACEBOOK_URL; ?>" alt="Find us on Facebook"
+							   target="_blank" class="social-integration-icon">
+								<img src="http://statics.solar.ypsi.com/images/FB-f-Logo__blue_29.png"
+								     alt="Find us on Facebook" />
+							</a>
+						<?php
+						}
+						?>
+						<?php
+						if ($SI_GOOGLE_PLUS_URL !== NULL) {
+						?>
+							<a href="<?php echo $SI_GOOGLE_PLUS_URL; ?>" alt="Follow us on Google+"
+							   target="_blank" class="social-integration-icon">
+								<img src="http://statics.solar.ypsi.com/images/g+29.png"
+								     alt="Follow us on Google+" />
+							</a>
+						<?php
+						}
+						?>
+						<?php
+						if ($SI_TWITTER_URL !== NULL) {
+						?>
+							<a href="<?php echo $SI_TWITTER_URL; ?>" alt="Follow us on Twitter"
+							   target="_blank" class="social-integration-icon">
+								<img src="http://statics.solar.ypsi.com/images/Twitter_logo_blue.png"
+								     alt="Follow us on Twitter" />
+							</a>
+						<?php
+						}
+						?>
+						<?php
+						if ($SI_YOUTUBE_URL !== NULL) {
+						?>
+							<a href="<?php echo $SI_YOUTUBE_URL; ?>" alt="Follow our Youtube Channel"
+							   target="_blank" class="social-integration-icon">
+								<img src="http://statics.solar.ypsi.com/images/YouTube-icon-full_color.png"
+								     alt="Follow our Youtube Channel" />
+							</a>
+						<?php
+						}
+						?>
+					</p>
+				<?php
+				}
+				?>
                 <p>
                     Created and maintained by <a href="http://www.nikestep.me/" target="_blank">Nik Estep</a>
                 </p>

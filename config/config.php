@@ -30,6 +30,12 @@ $GA_TRACK_ID = '';
 $GA_QR_TRACK_ID = '';
 $GA_DOMAIN = 'example.com';
 
+// Social integration links
+$SI_FACEBOOK_URL = NULL;
+$SI_GOOGLE_PLUS_URL = NULL;
+$SI_TWITTER_URL = NULL;
+$SI_YOUTUBE_URL = NULL;
+
 // File repository settings
 $REPOS_PATH_TO_PUBLIC_HTML = "/home/solaryps/public_html";
 $REPOS_ROOT_PATH = "/";
