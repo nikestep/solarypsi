@@ -50,32 +50,24 @@ else {
         <meta charset="UTF-8" />
         
         <link rel="stylesheet" type="text/css" href="http://statics.solar.ypsi.com/css/bootstrap.min.css" />
-        
-        <script type="application/x-javascript" src="https://www.youtube.com/iframe_api"></script>
-        <script type="application/x-javascript">
-            var player;
-            function onYouTubeIframeAPIReady () {
-                player = new YT.Player ('player', {
-                    height: '390',
-                    width: '640',
-                    videoId: '<?php echo $video_id; ?>',
-                    events: {
-                        'onReady': onPlayerReady,
-                        'onStateChange': onPlayerStateChange
-                    }
-                });
-            }
-            
-            function onPlayerReady (event) {
-                event.target.playVideo();
-            }
-            
-            function onPlayerStateChange (event) {
-                if (event.data == YT.PlayerState.ENDED) {
-                    location.href = 'http://solar.ypsi.com/installations/<?php echo $site_id; ?>/';
-                }
-            }
-        </script>
+		
+		<script src="http://statics.solar.ypsi.com/js/jquery-1.11.1.min.js"></script>
+		<script src="http://statics.solar.ypsi.com/js/jquery-plugins/jQuery.tubeplayer.min.js"></script>
+		<script>
+			$(function() {
+				$("#player").tubeplayer({
+				    width: 640,
+				    height: 390,
+				    allowFullScreen: 'true',
+					autoPlay: true,
+					swfobjectURL: 'window',
+				    initialVideo: '<?php echo $video_id; ?>',
+				    onPlayerEnded: function() {
+				    	location.href = 'http://solar.ypsi.com/installations/<?php echo $site_id; ?>/';
+				    }
+				});
+			});
+		</script>
         
         <!-- Bookmark Icon -->
         <link rel='shortcut icon' href='http://statics.solar.ypsi.com/images/icon.png' />
