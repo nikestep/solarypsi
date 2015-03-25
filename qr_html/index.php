@@ -44,7 +44,7 @@ $db_link->close ();
             m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
             })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            ga('create', '<?php echo $GA_QR_TRACK_ID; ?>', '<?php echo $GA_DOMAIN; ?>');
+            ga('create', '<?php echo $GA_QR_TRACK_ID; ?>', 'auto');
             ga('send', 'pageview');
         </script>
     </head>
