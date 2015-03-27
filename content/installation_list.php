@@ -16,6 +16,28 @@
     Click on an installation to learn more
 </p>
 
+<!-- Comparison site -->
+<div class="row installation-list-row">
+    <div class="row">
+        <div class="col-md-12">
+            <h4><a href='/installations/comparison'>Installation Comparison</a></h4>
+        </div><!--/.col-md-12 -->
+    </div><!--/.row -->
+    <div class="row">
+        <div class="col-md-2">
+            <img src="/statics/images/site_comparison.jpg"
+                 alt="Compare Solar Production Among Sites"
+                 style="height: 100%; width: 100%;" />
+        </div><!--/.col-md-2 -->
+        <div class="col-md-8">
+            Compare the solar generation at different installations on SolarYpsi.
+        </div><!--/.col-md-8 -->
+        <div class="col-md-2">
+            &nbsp;
+        </div><!--/.col-md-2 -->
+    </div><!--/.row -->
+</div><!--/.row -->
+
 <?php
 // Iterate over each site and add its content to the page
 $stmt = $db_link->prepare ("SELECT " .
@@ -77,25 +99,3 @@ while ($stmt->fetch ()) {
 
 $stmt->close ();
 ?>
-
-<!-- Comparison site -->
-<div class="row installation-list-row">
-    <div class="row">
-        <div class="col-md-12">
-            <h4><a href='/installations/comparison'>Installation Comparison</a></h4>
-        </div><!--/.col-md-12 -->
-    </div><!--/.row -->
-    <div class="row">
-        <div class="col-md-2">
-            <img src="/statics/images/site_comparison.jpg"
-                 alt="Compare Solar Production Among Sites"
-                 style="height: 100%; width: 100%;" />
-        </div><!--/.col-md-2 -->
-        <div class="col-md-8">
-            Compare the solar generation at different installations on SolarYpsi.
-        </div><!--/.col-md-8 -->
-        <div class="col-md-2">
-            &nbsp;
-        </div><!--/.col-md-2 -->
-    </div><!--/.row -->
-</div><!--/.row -->
