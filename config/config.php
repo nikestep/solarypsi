@@ -28,7 +28,6 @@ $SITE_WEATHER_LONGITUDE = 0;
 // Google Analytics settings
 $GA_TRACK_ID = '';
 $GA_QR_TRACK_ID = '';
-$GA_DOMAIN = 'example.com';
 
 // Social integration links
 $SI_FACEBOOK_URL = NULL;
