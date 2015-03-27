@@ -29,7 +29,7 @@ if (isset ($_GET['siteID'])) {
     $stmt->fetch ();
     $stmt->close ();
 
-    if ($count !== 1) {
+    if ($count !== 1 && $site_id !== 'comparison') {
         $page = 'error';
     }
 }
