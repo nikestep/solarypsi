@@ -10,6 +10,7 @@ var g_newSiteIDValidationIndex = 0;
 var g_newSiteIDIsValid = false;
 var g_newSiteIDValidationComplete = false;
 var g_test = undefined;
+var g_cron = undefined;
 
 /**
  * Perform page startup operations once the document is ready.
@@ -26,6 +27,9 @@ $(function() {
     $(".sortable-list").disableSelection ();
     
     // Build WYSIWYG editors
+    $("#txaPresentationFooter").wysiwyg ({
+        autoSave: true
+    });
     /*$("#txaEvents, #txaAbout, #txaContact").wysiwyg ({
         autoSave: true
     });*/
@@ -431,6 +435,11 @@ function bindEvents () {
         });
     });
     
+    // Events for the presentation page
+    $("#btnSavePresentationFooter").on ('click', function (event) {
+        saveContentPage ('txaPresentationFooter', 'presentations_footer', 'spnContentPresentationFooterResult');
+    });
+    
     // Events for content page save buttons
     $("#btnSaveEvents").on ('click', function (event) {
         saveContentPage ('txaEvents', 'events', 'spnContentEventsResult');
@@ -440,6 +449,69 @@ function bindEvents () {
     });
     $("#btnSaveContact").on ('click', function (event) {
         saveContentPage ('txaContact', 'contact', 'spnContentContactResult');
+    });
+    
+    // Edit event for the cron page
+    $(".cron-edit").on ('click', function (event) {
+        var row = $(this).closest ("tr");
+        if (g_cron === undefined) {  // ui-icon-circle-check
+            g_cron = {
+                'row': row,
+                'id': row.find ("td.name").html ()
+            };
+            var schedule = row.find ("td.schedule").html ();
+            row.find ("td.schedule").html ('<input type="text" value="' + schedule + '" />');
+
+            var enabled = row.find ("td.enabled").html ();
+            row.find ("td.enabled").html ('<select><option value="Yes">Yes</option><option value="No">No</option></select>');
+            row.find ("td.enabled select").val (enabled);
+
+            g_cron.schedule = schedule;
+            g_cron.enabled = enabled;
+
+            $(this).find ("span").removeClass ('ui-icon-pencil');
+            $(this).find ("span").addClass ('ui-icon-circle-check');
+        }
+        else if (row.find ("td.name").html () === g_cron.id) {
+            var name = g_cron.id;
+            var schedule = g_cron.row.find ("td.schedule input").val ();
+            var enabled = g_cron.row.find ("td.enabled select").val () === 'Yes' ? 1 : 0;
+            $.ajax ({
+                url: 'ajax/updateCron.php',
+                type: 'POST',
+                data: {
+                    'name': name,
+                    'schedule': schedule,
+                    'enabled': enabled
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data.success) {
+                        g_cron.row.find ("td.schedule").html (g_cron.row.find ("td.schedule input").val ());
+                        g_cron.row.find ("td.enabled").html (g_cron.row.find ("td.enabled select").val ());
+                        g_cron.row.find ("td.actions ul li.edit span").removeClass ('ui-icon-circle-check');
+                        g_cron.row.find ("td.actions ul li.edit span").addClass ('ui-icon-pencil');
+                        g_cron = undefined;
+                    }
+                    else {
+                        alert ('Unable to make changes.\r\nError message: ' +
+                               data.err_msg);
+                    }
+                },
+                error: function () {
+                    alert ('An unknown error has occurred.');
+                },
+                cache: false
+            });
+        }
+        else {
+            g_cron.row.find ("td.schedule").html (g_cron.schedule);
+            g_cron.row.find ("td.enabled").html (g_cron.enabled);
+            g_cron.row.find ("td.actions ul li.edit span").removeClass ('ui-icon-circle-check');
+            g_cron.row.find ("td.actions ul li.edit span").addClass ('ui-icon-pencil');
+            g_cron = undefined;
+            $(this).click ();
+        }
     });
 }
 
