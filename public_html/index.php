@@ -155,7 +155,7 @@ if (isset ($_GET['siteID'])) {
                                     include ('../content/links.php');
                                     break;
                                 case "presentations":
-                                    include ('../content/presentations.html');
+                                    include ('../content/presentations.php');
                                     break;
                                 case "events":
                                     echo "<div class='page-header'><h2>Upcoming Events</h2></div>\n";
