@@ -683,10 +683,10 @@ $db_link = new mysqli ($DB_SERVER, $DB_USERNAME, $DB_PASSWORD, $DB_DATABASE, $DB
                                             echo "<span class='link-url'>\n";
                                             echo "<a href='$full_link'>$visible_link</a>\n";
                                             echo "</span>\n";
-                                            /*echo "<span class='link-edit'>\n";
-                                            echo "<span class='edit-delete-icon-width action-edit-link ui-state-default ui-corner-all'><span class='ui-icon ui-icon-pencil'>&nbsp;</span></span>\n";
+                                            echo "<span class='link-edit'>\n";
+                                            /*echo "<span class='edit-delete-icon-width action-edit-link ui-state-default ui-corner-all'><span class='ui-icon ui-icon-pencil'>&nbsp;</span></span>\n";*/
                                             echo "<span class='edit-delete-icon-width action-delete-link ui-state-default ui-corner-all'><span class='ui-icon ui-icon-trash'>&nbsp;</span></span>\n";
-                                            echo "</span>\n";*/
+                                            echo "</span>\n";
                                             echo "</div>\n";
                                             echo "</span>\n";
                                             echo "</li>\n";

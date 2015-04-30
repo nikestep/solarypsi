@@ -374,12 +374,29 @@ function bindEvents () {
                                .html (data.title)
                                .appendTo (div);
                     if (data.description !== null) {
-                        $('<span>').html ('(' + data.description + ')')
+                        $('<span>').html (' (' + data.description + ')')
                                    .appendTo (div);
                     }
+					div = $('<div>').addClass ('url-and-edit')
+								    .appendTo (span);
                     $('<a>').attr ('href', data.full_link)
-                            .html (data.visible_link)
-                            .appendTo ($('<div>').appendTo (span));
+                            .html (data.visible_link + ' ')
+                            .appendTo ($('<span>').addClass('link-url')
+												  .appendTo (div));
+					var editSpan = $('<span>').addClass('link-edit')
+											  .appendTo(div);
+					var deleteSpan = $('<span>').addClass('edit-delete-icon-width')
+												.addClass('action-delete-link')
+												.addClass('ui-state-default')
+												.addClass('ui-corner-all')
+											    .on ('click', function (event) {
+											    	deleteLink (li);
+											    })
+												.appendTo(editSpan);
+					$('<span>').addClass('ui-icon')
+							   .addClass('ui-icon-trash')
+							   .html('&nbsp;')
+							   .appendTo(deleteSpan);
                     li.appendTo ($("#ulLinkSort"));
                     
                     // Refresh the list
@@ -391,6 +408,9 @@ function bindEvents () {
                     $("#frmLink input[name='visible_link']").val ('');
                     $("#frmLink input[name='full_link']").val ('');
                     showSuccess ("#frmLink .upload-valid");
+					
+					// Re-bind events
+					bindEvents();
                 }
                 else {
                     alert ('Unable to save link.\r\nMySQL Error Message: ' +
@@ -434,6 +454,10 @@ function bindEvents () {
             }
         });
     });
+	
+	$(".action-delete-link").on ('click', function (event) {
+		deleteLink ($(this).closest ("li"));
+	});
     
     // Events for the presentation page
     $("#btnSavePresentationFooter").on ('click', function (event) {
@@ -953,6 +977,37 @@ function bindIconEvents () {
             }
         });
     });
+}
+
+/**
+ * Handle the click event for deleting a website link.
+ *
+ * @param li (jQuery object) List element that was clicked to delete
+ */
+function deleteLink (li) {
+	var link_id = $(li).find(".sortable-hidden-id").html();
+	$.ajax ({
+		url: 'ajax/deleteLink.php',
+		method: 'POST',
+		data: {
+			id: link_id
+		},
+		dataType: 'json',
+		success: function(data) {
+			if (data.success) {
+				// Remove the entry and refresh the list
+				$(li).remove();
+				$("#ulLinkSort").sortable ('refresh');
+			}
+			else {
+				alert ('Unable to delete link.\r\nMySQL Error Message: ' +
+				       data.err_msg);
+			}
+		},
+		error: function () {
+			alert ('An unknown error has occurred.');
+		}
+	});
 }
 
 /**
